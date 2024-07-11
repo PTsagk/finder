@@ -35,7 +35,7 @@ export async function createNewUser(user: User) {
   const [row] = await sqlPool.query<{ id: string }[]>(
     `INSERT INTO user (email, username, password, is_admin, address) VALUES (?, ?, ?, ?, ?)
        `,
-    [user.email, user.name, user.password, 0, "test address"]
+    [user.email, user.name, user.password, 0, user.address]
   );
   console.log(row);
   return row;
