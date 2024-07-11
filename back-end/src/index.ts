@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
 import multer from "multer";
+import userRoute from "./routes/user.route";
 
 const upload = multer();
 //For env File
@@ -33,6 +34,8 @@ const port = process.env.PORT || 8000;
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to Express & TypeScript Server!!!!");
 });
+
+app.use("/user", userRoute);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
