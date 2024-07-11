@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ILoginRequest } from "../interfaces/user.interface";
+import { User } from "../models/user.model";
 import {
   createNewUser,
   getUserByIdQuery,
   getUserByUsernameAndPassword,
+  updateExistingUser,
 } from "../queries/user.query";
 
 export const userLogin = async (req: Request<ILoginRequest>, res: Response) => {
@@ -60,6 +62,15 @@ export const userAuth = async (req: Request, res: Response) => {
 export const userRegister = async (req: Request, res: Response) => {
   try {
     const newUser = await createNewUser(req.body);
+    res.json("OK").status(200);
+  } catch (error) {
+    res.json("Internal Server Error").status(500);
+  }
+};
+
+export const userUpdate = async (req: Request<User>, res: Response) => {
+  try {
+    const updatedUser = await updateExistingUser(req.body);
     res.json("OK").status(200);
   } catch (error) {
     res.json("Internal Server Error").status(500);

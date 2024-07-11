@@ -5,7 +5,7 @@ export async function getUserByIdQuery(id: number) {
   // @ts-ignore
 
   const [rows] = await sqlPool.query<User[]>(
-    `CALL sp_GetUserById(?)
+    `SELECT * FROM user WHERE id = ?
       `,
     [id]
   );
@@ -20,7 +20,7 @@ export async function getUserByUsernameAndPassword(
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `CALL sp_GetUserByUsernameAndPassword(?,?)
+    `SELECT * FROM user WHERE username = ? AND password = ?
        `,
     [username, password]
   );
@@ -33,9 +33,20 @@ export async function createNewUser(user: User) {
 
   // const [row] = await sqlPool.query<IUser>(
   const [row] = await sqlPool.query<{ id: string }[]>(
-    `CALL sp_CreateUser(?,?,?)
+    `INSERT INTO user (email, username, password) VALUES (?, ?, ?)
        `,
     [user.email, user.username, user.password]
+  );
+  return row;
+}
+
+export async function updateExistingUser(user: User) {
+  // @ts-ignore
+
+  const [row] = await sqlPool.query<User>(
+    `UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?
+       `,
+    [user.username, user.email, user.password, user.id]
   );
   return row;
 }
