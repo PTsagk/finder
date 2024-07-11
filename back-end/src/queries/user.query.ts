@@ -33,7 +33,7 @@ export async function createNewUser(user: User) {
 
   // const [row] = await sqlPool.query<IUser>(
   const [row] = await sqlPool.query<{ id: string }[]>(
-    `INSERT INTO user (email, username, password, is_admin, address) VALUES (?, ?, ?, ?, ?)
+    `INSERT INTO user (email, username, password, is_admin, address, phone) VALUES (?, ?, ?, ?, ?, ?)
        `,
     [user.email, user.name, user.password, 0, user.address]
   );
@@ -45,9 +45,9 @@ export async function updateExistingUser(user: User) {
   // @ts-ignore
 
   const [row] = await sqlPool.query<User>(
-    `UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?
+    `UPDATE user SET username = ?, email = ?, password = ?, phone = ? WHERE id = ?
        `,
-    [user.name, user.email, user.password, user.id]
+    [user.name, user.email, user.password, user.phone, user.id]
   );
   return row;
 }
