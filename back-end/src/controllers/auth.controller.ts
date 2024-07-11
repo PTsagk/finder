@@ -22,7 +22,7 @@ export const authenticateController = async (
           res.locals.id = id;
           next();
         } else {
-          throw new Error("User not found");
+          res.status(404).json("User not found");
         }
       });
     } else {

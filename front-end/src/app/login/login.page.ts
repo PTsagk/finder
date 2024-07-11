@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import { UtilService } from '../util.service';
+import { Component, OnInit } from "@angular/core";
+import { NavController } from "@ionic/angular";
+import { UtilService } from "../util.service";
+import { UserService } from "../user.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"],
 })
 export class LoginPage implements OnInit {
-
+  user = {};
   constructor(
     private util: UtilService,
-    private navCtrl: NavController, 
-  ) { }
+    private navCtrl: NavController,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
+    this.userService.userInfo.subscribe((user) => {
+      if (user) {
+        this.util.setMenuState(true);
+        this.navCtrl.navigateRoot("/home", { animationDirection: "forward" });
+      }
+    });
   }
 
   login() {
     // Enabling Side Menu
-    this.util.setMenuState(true);
-    this.navCtrl.navigateRoot('/home', { animationDirection: 'forward' });
-  }
 
+    this.userService.userLogin(this.user);
+    // this.util.setMenuState(true);
+    // this.navCtrl.navigateRoot("/home", { animationDirection: "forward" });
+  }
 }
