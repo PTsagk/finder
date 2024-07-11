@@ -34,6 +34,31 @@ export const productNewCreation = async (req: Request, res: Response) => {
     return;
   }
 };
+export const productUpdate = async (req: Request, res: Response) => {
+  try {
+    const { name, price, image, description, category_id, brand_id } = req.body;
+
+    const categoryId = parseInt(category_id);
+    const brandId = parseInt(brand_id);
+    if (!categoryId || !brandId) {
+      res.status(400).json("Invalid Category or Brand ID");
+      return;
+    }
+    await createNewProduct(
+      name,
+      price,
+      image,
+      description,
+      categoryId,
+      brandId
+    );
+    res.status(200).json("Product Created Successfully\nOK!");
+    return;
+  } catch (error) {
+    res.json("Internal Server Error").status(500);
+    return;
+  }
+};
 
 export async function createNewProduct(
   name: string,
