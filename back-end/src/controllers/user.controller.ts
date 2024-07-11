@@ -102,7 +102,12 @@ export const userUpdate = async (req: Request<User>, res: Response) => {
 
 export const userLogout = async (req: Request<User>, res: Response) => {
   try {
-    res.clearCookie("auth");
+    res.cookie("auth", "", {
+      httpOnly: true,
+      secure: false,
+      path: "/",
+      expires: new Date(Date.now() - 1000 * 60 * 60 * 24),
+    });
     res.json("OK").status(200);
   } catch (error) {
     res.json("Internal Server Error").status(500);

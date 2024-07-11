@@ -23,7 +23,6 @@ export async function getUserByUsernameAndPassword(
        `,
     [username, password]
   );
-  console.log(rows);
   //@ts-ignore
   return rows[0];
 }
@@ -37,12 +36,10 @@ export async function createNewUser(user: User) {
        `,
     [user.email, user.username, user.password, 0, user.address]
   );
-  console.log(row);
   return row;
 }
 
 export async function updateExistingUser(user: User) {
-  console.log(user);
   // @ts-ignore
   const [row] = await sqlPool.query<User>(
     `UPDATE user SET username = ?, email = ?, phone = ?, address = ? WHERE id = ?
