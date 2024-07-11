@@ -27,3 +27,15 @@ export async function getUserByUsernameAndPassword(
   //@ts-ignore
   return rows[0][0];
 }
+
+export async function createNewUser(user: User) {
+  // @ts-ignore
+
+  // const [row] = await sqlPool.query<IUser>(
+  const [row] = await sqlPool.query<{ id: string }[]>(
+    `CALL sp_CreateUser(?,?,?)
+       `,
+    [user.email, user.username, user.password]
+  );
+  return row;
+}
