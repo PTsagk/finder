@@ -69,12 +69,6 @@ const routes: Routes = [
     loadChildren: () =>
       import("./confirm/confirm.module").then((m) => m.ConfirmPageModule),
   },
-  {
-    path: "admin",
-    loadChildren: () =>
-      import("./admin/admin.module").then((m) => m.AdminPageModule),
-    canActivate: [],
-  },
 ];
 
 @NgModule({
