@@ -54,7 +54,11 @@ const routes: Routes = [
   {
     path: 'confirm',
     loadChildren: () => import('./confirm/confirm.module').then( m => m.ConfirmPageModule)
+  },  {
+    path: 'filters',
+    loadChildren: () => import('./filters/filters.module').then( m => m.FiltersPageModule)
   }
+
 ];
 
 @NgModule({
