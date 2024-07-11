@@ -17,12 +17,19 @@ export const userLogin = async (req: Request<ILoginRequest>, res: Response) => {
       throw new Error("Incorrect credentials");
     }
     const { id } = user;
+    // const address = await getAllAddressByUserId(id);
+    // if (address) {
     const token = jwt.sign({ id }, "secret", { expiresIn: "1d" });
     res.cookie("auth", token, {
+      httpOnly: true,
+      secure: false,
       path: "/",
       expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
     });
     res.json({ ...user }).status(200);
+    // } else {
+    //   throw new Error("No address found");
+    // }
   } catch (error) {
     res.status(500).json("Internal Server Error");
   }
@@ -44,26 +51,42 @@ export const userAuth = async (req: Request, res: Response) => {
         if (user) {
           res.json({ ...user }).status(200);
         } else {
-          throw new Error("User not found");
+          res.status(404).json("User not found");
         }
       });
     } else {
       res.status(404).json("No auth");
     }
-    // console.log(id);
-    // const user = await getUserByUsernameAndPassword(username, password);
-    // const token = jwt.sign({ id: user.id }, "secret", { expiresIn: "1d" });
-    // res.cookie("token", token, { httpOnly: true });
   } catch (error) {
     res.json("Internal Server Error").status(500);
   }
 };
-
+// export const getUserInfo = async (req: Request, res: Response) => {
+//   try {
+//     const { auth } = req.cookies;
+//     jwt.verify(auth as string, "secret", async (err, decoded) => {
+//       if (err) {
+//         console.error(err);
+//       }
+//       //@ts-ignore
+//       const { id } = decoded;
+//       const user = await getUserByIdQuery(id);
+//       if (user) {
+//         res.json({ ...user }).status(200);
+//       } else {
+//         throw new Error("User not found");
+//       }
+//     });
+//   } catch (error) {
+//     res.json("Internal Server Error").status(500);
+//   }
+// };
 export const userRegister = async (req: Request, res: Response) => {
   try {
-    const newUser = await createNewUser(req.body);
+    const newUser = await createNewUser(req.body.user);
     res.json("OK").status(200);
   } catch (error) {
+    console.log(error);
     res.json("Internal Server Error").status(500);
   }
 };
