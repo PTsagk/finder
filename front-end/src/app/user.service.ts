@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { BehaviorSubject } from "rxjs";
 
 export interface IUser {
@@ -16,7 +17,7 @@ export interface IUser {
   providedIn: "root",
 })
 export class UserService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.http
       .get("http://localhost:8000/user/auth", { withCredentials: true })
       .subscribe((data: any) => {
@@ -81,6 +82,7 @@ export class UserService {
       .subscribe((data) => {
         console.log(data);
         this.userInfo.next(null);
+        this.router.navigate(["login"]);
       });
   }
 }
