@@ -1,4 +1,1 @@
-export class Category {
-  id: number;
-  name: string;
-}
+export type Category = "womens" | "mens" | "kids";
