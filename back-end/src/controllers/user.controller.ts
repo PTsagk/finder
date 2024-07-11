@@ -83,7 +83,7 @@ export const userAuth = async (req: Request, res: Response) => {
 // };
 export const userRegister = async (req: Request, res: Response) => {
   try {
-    const newUser = await createNewUser(req.body.user);
+    const newUser = await createNewUser(req.body);
     res.json("OK").status(200);
   } catch (error) {
     console.log(error);
@@ -94,6 +94,15 @@ export const userRegister = async (req: Request, res: Response) => {
 export const userUpdate = async (req: Request<User>, res: Response) => {
   try {
     const updatedUser = await updateExistingUser(req.body);
+    res.json("OK").status(200);
+  } catch (error) {
+    res.json("Internal Server Error").status(500);
+  }
+};
+
+export const userLogout = async (req: Request<User>, res: Response) => {
+  try {
+    res.clearCookie("auth");
     res.json("OK").status(200);
   } catch (error) {
     res.json("Internal Server Error").status(500);
