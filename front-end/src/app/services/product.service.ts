@@ -6,10 +6,11 @@ export interface IProduct {
   name: string;
   price: number;
   description: string;
-  brand: string;
   category: string;
   image: string;
   rating: number;
+  featured: boolean;
+  brand_id: number;
 }
 
 @Injectable({
@@ -22,6 +23,30 @@ export class ProductService {
     return this.http.post<IProduct[]>(
       "http://localhost:8000/product/get_all_products",
       {},
+      { withCredentials: true }
+    );
+  }
+
+  createProduct(product: IProduct) {
+    return this.http.post<IProduct>(
+      "http://localhost:8000/product/create",
+      product,
+      { withCredentials: true }
+    );
+  }
+
+  updateProduct(product: IProduct) {
+    return this.http.put<IProduct>(
+      "http://localhost:8000/product/update",
+      product,
+      { withCredentials: true }
+    );
+  }
+
+  deleteProduct(product: IProduct) {
+    return this.http.post<IProduct>(
+      "http://localhost:8000/product/delete",
+      product,
       { withCredentials: true }
     );
   }

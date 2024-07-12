@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { IProduct } from "app/data.service";
-import { ProductService } from "app/services/product.service";
+import { IProduct, ProductService } from "app/services/product.service";
 import { ProductCreatePopupComponent } from "../product-create-popup/product-create-popup.component";
 
 @Component({
@@ -11,6 +10,7 @@ import { ProductCreatePopupComponent } from "../product-create-popup/product-cre
 })
 export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
+
   constructor(
     private productService: ProductService,
     private modalController: ModalController
@@ -21,10 +21,20 @@ export class ProductListComponent implements OnInit {
       this.products = products;
     });
   }
-  async presentModal() {
+
+  openCreateModal() {
+    this.presentModal({ id: 0 } as IProduct);
+  }
+  async presentModal(product: IProduct) {
     const modal = await this.modalController.create({
       component: ProductCreatePopupComponent,
       cssClass: "my-custom-class",
+      componentProps: {
+        product,
+      },
+    });
+    modal.onWillDismiss().then(() => {
+      this.ngOnInit();
     });
     return await modal.present();
   }

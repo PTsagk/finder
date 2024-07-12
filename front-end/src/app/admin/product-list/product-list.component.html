@@ -1,11 +1,10 @@
-<ion-button id="open-modal" expand="block" (click)="presentModal()"
+<ion-button id="open-modal" expand="block" (click)="openCreateModal()"
   ><ion-icon name="add-outline"></ion-icon>
 </ion-button>
 <div
   *ngFor="let product of products"
   class="ion-text-left"
-  routerLink="/item-details"
-  routerDirection="forward"
+  (click)="presentModal(product)"
 >
   <img src="{{ product.image }}" />
   <p>${{ product.price }}</p>
