@@ -3,10 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
 import multer from "multer";
-import categoryRoute from "./routes/category.route";
-import userRoute from "./routes/user.route";
 import reviewRoute from "./routes/review.route";
-import { createReview } from "./controllers/review.controller";
+import userRoute from "./routes/user.route";
 
 const upload = multer();
 //For env File
@@ -39,7 +37,6 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/user", userRoute);
-app.use("/category", categoryRoute);
 app.use("/review", reviewRoute);
 
 app.listen(port, () => {
