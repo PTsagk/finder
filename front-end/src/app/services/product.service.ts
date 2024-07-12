@@ -49,6 +49,7 @@ export class ProductService {
       { withCredentials: true }
     );
   }
+
   createProduct(product: IProduct) {
     return this.http.post<IProduct>(
       "http://localhost:8000/product/create",

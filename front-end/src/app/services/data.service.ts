@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IProduct } from "./services/product.service";
+import { IProduct } from "../services/product.service";
 
 // Category Interface
 export interface ICategory {
@@ -48,18 +48,33 @@ export class DataService {
       name: "Womens T-Shirt",
       price: 55,
       image: "../../assets/products/prod-1.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
     let prod2: IProduct = {
       id: 2,
       name: "Mens T-Shirt",
       price: 34,
       image: "../../assets/products/prod-2.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
     let prod3: IProduct = {
       id: 1,
       name: "Womens T-Shirt",
       price: 40,
       image: "../../assets/products/prod-3.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
 
     products.push(prod1, prod2, prod3);
@@ -75,18 +90,33 @@ export class DataService {
       name: "Womens T-Shirt",
       price: 55,
       image: "../../assets/products/prod-4.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
     let prod2: IProduct = {
       id: 2,
       name: "Mens T-Shirt",
       price: 34,
       image: "../../assets/products/prod-5.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
     let prod3: IProduct = {
       id: 1,
       name: "Womens T-Shirt",
       price: 40,
       image: "../../assets/products/prod-6.png",
+      brand_id: 1,
+      featured: true,
+      rating: 4.5,
+      description: "Womens T-Shirt",
+      category: "womens",
     };
 
     products.push(prod1, prod2, prod3);

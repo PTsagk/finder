@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { missingImageUrl } from "app/data.service";
+import { missingImageUrl } from "app/services/data.service";
 import { BrandService, IBrand } from "app/services/brand.service";
 import { IProduct, ProductService } from "app/services/product.service";
 
