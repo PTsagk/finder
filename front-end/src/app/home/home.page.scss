@@ -33,7 +33,7 @@ ion-menu-button {
 
   h2 {
     margin: 0 0 0 16px;
-    color: white;
+    color: black;
   }
 
   p {
@@ -117,4 +117,12 @@ ion-slide:focus {
 
 ion-col:focus {
   outline: none !important;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
 }
