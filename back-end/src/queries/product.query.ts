@@ -54,6 +54,8 @@ export async function getAllProductsByCategoryQuery(category: string) {
     `SELECT * FROM product WHERE category = ?`,
     [category]
   );
+
+  return rows;
 }
 
 export async function getProductByIdQuery(id: number) {

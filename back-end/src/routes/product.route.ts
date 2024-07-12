@@ -22,12 +22,16 @@ router.route("/update").put(authenticateController, productUpdate);
 router
   .route("/get_all_products")
   .post(authenticateAdminController, getAllProducts);
-router.route("/get_all_products_by_category").get(getAllProductsByCategory);
+router
+  .route("/get_all_products_by_category/:category")
+  .get(getAllProductsByCategory);
 router.route("/get_product").get(getProductById);
-router.route("/get_top_bestsellers").get(getTop_Nth_BestSellers);
+router.route("/get_top_bestsellers/:bestSellers").get(getTop_Nth_BestSellers);
 router
   .route("/get_bestsellers_by_category")
   .get(getTop_Nth_BestSellersByCategory);
-router.route("/get_bestsellers_by_brand").get(getTop_Nth_BestSellersByBrand);
+router
+  .route("/get_bestsellers_by_brand/:bestSellers")
+  .get(getTop_Nth_BestSellersByBrand);
 router.route("/get_featured_products").get(getTop_Nth_FeaturedProducts);
 export default router;

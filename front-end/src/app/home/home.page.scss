@@ -126,3 +126,13 @@ ion-col:focus {
   text-align: center;
   padding: 5px;
 }
+
+.product-card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-card {
+  margin: 10px 0;
+  width: 80%;
+}

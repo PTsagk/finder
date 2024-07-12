@@ -18,8 +18,9 @@ export class HomePage implements OnInit {
   public categories = [];
   public featuredProducts = [];
   public bestSellProducts = [];
+  public products = [];
   public productCount = 0;
-
+  public categorySelected = null;
   constructor(
     public cartService: CartService,
     private data: DataService,
@@ -53,5 +54,21 @@ export class HomePage implements OnInit {
       cssClass: "my-custom-class",
     });
     return await modal.present();
+  }
+  selectCategory(category: string) {
+    this.categorySelected = category;
+    this.productService
+      .getProductsByCategory(category)
+      .subscribe((products: any) => {
+        if (products) {
+          console.log(products);
+          this.products = products;
+        }
+      });
+  }
+
+  clearCategory() {
+    this.categorySelected = null;
+    this.products = [];
   }
 }

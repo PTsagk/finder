@@ -41,4 +41,11 @@ export class ProductService {
       { withCredentials: true }
     );
   }
+  getProductsByCategory(category: string) {
+    return this.http.get<IProduct[]>(
+      "http://localhost:8000/product/get_all_products_by_category/" +
+        category.toLowerCase(),
+      { withCredentials: true }
+    );
+  }
 }

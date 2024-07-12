@@ -61,7 +61,6 @@ export const getAllProducts = async (req: Request, res: Response) => {
 export const getAllProductsByCategory = async (req: Request, res: Response) => {
   try {
     const { category } = req.params;
-
     if (category !== "womens" && category !== "mens" && category !== "kids") {
       res.status(400).json("Invalid Category");
       return;
@@ -70,6 +69,7 @@ export const getAllProductsByCategory = async (req: Request, res: Response) => {
     const products = await getAllProductsByCategoryQuery(category);
     res.json(products).status(200);
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };
