@@ -143,7 +143,7 @@ export const getTop_Nth_BestSellersByBrand = async (
   }
 };
 
-export const getTop_Nth_BestSellersByCategoryAndBrand = async (
+export const getTop_Nth_FeaturedProducts = async (
   req: Request,
   res: Response
 ) => {

@@ -9,6 +9,7 @@ import {
   getTop_Nth_BestSellers,
   getTop_Nth_BestSellersByBrand,
   getTop_Nth_BestSellersByCategory,
+  getTop_Nth_FeaturedProducts,
 } from "../controllers/product.controller";
 
 const router = express.Router();
