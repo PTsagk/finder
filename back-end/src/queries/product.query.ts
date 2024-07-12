@@ -151,6 +151,10 @@ export async function getTop_Nth_FeaturedProductsQuery(
   //@ts-ignore
   return rows;
 }
+export async function deleteProductQuery(id: number) {
+  // @ts-ignore
+  const [rows] = await sqlPool.query(`DELETE FROM product WHERE id = ?`, [id]);
+}
 
 export async function getSearchResultsQuery(search: string) {
   const [rows] = await sqlPool.query(
