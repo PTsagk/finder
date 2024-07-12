@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
 import multer from "multer";
+import brandRoute from "./routes/brand.route";
 import reviewRoute from "./routes/review.route";
 import userRoute from "./routes/user.route";
 
@@ -38,6 +39,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/user", userRoute);
 app.use("/review", reviewRoute);
+app.use("/brand", brandRoute);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
