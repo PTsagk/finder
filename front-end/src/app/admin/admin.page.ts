@@ -8,9 +8,7 @@ import { Component, OnInit } from "@angular/core";
 export class AdminPage implements OnInit {
   showBrandPage = true;
   constructor() {}
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
+  ngOnInit(): void {}
 
   changePage(event: any): void {
     this.showBrandPage = event.detail.value === "brand";

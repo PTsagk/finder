@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   createNewProductQuery,
+  deleteProductQuery,
   getAllProductsByCategoryQuery,
   getAllProductsQuery,
   getProductByIdQuery,
@@ -13,14 +14,6 @@ import {
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
-    const { category_id, brand_id } = req.body;
-
-    const categoryId = parseInt(category_id);
-    const brandId = parseInt(brand_id);
-    if (!categoryId || !brandId) {
-      res.status(400).json("Invalid Category or Brand ID");
-      return;
-    }
     await createNewProductQuery(req.body);
     res.status(200).json("Product Created Successfully\nOK!");
     return;
@@ -31,19 +24,11 @@ export const productNewCreation = async (req: Request, res: Response) => {
 };
 export const productUpdate = async (req: Request, res: Response) => {
   try {
-    const { category_id, brand_id } = req.body;
-
-    const categoryId = parseInt(category_id);
-    const brandId = parseInt(brand_id);
-    if (!categoryId || !brandId) {
-      res.status(400).json("Invalid Category or Brand ID");
-      return;
-    }
     await updateProductQuery(req.body);
-
-    res.status(200).json("Product Created Successfully\nOK!");
+    res.status(200).json("Product Updated Successfully\nOK!");
     return;
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
     return;
   }
@@ -158,6 +143,17 @@ export const getTop_Nth_FeaturedProducts = async (
     res.json(products).status(200);
   } catch (error) {
     console.log(error);
+    res.status(500).json("Internal Server Error");
+  }
+};
+
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.body;
+    const parsedId = parseInt(id);
+    await deleteProductQuery(parsedId);
+    res.status(200).json("Product Deleted Successfully\nOK!");
+  } catch (error) {
     res.status(500).json("Internal Server Error");
   }
 };
