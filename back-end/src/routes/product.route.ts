@@ -1,17 +1,16 @@
 import express from "express";
 import { authenticateController } from "../controllers/auth.controller";
 import {
-  userAuth,
-  userLogin,
-  userRegister,
-  userUpdate,
-} from "../controllers/user.controller";
+  productNewCreation,
+  productUpdate,
+  getAllProducts,
+  getAllProductsByCategory,
+  getProductById,
+  getTop_Nth_BestSellers,
+  getTop_Nth_BestSellersByBrand,
+  getTop_Nth_BestSellersByCategory,
+} from "../controllers/product.controller";
 
 const router = express.Router();
-
-router.route("/create").post(userLogin);
-router.route("/auth").get(userAuth);
-router.route("/register").post(userRegister);
-router.route("/update_user").put(authenticateController, userUpdate);
 
 export default router;
