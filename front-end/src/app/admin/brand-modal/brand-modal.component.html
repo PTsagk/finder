@@ -1,0 +1,9 @@
+<ion-input
+  label="New Brand"
+  placeholder="Create new brand"
+  [(ngModel)]="brand.name"
+></ion-input>
+<ion-button (click)="updateBrand()" class="main-button"> Update </ion-button>
+<ion-button (click)="deleteBrand()" class="secondary-button">
+  Delete
+</ion-button>

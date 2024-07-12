@@ -19,6 +19,11 @@ export class ProfilePage implements OnInit {
     });
   }
   update() {
+    if (
+      Object.values(this.user.getValue()).filter((x: string) => !!x).length !==
+      Object.keys(this.user.getValue()).length
+    )
+      return;
     this.userService.userUpdate(this.user.getValue());
   }
 
