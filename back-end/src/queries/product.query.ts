@@ -67,8 +67,16 @@ export async function getProductByIdQuery(id: number) {
 export async function getTop_Nth_BestSellersQuery(bestsellers: number = 3) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT *, COUNT(product_id) AS total_orders FROM order 
-    GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
+    `WITH order_counts AS (
+    SELECT o.product_id, COUNT(o.product_id) AS total_orders
+    FROM finder.order o
+    GROUP BY o.product_id
+        ORDER BY total_orders DESC
+        LIMIT ?
+    )
+    SELECT p.*, oc.total_orders
+    FROM finder.product p
+    JOIN order_counts oc ON p.id = oc.product_id;`,
     [bestsellers]
   );
 
@@ -82,10 +90,19 @@ export async function getTop_Nth_BestSellersByCategoryQuery(
 ) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT *, COUNT(product_id) AS total_orders FROM order 
-    WHERE product_id IN 
-    (SELECT id FROM product WHERE category = ?) 
-    GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
+    `WITH order_counts AS (
+    SELECT o.product_id, COUNT(o.product_id) AS total_orders
+    FROM finder.order o
+    WHERE o.product_id IN 
+        (SELECT p.id FROM product p WHERE p.category= ?)
+    GROUP BY o.product_id
+    ORDER BY total_orders DESC
+    LIMIT ?
+)
+SELECT p.*, oc.total_orders
+FROM finder.product p
+JOIN order_counts oc ON p.id = oc.product_id;
+`,
     [category, bestsellers]
   );
 
@@ -98,10 +115,18 @@ export async function getTop_Nth_BestSellersByBrandQuery(
 ) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT *, COUNT(product_id) AS total_orders FROM order 
-    WHERE product_id IN 
-    (SELECT id FROM product WHERE brand_id = ?) 
-    GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
+    `WITH order_counts AS (
+    SELECT o.product_id, COUNT(o.product_id) AS total_orders
+    FROM finder.order o
+    WHERE o.product_id IN 
+        (SELECT p.id FROM product p WHERE p.brand_id = ?)
+    GROUP BY o.product_id
+    ORDER BY total_orders DESC
+    LIMIT ?
+    )
+    SELECT p.*, oc.total_orders
+    FROM finder.product p
+    JOIN order_counts oc ON p.id = oc.product_id;`,
     [brand_id, bestsellers]
   );
   //@ts-ignore
@@ -113,7 +138,7 @@ export async function getTop_Nth_FeaturedProductsQuery(
 ) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT * FROM product WHERE featured = 1 LIMIT ? ORDER BY id DESC`,
+    `SELECT * FROM product WHERE featured = 1 ORDER BY id DESC LIMIT ?`,
     [featuredNumber]
   );
   //@ts-ignore

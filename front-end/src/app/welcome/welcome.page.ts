@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { UtilService } from "../util.service";
+import { UtilService } from "../services/util.service";
 import { NavController } from "@ionic/angular";
-import { UserService } from "../user.service";
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: "app-welcome",

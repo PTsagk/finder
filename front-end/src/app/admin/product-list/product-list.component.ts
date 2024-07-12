@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { IProduct } from "app/data.service";
+import { IProduct } from "../../services/data.service";
 import { ProductService } from "app/services/product.service";
 import { ProductCreatePopupComponent } from "../product-create-popup/product-create-popup.component";
 

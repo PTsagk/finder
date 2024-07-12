@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { IUser, UserService } from "../user.service";
+import { IUser, UserService } from "../services/user.service";
 
 @Component({
   selector: "app-profile",
