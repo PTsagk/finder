@@ -65,7 +65,7 @@ export async function getProductByIdQuery(id: number) {
 export async function getTop_Nth_BestSellersQuery(bestsellers: number = 3) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT product_id, COUNT(product_id) AS total_orders FROM order 
+    `SELECT *, COUNT(product_id) AS total_orders FROM order 
     GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
     [bestsellers]
   );
@@ -80,7 +80,7 @@ export async function getTop_Nth_BestSellersByCategoryQuery(
 ) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT product_id, COUNT(product_id) AS total_orders FROM order 
+    `SELECT *, COUNT(product_id) AS total_orders FROM order 
     WHERE product_id IN 
     (SELECT id FROM product WHERE category = ?) 
     GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
@@ -96,7 +96,7 @@ export async function getTop_Nth_BestSellersByBrandQuery(
 ) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT product_id, COUNT(product_id) AS total_orders FROM order 
+    `SELECT *, COUNT(product_id) AS total_orders FROM order 
     WHERE product_id IN 
     (SELECT id FROM product WHERE brand_id = ?) 
     GROUP BY product_id ORDER BY total_orders DESC LIMIT ?`,
