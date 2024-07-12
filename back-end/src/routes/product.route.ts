@@ -28,5 +28,5 @@ router
   .get(getTop_Nth_BestSellersByCategory);
 router.route("/get_bestsellers_by_brand").get(getTop_Nth_BestSellersByBrand);
 router.route("/get_featured_products").get(getTop_Nth_FeaturedProducts);
-router.route("delete").post(deleteProduct);
+router.route("/delete").post(deleteProduct);
 export default router;
