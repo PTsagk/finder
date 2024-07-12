@@ -9,12 +9,15 @@ export async function createNewBrandQuery(brand: IBrandCreate) {
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `CREATE brand (name) VALUES (?) `,
+    `INSERT INTO brand (name) VALUES (?) `,
 
     [brand.name]
   );
+  const [newBrand] = await sqlPool.query(
+    "SELECT * FROM brand WHERE id = LAST_INSERT_ID()"
+  );
   //@ts-ignore
-  return rows[0];
+  return newBrand[0];
 }
 
 export async function updateBrandQuery(brand: IBrandUpdate) {
@@ -38,7 +41,7 @@ export async function getBrandsQuery() {
     []
   );
   //@ts-ignore
-  return rows[0];
+  return rows;
 }
 
 export async function deleteBrandByIdQuery(brand: IBrandDelete) {

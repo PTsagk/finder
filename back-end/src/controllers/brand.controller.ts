@@ -8,8 +8,8 @@ import {
 
 export const createBrand = async (req: Request, res: Response) => {
   try {
-    await createNewBrandQuery(req.body);
-    res.status(200).json("Product Created Successfully\nOK!");
+    const newBrand = await createNewBrandQuery(req.body);
+    res.status(200).json(newBrand);
     return;
   } catch (error) {
     res.status(500).json("Internal Server Error");
@@ -20,7 +20,7 @@ export const createBrand = async (req: Request, res: Response) => {
 export const updateBrand = async (req: Request, res: Response) => {
   try {
     await updateBrandQuery(req.body);
-    res.status(200).json("Product Created Successfully\nOK!");
+    res.status(200).json("Brand Updated!");
     return;
   } catch (error) {
     res.status(500).json("Internal Server Error");
@@ -42,7 +42,7 @@ export const getBrands = async (req: Request, res: Response) => {
 export const deleteBrand = async (req: Request, res: Response) => {
   try {
     await deleteBrandByIdQuery(req.body);
-    res.status(200).json("Product Created Successfully\nOK!");
+    res.status(200).json("Brand Deleted!");
     return;
   } catch (error) {
     res.status(500).json("Internal Server Error");
