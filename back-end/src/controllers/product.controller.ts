@@ -7,8 +7,8 @@ import {
   getTop_Nth_BestSellersByBrandQuery,
   getTop_Nth_BestSellersByCategoryQuery,
   getTop_Nth_BestSellersQuery,
-  updateProductQuery,
   getTop_Nth_FeaturedProductsQuery,
+  updateProductQuery,
 } from "../queries/product.query";
 
 export const productNewCreation = async (req: Request, res: Response) => {
@@ -52,7 +52,7 @@ export const productUpdate = async (req: Request, res: Response) => {
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await getAllProductsQuery();
-    res.json(products).status(200);
+    res.status(200).json(products);
   } catch (error) {
     res.status(500).json("Internal Server Error");
   }

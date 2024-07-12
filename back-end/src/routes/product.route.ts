@@ -1,8 +1,9 @@
 import express from "express";
-import { authenticateController } from "../controllers/auth.controller";
 import {
-  productNewCreation,
-  productUpdate,
+  authenticateAdminController,
+  authenticateController,
+} from "../controllers/auth.controller";
+import {
   getAllProducts,
   getAllProductsByCategory,
   getProductById,
@@ -10,13 +11,17 @@ import {
   getTop_Nth_BestSellersByBrand,
   getTop_Nth_BestSellersByCategory,
   getTop_Nth_FeaturedProducts,
+  productNewCreation,
+  productUpdate,
 } from "../controllers/product.controller";
 
 const router = express.Router();
 
 router.route("/create").post(authenticateController, productNewCreation);
 router.route("/update").put(authenticateController, productUpdate);
-router.route("/get_all_products").get(getAllProducts);
+router
+  .route("/get_all_products")
+  .post(authenticateAdminController, getAllProducts);
 router.route("/get_all_products_by_category").get(getAllProductsByCategory);
 router.route("/get_product").get(getProductById);
 router.route("/get_top_bestsellers").get(getTop_Nth_BestSellers);

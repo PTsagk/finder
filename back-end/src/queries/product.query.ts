@@ -1,5 +1,6 @@
 import { IProductCreate } from "../interfaces/product.interface";
 import { Category } from "../models/category.model";
+import { sqlPool } from "../mysqlPool";
 
 export async function createNewProductQuery(product: IProductCreate) {
   // @ts-ignore
@@ -43,6 +44,7 @@ export async function updateProductQuery(product: IProductCreate) {
 export async function getAllProductsQuery() {
   // @ts-ignore
   const [rows] = await sqlPool.query(`SELECT * FROM product`);
+
   //@ts-ignore
   return rows;
 }
