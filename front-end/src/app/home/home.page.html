@@ -6,7 +6,20 @@
       </ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button id="open-modal" expand="block" (click)="presentModal()"
+      <ion-button
+        class="cart-button"
+        expand="block"
+        (click)="cartService.cartModal()"
+      >
+        <ion-badge class="badge" color="danger" slot="end" mode=""
+          >{{productCount}}
+        </ion-badge>
+
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button expand="block" (click)="filterModal()"
         ><ion-icon name="filter-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
