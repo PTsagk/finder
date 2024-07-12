@@ -8,6 +8,7 @@ import {
   getTop_Nth_BestSellersByCategoryQuery,
   getTop_Nth_BestSellersQuery,
   updateProductQuery,
+  getTop_Nth_FeaturedProductsQuery,
 } from "../queries/product.query";
 
 export const productNewCreation = async (req: Request, res: Response) => {
@@ -135,6 +136,23 @@ export const getTop_Nth_BestSellersByBrand = async (
     const products = await getTop_Nth_BestSellersByBrandQuery(
       parsedBrandId,
       parsedBestsellers
+    );
+    res.json(products).status(200);
+  } catch (error) {
+    res.status(500).json("Internal Server Error");
+  }
+};
+
+export const getTop_Nth_BestSellersByCategoryAndBrand = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { featuredNumber } = req.params;
+    const parsedfeaturedNumber = featuredNumber ? parseInt(featuredNumber) : 3;
+
+    const products = await getTop_Nth_FeaturedProductsQuery(
+      parsedfeaturedNumber
     );
     res.json(products).status(200);
   } catch (error) {

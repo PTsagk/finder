@@ -105,3 +105,15 @@ export async function getTop_Nth_BestSellersByBrandQuery(
   //@ts-ignore
   return rows;
 }
+
+export async function getTop_Nth_FeaturedProductsQuery(
+  featuredNumber: number = 3
+) {
+  // @ts-ignore
+  const [rows] = await sqlPool.query(
+    `SELECT * FROM product WHERE featured = 1 LIMIT ? ORDER BY id DESC`,
+    [featuredNumber]
+  );
+  //@ts-ignore
+  return rows;
+}
