@@ -48,7 +48,7 @@ export async function getAllProductsQuery() {
   //@ts-ignore
   return rows;
 }
-export async function getAllProductsByCategoryQuery(category: Category) {
+export async function getAllProductsByCategoryQuery(category: string) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
     `SELECT * FROM product WHERE category = ?`,
