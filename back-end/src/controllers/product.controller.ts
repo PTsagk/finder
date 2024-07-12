@@ -7,6 +7,7 @@ import {
   getTop_Nth_BestSellersByBrandQuery,
   getTop_Nth_BestSellersByCategoryQuery,
   getTop_Nth_BestSellersQuery,
+  updateProductQuery,
 } from "../queries/product.query";
 
 export const productNewCreation = async (req: Request, res: Response) => {
@@ -23,7 +24,7 @@ export const productNewCreation = async (req: Request, res: Response) => {
     res.status(200).json("Product Created Successfully\nOK!");
     return;
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
     return;
   }
 };
@@ -37,12 +38,12 @@ export const productUpdate = async (req: Request, res: Response) => {
       res.status(400).json("Invalid Category or Brand ID");
       return;
     }
-    await createNewProductQuery(req.body);
+    await updateProductQuery(req.body);
 
     res.status(200).json("Product Created Successfully\nOK!");
     return;
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
     return;
   }
 };
@@ -52,7 +53,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     const products = await getAllProductsQuery();
     res.json(products).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };
 
@@ -68,7 +69,7 @@ export const getAllProductsByCategory = async (req: Request, res: Response) => {
     const products = await getAllProductsByCategoryQuery(category);
     res.json(products).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };
 
@@ -80,7 +81,7 @@ export const getProductById = async (req: Request, res: Response) => {
     const product = await getProductByIdQuery(parsedId);
     res.json(product).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };
 
@@ -91,7 +92,7 @@ export const getTop_Nth_BestSellers = async (req: Request, res: Response) => {
     const products = await getTop_Nth_BestSellersQuery(parsedBestsellers);
     res.json(products).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };
 
@@ -114,7 +115,7 @@ export const getTop_Nth_BestSellersByCategory = async (
 
     res.json(products).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };
 
@@ -137,6 +138,6 @@ export const getTop_Nth_BestSellersByBrand = async (
     );
     res.json(products).status(200);
   } catch (error) {
-    res.json("Internal Server Error").status(500);
+    res.status(500).json("Internal Server Error");
   }
 };

@@ -20,6 +20,26 @@ export async function createNewProductQuery(product: IProductCreate) {
   return rows[0];
 }
 
+export async function updateProductQuery(product: IProductCreate) {
+  // @ts-ignore
+
+  const [rows] = await sqlPool.query(
+    `UPDATE product SET name = ?, price = ?, image = ?, description = ?, category_id = ?, brand_id = ? WHERE id = ?`,
+
+    [
+      product.name,
+      product.price,
+      product.image,
+      product.description,
+      product.category,
+      product.brand_id,
+      product.id,
+    ]
+  );
+  //@ts-ignore
+  return rows[0];
+}
+
 export async function getAllProductsQuery() {
   // @ts-ignore
   const [rows] = await sqlPool.query(`SELECT * FROM product`);

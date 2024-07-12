@@ -1,4 +1,5 @@
 export interface IProductCreate {
+  id: number;
   name: string;
   price: string;
   image: string;
