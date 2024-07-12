@@ -3,6 +3,6 @@ export interface IProductCreate {
   price: string;
   image: string;
   description: string;
-  category_id: number;
+  category: "womens" | "mens" | "kids";
   brand_id: number;
 }
