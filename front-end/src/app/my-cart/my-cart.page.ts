@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { CartService } from "app/cart.service";
+import { CartService } from "app/services/cart.service";
 
 @Component({
   selector: "app-my-cart",

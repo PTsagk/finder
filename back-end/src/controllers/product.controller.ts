@@ -77,6 +77,7 @@ export const getTop_Nth_BestSellers = async (req: Request, res: Response) => {
     const products = await getTop_Nth_BestSellersQuery(parsedBestsellers);
     res.json(products).status(200);
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };
@@ -140,6 +141,7 @@ export const getTop_Nth_FeaturedProducts = async (
     );
     res.json(products).status(200);
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };

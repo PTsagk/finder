@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { DataService } from "../data.service";
+import { DataService } from "../services/data.service";
 import { ModalController } from "@ionic/angular";
 import { FiltersPage } from "app/filters/filters.page";
 import { MyCartPage } from "app/my-cart/my-cart.page";
-import { CartService } from "app/cart.service";
+import { CartService } from "app/services/cart.service";
+import { ProductService } from "app/services/product.service";
 // import { ModalPage } from '../modal/modal.page';
 // @ts-ignore
 // import { ModalPage } from "../modal/modal.page";
@@ -22,7 +23,8 @@ export class HomePage implements OnInit {
   constructor(
     public cartService: CartService,
     private data: DataService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private productService: ProductService
   ) {}
 
   ngOnInit() {
@@ -34,6 +36,15 @@ export class HomePage implements OnInit {
       products.forEach((product) => {
         this.productCount += product.quantity;
       });
+    });
+    this.productService.getFeaturedProducts().subscribe((products: any) => {
+      console.log(products);
+      this.featuredProducts = products;
+    });
+
+    this.productService.getBestSellerProducts().subscribe((products: any) => {
+      console.log(products);
+      this.bestSellProducts = products;
     });
   }
   async filterModal() {

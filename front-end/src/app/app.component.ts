@@ -5,8 +5,8 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { Platform } from "@ionic/angular";
 import { menuController } from "@ionic/core";
-import { UserService } from "./user.service";
-import { UtilService } from "./util.service";
+import { UserService } from "./services/user.service";
+import { UtilService } from "./services/util.service";
 
 @Component({
   selector: "app-root",

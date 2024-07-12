@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { MyCartPage } from "./my-cart/my-cart.page";
 import { ModalController } from "@ionic/angular";
+import { MyCartPage } from "app/my-cart/my-cart.page";
 
 // Category Interface
 

@@ -4,7 +4,7 @@ import {
   AnimationController,
   ModalController,
 } from "@ionic/angular";
-import { CartService } from "app/cart.service";
+import { CartService } from "app/services/cart.service";
 import { MyCartPage } from "app/my-cart/my-cart.page";
 
 @Component({
