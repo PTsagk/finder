@@ -95,7 +95,7 @@ export const getTop_Nth_BestSellers = async (req: Request, res: Response) => {
   }
 };
 
-export const getTop3BestSellersByCategory = async (
+export const getTop_Nth_BestSellersByCategory = async (
   req: Request,
   res: Response
 ) => {
@@ -118,7 +118,7 @@ export const getTop3BestSellersByCategory = async (
   }
 };
 
-export const getTop3BestSellersByBrand = async (
+export const getTop_Nth_BestSellersByBrand = async (
   req: Request,
   res: Response
 ) => {
