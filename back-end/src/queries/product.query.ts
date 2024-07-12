@@ -6,7 +6,7 @@ export async function createNewProductQuery(product: IProductCreate) {
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `CREATE PRODUCT (name, price, image, description, category_id, brand_id) VALUES (?, ?, ?, ?, ?, ?) `,
+    `CREATE PRODUCT (name, price, image, description, category, brand_id) VALUES (?, ?, ?, ?, ?, ?) `,
 
     [
       product.name,
@@ -22,10 +22,11 @@ export async function createNewProductQuery(product: IProductCreate) {
 }
 
 export async function updateProductQuery(product: IProductCreate) {
+  console.log(product);
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `UPDATE product SET name = ?, price = ?, image = ?, description = ?, category_id = ?, brand_id = ? WHERE id = ?`,
+    `UPDATE product SET name = ?, price = ?, image = ?, description = ?, category = ?, brand_id = ? WHERE id = ?`,
 
     [
       product.name,

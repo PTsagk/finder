@@ -1,8 +1,5 @@
 import express from "express";
-import {
-  authenticateAdminController,
-  authenticateController,
-} from "../controllers/auth.controller";
+import { authenticateAdminController } from "../controllers/auth.controller";
 import {
   getAllProducts,
   getAllProductsByCategory,
@@ -17,8 +14,8 @@ import {
 
 const router = express.Router();
 
-router.route("/create").post(authenticateController, productNewCreation);
-router.route("/update").put(authenticateController, productUpdate);
+router.route("/create").post(authenticateAdminController, productNewCreation);
+router.route("/update").put(authenticateAdminController, productUpdate);
 router
   .route("/get_all_products")
   .post(authenticateAdminController, getAllProducts);
