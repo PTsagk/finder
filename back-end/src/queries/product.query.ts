@@ -220,8 +220,8 @@ export async function getSearchResultsQuery(search: string) {
   }));
 
   const filteredSortedProducts = productsWithScores
-    .filter((product) => product.score > 0)
-    .sort((a, b) => b.score - a.score);
+    .filter((product: any) => product.score > 0)
+    .sort((a: any, b: any) => b.score - a.score);
 
   return filteredSortedProducts;
 }
