@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Add Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h2 style="text-align: center">{{ product.name }}</h2>
+  <img style="padding: 0 20px" [src]="product.image" alt="" />
+
+  <div class="stars" style="margin-top: 20px">
+    <ion-icon
+      *ngFor="let star of [1, 2, 3, 4, 5]"
+      [name]="star <= rating ? 'star' : 'star-outline'"
+      (click)="setRating(star)"
+    ></ion-icon>
+  </div>
+  <div class="description" style="padding: 0 20px">
+    <!-- <h5>Description</h5> -->
+    <!-- <ion-item>
+      <ion-textarea
+        [(ngModel)]="description"
+        placeholder="Enter more information here..."
+      ></ion-textarea>
+    </ion-item> -->
+    <ion-item style="background-color: rgb(189, 189, 189); margin-top: 30px">
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea
+        [(ngModel)]="description"
+        rows="8"
+        cols="20"
+        value="Ionic enables developers to build performant, high-quality mobile apps."
+      >
+      </ion-textarea>
+    </ion-item>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col size="6">
+      <ion-button
+        expand="full"
+        color="light"
+        (click)="modalController.dismiss()"
+        >Cancel</ion-button
+      >
+    </ion-col>
+    <ion-col size="6">
+      <ion-button (click)="createReview()" expand="full">Add Review</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>
