@@ -79,4 +79,16 @@ export class ProductService {
       { withCredentials: true }
     );
   }
+
+  getProductReviews(productId) {
+    return this.http.get("http://localhost:8000/review/" + productId, {
+      withCredentials: true,
+    });
+  }
+
+  createProductReview(review) {
+    return this.http.post("http://localhost:8000/review", review, {
+      withCredentials: true,
+    });
+  }
 }

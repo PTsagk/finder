@@ -6,7 +6,8 @@ import {
 } from "@ionic/angular";
 import { CartService } from "app/services/cart.service";
 import { MyCartPage } from "app/my-cart/my-cart.page";
-import { IProduct } from "app/services/product.service";
+import { IProduct, ProductService } from "app/services/product.service";
+import { ReviewPage } from "app/review/review.page";
 
 @Component({
   selector: "app-item-details",
@@ -19,10 +20,12 @@ export class ItemDetailsPage implements OnInit {
   activeVariation: string;
   itemInfo: any;
   productCount = 0;
+  public reviews = [];
   @Input() product: IProduct;
 
   constructor(
     private animatioCntrl: AnimationController,
+    private productService: ProductService,
     private cartService: CartService,
     public modalController: ModalController
   ) {}
@@ -35,6 +38,13 @@ export class ItemDetailsPage implements OnInit {
         this.productCount += product.quantity;
       });
     });
+
+    this.productService
+      .getProductReviews(this.product.id)
+      .subscribe((reviews: any) => {
+        console.log(reviews);
+        this.reviews = reviews;
+      });
   }
 
   segmentChanged(e: any) {
@@ -94,5 +104,23 @@ export class ItemDetailsPage implements OnInit {
       size: this.selectedSize,
       color: this.selectedColor,
     });
+  }
+
+  async addReviewModal() {
+    const modal = await this.modalController.create({
+      component: ReviewPage,
+      componentProps: {
+        product: this.product,
+      },
+    });
+    await modal.present();
+
+    await modal.onDidDismiss();
+    this.productService
+      .getProductReviews(this.product.id)
+      .subscribe((reviews: any) => {
+        console.log(reviews);
+        this.reviews = reviews;
+      });
   }
 }
