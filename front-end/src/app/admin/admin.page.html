@@ -1,10 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>admin</ion-title>
+    <ion-buttons slot="start">
+      <ion-button
+        color="primary"
+        class="backbtn"
+        routerLink="/home"
+        routerDirection="back"
+      >
+        <img src="../../assets/back-dark.svg" />
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button class="notification">
+        <ion-icon name="notifications-outline" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-title>admin</ion-title>
   <ion-header>
     <ion-toolbar>
       <ion-segment (ionChange)="changePage($event)" value="brand">
