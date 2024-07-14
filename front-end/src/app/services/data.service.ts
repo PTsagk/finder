@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IProduct } from "./services/product.service";
+import { IProduct } from "./product.service";
 
 // Category Interface
 export interface ICategory {
