@@ -55,10 +55,17 @@ export async function getAllProductsQuery() {
   //@ts-ignore
   return rows;
 }
-export async function getAllProductsByCategoryQuery(category: string) {
+export async function getAllProductsByCategoryQuery(
+  category: string,
+  filters: any
+) {
+  let extraQuery = "";
+  if (filters.brand_ids) {
+    extraQuery = `AND brand_id IN (${filters.brand_ids})`;
+  }
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT * FROM product WHERE category = ?`,
+    `SELECT * FROM product WHERE category = ? ${extraQuery}`,
     [category]
   );
 

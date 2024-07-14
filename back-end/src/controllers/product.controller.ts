@@ -52,7 +52,7 @@ export const getAllProductsByCategory = async (req: Request, res: Response) => {
       return;
     }
 
-    const products = await getAllProductsByCategoryQuery(category);
+    const products = await getAllProductsByCategoryQuery(category, req.body);
     res.json(products).status(200);
   } catch (error) {
     console.log(error);
