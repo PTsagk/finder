@@ -61,6 +61,8 @@ export async function getAllProductsByCategoryQuery(category: string) {
     `SELECT * FROM product WHERE category = ?`,
     [category]
   );
+
+  return rows;
 }
 
 export async function getProductByIdQuery(id: number) {
@@ -220,8 +222,8 @@ export async function getSearchResultsQuery(search: string) {
   }));
 
   const filteredSortedProducts = productsWithScores
-    .filter((product) => product.score > 0)
-    .sort((a, b) => b.score - a.score);
+    .filter((product: any) => product.score > 0)
+    .sort((a: any, b: any) => b.score - a.score);
 
   return filteredSortedProducts;
 }
