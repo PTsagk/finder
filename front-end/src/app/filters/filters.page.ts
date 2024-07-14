@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { BrandService, IBrand } from "app/services/brand.service";
+
+export interface IFilter {
+  brand_id?: number;
+}
 
 @Component({
   selector: "app-filters",
@@ -7,7 +12,16 @@ import { ModalController } from "@ionic/angular";
   styleUrls: ["./filters.page.scss"],
 })
 export class FiltersPage implements OnInit {
-  constructor(public modalController: ModalController) {}
+  filters: IFilter = {};
+  brands: IBrand[] = [];
+  constructor(
+    public modalController: ModalController,
+    private brandService: BrandService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.brandService.getBrands().subscribe((brands: IBrand[]) => {
+      this.brands = brands;
+    });
+  }
 }

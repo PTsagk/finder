@@ -9,4 +9,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <div class="form-container">
+    <ion-label>Brand</ion-label>
+    <ion-item>
+      <ion-select placeholder="Select One">
+        <ion-select-option *ngFor="let brand of brands" [value]="brand.id"
+          >{{ brand.name }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+  </div>
+</ion-content>

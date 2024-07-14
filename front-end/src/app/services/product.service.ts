@@ -43,9 +43,10 @@ export class ProductService {
     );
   }
   getProductsByCategory(category: string) {
-    return this.http.get<IProduct[]>(
+    return this.http.post<IProduct[]>(
       "http://localhost:8000/product/get_all_products_by_category/" +
         category.toLowerCase(),
+      {},
       { withCredentials: true }
     );
   }

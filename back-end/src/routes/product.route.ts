@@ -1,6 +1,7 @@
 import express from "express";
 import { authenticateAdminController } from "../controllers/auth.controller";
 import {
+  deleteProduct,
   getAllProducts,
   getAllProductsByCategory,
   getProductById,
@@ -10,7 +11,6 @@ import {
   getTop_Nth_FeaturedProducts,
   productNewCreation,
   productUpdate,
-  deleteProduct,
 } from "../controllers/product.controller";
 
 const router = express.Router();
@@ -22,7 +22,7 @@ router
   .post(authenticateAdminController, getAllProducts);
 router
   .route("/get_all_products_by_category/:category")
-  .get(getAllProductsByCategory);
+  .post(getAllProductsByCategory);
 router.route("/get_product").get(getProductById);
 router.route("/get_top_bestsellers/:bestSellers").get(getTop_Nth_BestSellers);
 router
