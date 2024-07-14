@@ -6,11 +6,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./admin.page.scss"],
 })
 export class AdminPage implements OnInit {
-  showBrandPage = true;
+  showBrandPage = "brand";
   constructor() {}
   ngOnInit(): void {}
 
   changePage(event: any): void {
-    this.showBrandPage = event.detail.value === "brand";
+    this.showBrandPage = event.detail.value;
   }
 }

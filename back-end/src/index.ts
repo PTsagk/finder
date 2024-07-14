@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import express, { Application, Request, Response } from "express";
 import multer from "multer";
 import brandRoute from "./routes/brand.route";
+import colorRoute from "./routes/color.route";
 import productRoute from "./routes/product.route";
 import reviewRoute from "./routes/review.route";
 import userRoute from "./routes/user.route";
@@ -42,6 +43,7 @@ app.use("/user", userRoute);
 app.use("/review", reviewRoute);
 app.use("/brand", brandRoute);
 app.use("/product", productRoute);
+app.use("/color", colorRoute);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

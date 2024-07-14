@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { IFilters } from "./filter.service";
 
 export interface IProduct {
   id: number;
@@ -12,6 +13,7 @@ export interface IProduct {
   rating: number;
   featured: boolean;
   brand_id: number;
+  color_ids: number[];
 }
 
 @Injectable({
@@ -45,11 +47,11 @@ export class ProductService {
       { withCredentials: true }
     );
   }
-  getProductsByCategory(category: string) {
+  getProductsByCategory(category: string, filters: IFilters) {
     return this.http.post<IProduct[]>(
       "http://localhost:8000/product/get_all_products_by_category/" +
         category.toLowerCase(),
-      {},
+      { ...filters },
       { withCredentials: true }
     );
   }

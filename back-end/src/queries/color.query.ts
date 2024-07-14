@@ -1,7 +1,7 @@
 import {
   IColorCreate,
-  IColorUpdate,
   IColorDelete,
+  IColorUpdate,
 } from "../interfaces/color.interface";
 import { sqlPool } from "../mysqlPool";
 
@@ -13,6 +13,11 @@ export async function createNewColorQuery(color: IColorCreate) {
 
     [color.name]
   );
+  const [newColor] = await sqlPool.query(
+    "SELECT * FROM color WHERE id = LAST_INSERT_ID()"
+  );
+  //@ts-ignore
+  return newColor[0];
 }
 
 export async function updateColorQuery(color: IColorUpdate) {

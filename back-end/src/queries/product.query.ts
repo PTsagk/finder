@@ -11,7 +11,7 @@ import {
 export async function createNewProductQuery(product: IProductCreate) {
   // @ts-ignore
 
-  const [rows] = await sqlPool.query(
+  const [rows]: any = await sqlPool.query(
     `INSERT INTO product (name, price, image, description, category, brand_id) VALUES (?, ?, ?, ?, ?, ?)`,
 
     [
@@ -22,6 +22,17 @@ export async function createNewProductQuery(product: IProductCreate) {
       product.category,
       product.brand_id,
     ]
+  );
+
+  let productColorQuery = "";
+  product.color_ids.forEach((colorId) => {
+    productColorQuery += `(${rows.insertId},${colorId}),`;
+  });
+  await sqlPool.query(
+    `INSERT INTO product_color (product_id,color_id) VALUES ${productColorQuery.slice(
+      0,
+      -1
+    )}`
   );
   //@ts-ignore
   return rows[0];
@@ -44,16 +55,45 @@ export async function updateProductQuery(product: IProductCreate) {
       product.id,
     ]
   );
+
+  await sqlPool.query(`DELETE FROM product_color WHERE product_id = ?`, [
+    product.id,
+  ]);
+
+  let productColorQuery = "";
+  product.color_ids.forEach((colorId) => {
+    productColorQuery += `(${product.id},${colorId}),`;
+  });
+  await sqlPool.query(
+    `INSERT INTO product_color (product_id,color_id) VALUES ${productColorQuery.slice(
+      0,
+      -1
+    )}`
+  );
   //@ts-ignore
   return rows[0];
 }
 
 export async function getAllProductsQuery() {
   // @ts-ignore
-  const [rows] = await sqlPool.query(`SELECT * FROM product`);
+  // let [rows] = await sqlPool.query(`SELECT * FROM product`);
+  let [rows] = await sqlPool.query(
+    `SELECT p.*,pc.color_id FROM finder.product as p INNER JOIN finder.product_color as pc ON p.id = pc.product_id`
+  );
+
+  rows = (rows as [any]).reduce((object, item: any) => {
+    if (item.id in object) {
+      object[item.id].color_ids.push(item.color_id);
+      delete object[item.id].color_id;
+    } else {
+      object[item.id] = item;
+      object[item.id].color_ids = [item.color_id];
+    }
+    return object;
+  }, {});
 
   //@ts-ignore
-  return rows;
+  return Object.values(rows);
 }
 export async function getAllProductsByCategoryQuery(
   category: string,
@@ -63,9 +103,10 @@ export async function getAllProductsByCategoryQuery(
   if (filters.brand_ids) {
     extraQuery = `AND brand_id IN (${filters.brand_ids})`;
   }
+
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT * FROM product WHERE category = ? ${extraQuery}`,
+    `SELECT p.* FROM product p WHERE category = ? ${extraQuery} INNER JOIN product_color pc ON p.id = pc.product_id AND pc.color_id IN (${filters.color_ids})`,
     [category]
   );
 

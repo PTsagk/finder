@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { DataService } from "../services/data.service";
+import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { FiltersPage } from "app/filters/filters.page";
-import { MyCartPage } from "app/my-cart/my-cart.page";
-import { CartService } from "app/services/cart.service";
-import { IProduct, ProductService } from "app/services/product.service";
+import { FilterComponent } from "app/components/filter/filter.component";
 import { ItemDetailsPage } from "app/item-details/item-details.page";
+import { CartService } from "app/services/cart.service";
+import { IFilters } from "app/services/filter.service";
+import { IProduct, ProductService } from "app/services/product.service";
+import { DataService } from "../services/data.service";
 // import { ModalPage } from '../modal/modal.page';
 // @ts-ignore
 // import { ModalPage } from "../modal/modal.page";
@@ -51,18 +51,24 @@ export class HomePage implements OnInit {
   }
   async filterModal() {
     const modal = await this.modalController.create({
-      component: FiltersPage,
+      component: FilterComponent,
       cssClass: "my-custom-class",
+    });
+    modal.onWillDismiss().then((filter) => {
+      this.getFilteredProducts(this.categorySelected, filter.data as any);
     });
     return await modal.present();
   }
   selectCategory(category: string) {
     this.categorySelected = category;
+    this.getFilteredProducts(category, {});
+  }
+
+  getFilteredProducts(category: string, filters: IFilters) {
     this.productService
-      .getProductsByCategory(category)
+      .getProductsByCategory(category, filters)
       .subscribe((products: any) => {
         if (products) {
-          console.log(products);
           this.products = products;
         }
       });

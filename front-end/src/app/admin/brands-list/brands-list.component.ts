@@ -19,7 +19,6 @@ export class BrandsListComponent implements OnInit {
 
   ngOnInit() {
     this.brandService.getBrands().subscribe((brands: IBrand[]) => {
-      console.log(brands);
       this.brands = brands;
     });
   }

@@ -9,6 +9,8 @@ import { AdminPageRoutingModule } from "./admin-routing.module";
 import { AdminPage } from "./admin.page";
 import { BrandModalComponent } from "./brand-modal/brand-modal.component";
 import { BrandsListComponent } from "./brands-list/brands-list.component";
+import { ColorAdminComponent } from "./color-admin/color-admin.component";
+import { PopupColorComponent } from "./popup-color/popup-color.component";
 import { ProductCreatePopupComponent } from "./product-create-popup/product-create-popup.component";
 import { ProductListComponent } from "./product-list/product-list.component";
 
@@ -20,6 +22,8 @@ import { ProductListComponent } from "./product-list/product-list.component";
     BrandModalComponent,
     ProductListComponent,
     ProductCreatePopupComponent,
+    ColorAdminComponent,
+    PopupColorComponent,
   ],
 })
 export class AdminPageModule {}

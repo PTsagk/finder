@@ -1,0 +1,36 @@
+<ion-item>
+  <ion-select
+    aria-label="brand"
+    placeholder="Select brand"
+    (ionChange)="selectBrand($event)"
+    [multiple]="true"
+    [value]="filters.brand_ids"
+  >
+    <ion-select-option *ngFor="let brand of brands" [value]="brand.id">{{
+      brand.name
+    }}</ion-select-option>
+  </ion-select>
+</ion-item>
+<ion-item>
+  <ion-select
+    aria-label="color"
+    placeholder="Select color"
+    (ionChange)="selectColors($event)"
+    [multiple]="true"
+    [value]="filters.color_ids"
+  >
+    <ion-select-option *ngFor="let color of colors" [value]="color.id">{{
+      color.name
+    }}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-button expand="block" class="main-button" (click)="apply()"
+  >Apply Filters</ion-button
+>
+<ion-button expand="block" class="main-button" (click)="cancel()"
+  >Cancel</ion-button
+>
+<ion-button expand="block" class="main-button" (click)="clear()"
+  >Clear</ion-button
+>

@@ -1,0 +1,9 @@
+<ion-input
+  label="New Color"
+  placeholder="Create new color"
+  [(ngModel)]="color.name"
+></ion-input>
+<ion-button (click)="updateColor()" class="main-button"> Update </ion-button>
+<ion-button (click)="deleteColor()" class="secondary-button">
+  Delete
+</ion-button>

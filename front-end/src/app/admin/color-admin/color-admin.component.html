@@ -1,0 +1,23 @@
+<div>
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="New Color"
+        placeholder="Create new color"
+        [(ngModel)]="newColor.name"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-button expand="block" (click)="createColor()"
+        >Create Color</ion-button
+      >
+    </ion-item>
+    <ion-item *ngFor="let item of colors">
+      <ion-label
+        ><button class="label-button" (click)="presentModal(item)">
+          {{ item.name }}
+        </button></ion-label
+      >
+    </ion-item>
+  </ion-list>
+</div>

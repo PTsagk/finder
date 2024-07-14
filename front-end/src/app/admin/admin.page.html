@@ -23,23 +23,27 @@
   <ion-title>admin</ion-title>
   <ion-header>
     <ion-toolbar>
-      <ion-segment (ionChange)="changePage($event)" value="brand">
+      <ion-segment (ionChange)="changePage($event)" [value]="showBrandPage">
         <ion-segment-button value="brand">
           <ion-label>Brand Management</ion-label>
         </ion-segment-button>
         <ion-segment-button value="product">
           <ion-label>Product Management</ion-label>
         </ion-segment-button>
+        <ion-segment-button value="color">
+          <ion-label>Color Management</ion-label>
+        </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
   </ion-header>
 
-  <ng-container
-    *ngIf="showBrandPage; then brands; else products"
-  ></ng-container>
+  <ng-container *ngIf="showBrandPage === 'brand'">
+    <app-brands-list></app-brands-list>
+  </ng-container>
+  <ng-container *ngIf="showBrandPage === 'product'">
+    <app-product-list></app-product-list>
+  </ng-container>
+  <ng-container *ngIf="showBrandPage === 'color'">
+    <app-color-admin></app-color-admin>
+  </ng-container>
 </ion-content>
-
-<ng-template #brands>
-  <app-brands-list></app-brands-list>
-</ng-template>
-<ng-template #products> <app-product-list></app-product-list></ng-template>

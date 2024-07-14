@@ -18,7 +18,7 @@ export const productNewCreation = async (req: Request, res: Response) => {
     res.status(200).json("Product Created Successfully\nOK!");
     return;
   } catch (error) {
-    console.log(error);
+    console.log(error, "error");
     res.status(500).json("Internal Server Error");
     return;
   }
@@ -155,6 +155,7 @@ export const deleteProduct = async (req: Request, res: Response) => {
     await deleteProductQuery(parsedId);
     res.status(200).json("Product Deleted Successfully\nOK!");
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };
