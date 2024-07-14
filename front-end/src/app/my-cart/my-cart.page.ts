@@ -26,19 +26,13 @@ export class MyCartPage implements OnInit {
 
   increment(itemInfo) {
     this.cartService.addToCart({
-      id: 1,
-      name: "test",
-      price: 10,
-      quantity: 1,
+      ...itemInfo,
     });
   }
 
   decrease(itemInfo) {
     this.cartService.removeFromCart({
-      id: 1,
-      name: "test",
-      price: 10,
-      quantity: 1,
+      ...itemInfo,
     });
   }
 }

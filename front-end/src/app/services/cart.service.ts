@@ -28,11 +28,29 @@ export class CartService {
     if (productsInCart.length == 0 || !productsInCart) {
       productsInCart.push(itemInfo);
     } else {
+      console.log(
+        productsInCart.map((product) => product.id).indexOf(itemInfo.id)
+      );
       const existingProductId = productsInCart
-        .map((product) => product.id)
+        .map((product) => {
+          if (
+            product.id == itemInfo.id &&
+            product.size == itemInfo.size &&
+            product.color == itemInfo.color
+          )
+            return product.id;
+          else return -1;
+        })
+        // .map((product) => product.id)
         .indexOf(itemInfo.id);
-      if (existingProductId != -1) productsInCart[existingProductId].quantity++;
-      else productsInCart.push(itemInfo);
+      if (existingProductId != -1) {
+        if (
+          productsInCart[existingProductId].size == itemInfo.size &&
+          productsInCart[existingProductId].color == itemInfo.color
+        )
+          productsInCart[existingProductId].quantity++;
+        else productsInCart.push(itemInfo);
+      } else productsInCart.push(itemInfo);
     }
     this.updateCart(productsInCart);
   }

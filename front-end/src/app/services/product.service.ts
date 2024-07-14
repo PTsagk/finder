@@ -30,9 +30,12 @@ export class ProductService {
     );
   }
   getBestSellerProducts() {
-    return this.http.get("http://localhost:8000/product/get_top_bestsellers", {
-      withCredentials: true,
-    });
+    return this.http.get(
+      "http://localhost:8000/product/get_top_bestsellers/3",
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   getProducts() {

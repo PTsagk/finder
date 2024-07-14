@@ -61,11 +61,7 @@
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
       >
         <ion-slide *ngFor="let product of featuredProducts">
-          <ion-col
-            class="ion-text-left"
-            routerLink="/item-details"
-            routerDirection="forward"
-          >
+          <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />
             <p>${{ product.price }}</p>
             <h6>{{ product.name }}</h6>
@@ -83,11 +79,7 @@
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
       >
         <ion-slide *ngFor="let product of bestSellProducts">
-          <ion-col
-            class="ion-text-left"
-            routerLink="/item-details"
-            routerDirection="forward"
-          >
+          <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />
             <p>${{ product.price }}</p>
             <h6>{{ product.name }}</h6>
@@ -110,11 +102,7 @@
         class="product-card-container"
       >
         <div *ngFor="let product of products" class="product-card">
-          <ion-col
-            class="ion-text-left"
-            routerLink="/item-details"
-            routerDirection="forward"
-          >
+          <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />
             <p>${{ product.price }}</p>
             <div style="display: flex; align-items: center; margin-top: 10px">
