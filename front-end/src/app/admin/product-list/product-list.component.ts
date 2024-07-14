@@ -10,6 +10,14 @@ import { ProductCreatePopupComponent } from "../product-create-popup/product-cre
 })
 export class ProductListComponent implements OnInit {
   products: IProduct[] = [];
+  searchFilter = "";
+  get filteredProducts() {
+    return this.products.filter((product: IProduct) => {
+      return product.name
+        .toLowerCase()
+        .includes(this.searchFilter.toLowerCase());
+    });
+  }
 
   constructor(
     private productService: ProductService,

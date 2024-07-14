@@ -74,17 +74,6 @@
                 <ion-label>Admin</ion-label>
               </ion-item>
             </ion-menu-toggle>
-            <ion-menu-toggle auto-hide="false" *ngIf="isAdmin">
-              <ion-item
-                lines="none"
-                (click)="navigate('/test', 7)"
-                detail="false"
-                class="ion-text-center"
-                [class.selected]="selectedIndex == 7"
-              >
-                <ion-label>Test</ion-label>
-              </ion-item>
-            </ion-menu-toggle>
           </ion-list>
 
           <!-- Close Button -->
