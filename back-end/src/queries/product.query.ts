@@ -165,11 +165,26 @@ export async function deleteProductQuery(id: number) {
   const [rows] = await sqlPool.query(`DELETE FROM product WHERE id = ?`, [id]);
 }
 
-export async function getSearchResultsQuery(search: string) {
-  const [rows] = await sqlPool.query(
-    `SELECT * FROM product WHERE name LIKE ? OR description LIKE ? LIMIT 1000`,
-    [`%${search}%`, `%${search}%`]
-  );
+export async function getSearchResultsQuery(
+  search: string,
+  minPrice?: number,
+  maxPrice?: number
+) {
+  let query = `SELECT * FROM product WHERE (name LIKE ? OR description LIKE ?)`;
+  const params: any[] = [`%${search}%`, `%${search}%`];
+
+  if (minPrice !== undefined) {
+    query += ` AND price >= ?`;
+    params.push(minPrice);
+  }
+  if (maxPrice !== undefined) {
+    query += ` AND price <= ?`;
+    params.push(maxPrice);
+  }
+
+  query += ` LIMIT 1000`;
+
+  const [rows] = await sqlPool.query(query, params);
 
   const hasProfaneWord = search
     .toLowerCase()
