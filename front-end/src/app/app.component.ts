@@ -3,10 +3,11 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
-import { Platform } from "@ionic/angular";
+import { ModalController, Platform } from "@ionic/angular";
 import { menuController } from "@ionic/core";
 import { UserService } from "./services/user.service";
 import { UtilService } from "./services/util.service";
+import { MyCartPage } from "./my-cart/my-cart.page";
 
 @Component({
   selector: "app-root",
@@ -25,7 +26,8 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private util: UtilService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private modalController: ModalController
   ) {
     this.initializeApp();
   }
@@ -54,6 +56,14 @@ export class AppComponent implements OnInit {
   navigate(path, selectedId) {
     this.selectedIndex = selectedId;
     this.router.navigate([path]);
+  }
+  async openCartModal() {
+    const modal = await this.modalController.create({
+      component: MyCartPage,
+      cssClass: "cart-modal",
+    });
+
+    return await modal.present();
   }
 
   close() {
