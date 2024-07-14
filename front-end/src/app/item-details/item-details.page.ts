@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import {
   Animation,
   AnimationController,
@@ -6,6 +6,7 @@ import {
 } from "@ionic/angular";
 import { CartService } from "app/services/cart.service";
 import { MyCartPage } from "app/my-cart/my-cart.page";
+import { IProduct } from "app/services/product.service";
 
 @Component({
   selector: "app-item-details",
@@ -13,15 +14,17 @@ import { MyCartPage } from "app/my-cart/my-cart.page";
   styleUrls: ["./item-details.page.scss"],
 })
 export class ItemDetailsPage implements OnInit {
-  selectedSize: number;
-  selectedColor: number;
+  selectedSize: number = 1;
+  selectedColor: number = 1;
   activeVariation: string;
   itemInfo: any;
   productCount = 0;
+  @Input() product: IProduct;
+
   constructor(
     private animatioCntrl: AnimationController,
     private cartService: CartService,
-    private modalController: ModalController
+    public modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -86,11 +89,10 @@ export class ItemDetailsPage implements OnInit {
 
   addToCart() {
     this.cartService.addToCart({
-      id: 3,
-      name: "test",
-      price: 10,
+      ...this.product,
       quantity: 1,
-      size: "SMALL",
+      size: this.selectedSize,
+      color: this.selectedColor,
     });
   }
 }

@@ -24,7 +24,7 @@ router
   .route("/get_all_products_by_category/:category")
   .post(getAllProductsByCategory);
 router.route("/get_product").get(getProductById);
-router.route("/get_top_bestsellers/:bestSellers").get(getTop_Nth_BestSellers);
+router.route("/get_top_bestsellers/:bestsellers").get(getTop_Nth_BestSellers);
 router
   .route("/get_bestsellers_by_category")
   .get(getTop_Nth_BestSellersByCategory);

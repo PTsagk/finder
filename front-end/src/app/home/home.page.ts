@@ -4,7 +4,8 @@ import { ModalController } from "@ionic/angular";
 import { FiltersPage } from "app/filters/filters.page";
 import { MyCartPage } from "app/my-cart/my-cart.page";
 import { CartService } from "app/services/cart.service";
-import { ProductService } from "app/services/product.service";
+import { IProduct, ProductService } from "app/services/product.service";
+import { ItemDetailsPage } from "app/item-details/item-details.page";
 // import { ModalPage } from '../modal/modal.page';
 // @ts-ignore
 // import { ModalPage } from "../modal/modal.page";
@@ -65,6 +66,17 @@ export class HomePage implements OnInit {
           this.products = products;
         }
       });
+  }
+
+  async openItemDetails(product: IProduct) {
+    const modal = await this.modalController.create({
+      component: ItemDetailsPage,
+      cssClass: "my-custom-class",
+      componentProps: {
+        product,
+      },
+    });
+    return await modal.present();
   }
 
   clearCategory() {

@@ -15,18 +15,19 @@
     <ion-card mode="ios" *ngFor="let product of cartProducts">
       <ion-card-content>
         <div class="item-img">
-          <img src="../../assets/cart/cart1.png" />
+          <img [src]="product.image" />
         </div>
 
         <div class="item-info">
           <p>{{product.name}}</p>
-          <p>{{product.size}}</p>
-          <p>{{product.price}}</p>
+          <p>Size: {{product.size}}</p>
+          <p>Color: {{product.color}}</p>
+          <p>{{product.price}}$</p>
 
           <div class="qty-selector">
-            <ion-button fill="clear" (click)="decrease()">-</ion-button>
+            <ion-button fill="clear" (click)="decrease(product)">-</ion-button>
             <ion-label>{{product.quantity}}</ion-label>
-            <ion-button fill="clear" (click)="increment()">+</ion-button>
+            <ion-button fill="clear" (click)="increment(product)">+</ion-button>
           </div>
         </div>
       </ion-card-content>
