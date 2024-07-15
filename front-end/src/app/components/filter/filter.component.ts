@@ -3,6 +3,7 @@ import { ModalController } from "@ionic/angular";
 import { BrandService, IBrand } from "app/services/brand.service";
 import { ColorService, IColor } from "app/services/color.service";
 import { FilterService, IFilters } from "app/services/filter.service";
+import { ISize, SizeService } from "app/services/size.service";
 
 @Component({
   selector: "app-filter",
@@ -13,10 +14,12 @@ export class FilterComponent implements OnInit {
   filters: IFilters = {};
   brands: IBrand[] = [];
   colors: IColor[] = [];
+  sizes: ISize[] = [];
   constructor(
     public modalController: ModalController,
     private brandService: BrandService,
     private colorService: ColorService,
+    private sizeService: SizeService,
     private filterService: FilterService
   ) {}
   ngOnInit() {
@@ -25,6 +28,9 @@ export class FilterComponent implements OnInit {
     });
     this.colorService.getColors().subscribe((colors: IColor[]) => {
       this.colors = colors;
+    });
+    this.sizeService.getSizes().subscribe((sizes: IColor[]) => {
+      this.sizes = sizes;
     });
     this.filters = this.filterService.filters;
   }
@@ -47,5 +53,8 @@ export class FilterComponent implements OnInit {
   }
   selectColors(ev: CustomEvent) {
     this.filters.color_ids = ev.detail.value;
+  }
+  selectSizes(ev: CustomEvent) {
+    this.filters.size_ids = ev.detail.value;
   }
 }

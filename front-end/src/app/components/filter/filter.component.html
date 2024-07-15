@@ -24,7 +24,19 @@
     }}</ion-select-option>
   </ion-select>
 </ion-item>
-
+<ion-item>
+  <ion-select
+    aria-label="size"
+    placeholder="Select size"
+    (ionChange)="selectSizes($event)"
+    [multiple]="true"
+    [value]="filters.size_ids"
+  >
+    <ion-select-option *ngFor="let size of sizes" [value]="size.id">{{
+      size.name
+    }}</ion-select-option>
+  </ion-select>
+</ion-item>
 <ion-button expand="block" class="main-button" (click)="apply()"
   >Apply Filters</ion-button
 >

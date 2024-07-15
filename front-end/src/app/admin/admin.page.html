@@ -25,13 +25,16 @@
     <ion-toolbar>
       <ion-segment (ionChange)="changePage($event)" [value]="showBrandPage">
         <ion-segment-button value="brand">
-          <ion-label>Brand Management</ion-label>
+          <ion-label>Brand</ion-label>
         </ion-segment-button>
         <ion-segment-button value="product">
-          <ion-label>Product Management</ion-label>
+          <ion-label>Product</ion-label>
         </ion-segment-button>
         <ion-segment-button value="color">
-          <ion-label>Color Management</ion-label>
+          <ion-label>Color</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="size">
+          <ion-label>Size</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
@@ -45,5 +48,8 @@
   </ng-container>
   <ng-container *ngIf="showBrandPage === 'color'">
     <app-color-admin></app-color-admin>
+  </ng-container>
+  <ng-container *ngIf="showBrandPage === 'size'">
+    <app-sizes-admin></app-sizes-admin>
   </ng-container>
 </ion-content>

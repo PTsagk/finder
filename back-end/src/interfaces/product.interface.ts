@@ -8,4 +8,5 @@ export interface IProductCreate {
   brand_id: number;
   featured: boolean;
   color_ids: number[];
+  size_ids: number[];
 }

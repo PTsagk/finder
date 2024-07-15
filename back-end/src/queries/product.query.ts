@@ -34,6 +34,18 @@ export async function createNewProductQuery(product: IProductCreate) {
       -1
     )}`
   );
+
+  let productSizeQuery = "";
+  product.size_ids.forEach((sizeId) => {
+    productSizeQuery += `(${rows.insertId},${sizeId}),`;
+  });
+  await sqlPool.query(
+    `INSERT INTO product_size (product_id,size_id) VALUES ${productSizeQuery.slice(
+      0,
+      -1
+    )}`
+  );
+
   //@ts-ignore
   return rows[0];
 }
@@ -70,6 +82,21 @@ export async function updateProductQuery(product: IProductCreate) {
       -1
     )}`
   );
+
+  await sqlPool.query(`DELETE FROM product_size WHERE product_id = ?`, [
+    product.id,
+  ]);
+
+  let productSizeQuery = "";
+  product.size_ids.forEach((sizeId) => {
+    productSizeQuery += `(${product.id},${sizeId}),`;
+  });
+  await sqlPool.query(
+    `INSERT INTO product_size (product_id,size_id) VALUES ${productSizeQuery.slice(
+      0,
+      -1
+    )}`
+  );
   //@ts-ignore
   return rows[0];
 }
@@ -78,16 +105,19 @@ export async function getAllProductsQuery() {
   // @ts-ignore
   // let [rows] = await sqlPool.query(`SELECT * FROM product`);
   let [rows] = await sqlPool.query(
-    `SELECT p.*,pc.color_id FROM finder.product as p INNER JOIN finder.product_color as pc ON p.id = pc.product_id`
+    `SELECT p.*,pc.color_id,ps.size_id FROM finder.product as p LEFT JOIN finder.product_color as pc ON p.id = pc.product_id LEFT JOIN finder.product_size as ps ON p.id = ps.product_id`
   );
 
   rows = (rows as [any]).reduce((object, item: any) => {
     if (item.id in object) {
       object[item.id].color_ids.push(item.color_id);
+      object[item.id].size_ids.push(item.size_id);
       delete object[item.id].color_id;
+      delete object[item.id].size_id;
     } else {
       object[item.id] = item;
       object[item.id].color_ids = [item.color_id];
+      object[item.id].size_ids = [item.size_id];
     }
     return object;
   }, {});
@@ -99,15 +129,27 @@ export async function getAllProductsByCategoryQuery(
   category: string,
   filters: any
 ) {
-  let extraQuery = "";
-  if (filters.brand_ids) {
-    extraQuery = `AND brand_id IN (${filters.brand_ids})`;
+  let whereQuery = `WHERE p.category = '${category}'`;
+  if (filters.brand_ids?.length) {
+    whereQuery += ` AND brand_id IN (${filters.brand_ids})`;
+  }
+
+  let colorQuery = "";
+  if (filters.color_ids?.length) {
+    colorQuery = `JOIN product_color pc ON p.id = pc.product_id`;
+    whereQuery += ` AND pc.color_id IN (${filters.color_ids})`;
+  }
+
+  let sizeQuery = "";
+  if (filters.size_ids?.length) {
+    sizeQuery = `JOIN product_size ps ON p.id = ps.product_id`;
+    whereQuery += ` AND ps.size_id IN (${filters.size_ids})`;
   }
 
   // @ts-ignore
   const [rows] = await sqlPool.query(
-    `SELECT p.* FROM product p WHERE category = ? ${extraQuery} INNER JOIN product_color pc ON p.id = pc.product_id AND pc.color_id IN (${filters.color_ids})`,
-    [category]
+    `SELECT DISTINCT p.* FROM product p ${colorQuery} ${sizeQuery} ${whereQuery}`,
+    []
   );
 
   return rows;

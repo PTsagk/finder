@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 export interface IFilters {
   brand_ids?: number[];
   color_ids?: number[];
+  size_ids?: number[];
 }
 
 @Injectable({

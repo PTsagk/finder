@@ -101,6 +101,7 @@
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
         class="product-card-container"
       >
+        <div *ngIf="!products.length">No products found matching filters</div>
         <div *ngFor="let product of products" class="product-card">
           <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />

@@ -1,0 +1,9 @@
+<ion-input
+  label="New Size"
+  placeholder="Create new size"
+  [(ngModel)]="size.name"
+></ion-input>
+<ion-button (click)="updateSize()" class="main-button"> Update </ion-button>
+<ion-button (click)="deleteSize()" class="secondary-button">
+  Delete
+</ion-button>

@@ -40,48 +40,6 @@ export class DataService {
     return categories;
   }
 
-  getFeaturedProducts() {
-    let products = [];
-
-    let prod1: IProduct = {
-      id: 1,
-      name: "Womens T-Shirt",
-      price: 55,
-      image: "../../assets/products/prod-1.png",
-      brand_id: 1,
-      featured: true,
-      rating: 4.5,
-      description: "Womens T-Shirt",
-      category: "womens",
-    };
-    let prod2: IProduct = {
-      id: 2,
-      name: "Mens T-Shirt",
-      price: 34,
-      image: "../../assets/products/prod-2.png",
-      brand_id: 1,
-      featured: true,
-      rating: 4.5,
-      description: "Womens T-Shirt",
-      category: "womens",
-    };
-    let prod3: IProduct = {
-      id: 1,
-      name: "Womens T-Shirt",
-      price: 40,
-      image: "../../assets/products/prod-3.png",
-      brand_id: 1,
-      featured: true,
-      rating: 4.5,
-      description: "Womens T-Shirt",
-      category: "womens",
-    };
-
-    products.push(prod1, prod2, prod3);
-
-    return products;
-  }
-
   getBestSellProducts() {
     let products = [];
 
@@ -95,6 +53,7 @@ export class DataService {
       rating: 4.5,
       description: "Womens T-Shirt",
       category: "womens",
+      color_ids: [1, 2, 3],
     };
     let prod2: IProduct = {
       id: 2,
@@ -106,6 +65,7 @@ export class DataService {
       rating: 4.5,
       description: "Womens T-Shirt",
       category: "womens",
+      color_ids: [1, 2, 3],
     };
     let prod3: IProduct = {
       id: 1,
@@ -117,6 +77,7 @@ export class DataService {
       rating: 4.5,
       description: "Womens T-Shirt",
       category: "womens",
+      color_ids: [1, 2, 3],
     };
 
     products.push(prod1, prod2, prod3);
