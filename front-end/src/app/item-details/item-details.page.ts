@@ -42,12 +42,13 @@ export class ItemDetailsPage implements OnInit {
 
     this.productService
       .getProductReviews(this.product.id)
-      .subscribe((reviews: any) => {
-        console.log(reviews);
-        this.reviews = reviews;
+      .subscribe((res: any) => {
+        console.log(res);
+        this.reviews = res.reviews;
       });
 
     this.sizeService.getSizes().subscribe((sizes: any) => {
+      console.log(sizes, this.product);
       this.sizes = sizes.filter((size) =>
         this.product.size_ids.includes(size.id)
       );
@@ -132,9 +133,9 @@ export class ItemDetailsPage implements OnInit {
     await modal.onDidDismiss();
     this.productService
       .getProductReviews(this.product.id)
-      .subscribe((reviews: any) => {
-        console.log(reviews);
-        this.reviews = reviews;
+      .subscribe((res: any) => {
+        console.log(res);
+        this.reviews = res.reviews;
       });
   }
 }
