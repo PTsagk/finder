@@ -208,7 +208,6 @@ export async function getTop_Nth_BestSellersQuery(bestsellers: number = 3) {
     JOIN order_counts oc ON p.id = oc.product_id;`,
     [bestsellers]
   );
-
   //@ts-ignore
   return rows;
 }

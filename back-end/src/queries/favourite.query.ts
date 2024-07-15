@@ -36,8 +36,6 @@ export async function getFavouritesByUserQuery(userId: number) {
 
     [userId]
   );
-
-  console.log(rows);
   //@ts-ignore
   return rows;
 }
