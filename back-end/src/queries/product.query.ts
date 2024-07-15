@@ -1,6 +1,7 @@
 import { IProductCreate } from "../interfaces/product.interface";
 import { Category } from "../models/category.model";
 import { Product } from "../models/product.model";
+import { SortBy } from "../models/sortBy.model";
 import { sqlPool } from "../mysqlPool";
 import {
   CommonNoMeaningWords,
@@ -168,18 +169,40 @@ export async function deleteProductQuery(id: number) {
 export async function getSearchResultsQuery(
   search: string,
   minPrice?: number,
-  maxPrice?: number
+  maxPrice?: number,
+  colorIds?: number[],
+  brandIds?: number[],
+  sizeIds?: number[],
+  sortBy: SortBy = "relevancy"
 ) {
-  let query = `SELECT * FROM product WHERE (name LIKE ? OR description LIKE ?)`;
+  let query = `
+    SELECT DISTINCT p.* 
+    FROM product p
+    LEFT JOIN product_color pc ON p.id = pc.product_id
+    LEFT JOIN product_size ps ON p.id = ps.product_id
+    WHERE (p.name LIKE ? OR p.description LIKE ?)
+  `;
   const params: any[] = [`%${search}%`, `%${search}%`];
 
   if (minPrice !== undefined) {
-    query += ` AND price >= ?`;
+    query += ` AND p.price >= ?`;
     params.push(minPrice);
   }
   if (maxPrice !== undefined) {
-    query += ` AND price <= ?`;
+    query += ` AND p.price <= ?`;
     params.push(maxPrice);
+  }
+  if (colorIds && colorIds.length > 0) {
+    query += ` AND pc.color_id IN (${colorIds.map(() => "?").join(", ")})`;
+    params.push(...colorIds);
+  }
+  if (brandIds && brandIds.length > 0) {
+    query += ` AND p.brand_id IN (${brandIds.map(() => "?").join(", ")})`;
+    params.push(...brandIds);
+  }
+  if (sizeIds && sizeIds.length > 0) {
+    query += ` AND ps.size_id IN (${sizeIds.map(() => "?").join(", ")})`;
+    params.push(...sizeIds);
   }
 
   query += ` LIMIT 1000`;
@@ -215,7 +238,9 @@ export async function getSearchResultsQuery(
     const nameWords = product.name.toLowerCase().split(" ");
     const descriptionWords = product.description.toLowerCase().split(" ");
 
-    let score = 0;
+    let exact_number_of_occurances = 0;
+    let similar_number_of_occurances = 0;
+    let weightedScoreForExactMatches = 0;
 
     searchWords.forEach((word) => {
       const nameWordCount = nameWords.filter((w) => w === word).length;
@@ -229,23 +254,77 @@ export async function getSearchResultsQuery(
         w.includes(word)
       ).length;
 
-      score += (nameWordCount + descriptionWordCount) * 2;
-      score += nameSubstringCount + descriptionSubstringCount;
+      exact_number_of_occurances += nameWordCount + descriptionWordCount;
+
+      similar_number_of_occurances +=
+        nameWordCount +
+        descriptionWordCount +
+        nameSubstringCount +
+        descriptionSubstringCount;
+
+      weightedScoreForExactMatches +=
+        ((nameWordCount + descriptionWordCount) * 10 +
+          nameSubstringCount +
+          descriptionSubstringCount) *
+        10000;
     });
 
     const totalWords = nameWords.length + descriptionWords.length;
-    return totalWords > 0 ? score / totalWords : 0;
+    const relevancy_score =
+      totalWords > 0
+        ? weightedScoreForExactMatches / totalWords + totalWords
+        : 0;
+    return {
+      relevancy_score,
+      similar_number_of_occurances,
+      exact_number_of_occurances,
+    };
   };
 
   //@ts-ignore
-  const productsWithScores = rows.map((product: any) => ({
-    ...product,
-    score: calculateScore(product),
-  }));
+  const productsWithScores = rows.map((product: any) => {
+    const {
+      relevancy_score,
+      exact_number_of_occurances,
+      similar_number_of_occurances,
+    } = calculateScore(product);
+    return {
+      ...product,
+      relevancy_score,
+      number_of_substring_and_string_matches: similar_number_of_occurances,
+      exact_number_of_matches: exact_number_of_occurances,
+    };
+  });
 
-  const filteredSortedProducts = productsWithScores
-    .filter((product: any) => product.score > 0)
-    .sort((a: any, b: any) => b.score - a.score);
+  let filteredSortedProducts = [];
 
+  switch (sortBy) {
+    case "relevancy":
+      filteredSortedProducts = productsWithScores
+        .filter((product: any) => product.relevancy_score > 0)
+        .sort((a: any, b: any) => b.relevancy_score - a.relevancy_score);
+      break;
+    case "substring_matches":
+      filteredSortedProducts = productsWithScores
+        .filter(
+          (product: any) => product.number_of_substring_and_string_matches > 0
+        )
+        .sort(
+          (a: any, b: any) =>
+            b.number_of_substring_and_string_matches -
+            a.number_of_substring_and_string_matches
+        );
+      break;
+    case "exact_matches":
+      filteredSortedProducts = productsWithScores
+        .filter((product: any) => product.exact_number_of_matches > 0)
+        .sort(
+          (a: any, b: any) =>
+            b.exact_number_of_matches - a.exact_number_of_matches
+        );
+      break;
+    default:
+      throw new Error("Invalid sort type specified.");
+  }
   return filteredSortedProducts;
 }
