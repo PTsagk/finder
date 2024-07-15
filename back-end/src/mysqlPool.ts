@@ -12,4 +12,3 @@ const sqlPool = mysql
   .promise();
 
 export { sqlPool };
-

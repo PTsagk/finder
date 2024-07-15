@@ -31,7 +31,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.categories = this.data.getCategories();
-    this.featuredProducts = this.data.getFeaturedProducts();
     this.bestSellProducts = this.data.getBestSellProducts();
     this.cartService.cartProducts.subscribe((products) => {
       this.productCount = 0;

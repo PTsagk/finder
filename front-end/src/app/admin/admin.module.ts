@@ -11,8 +11,10 @@ import { BrandModalComponent } from "./brand-modal/brand-modal.component";
 import { BrandsListComponent } from "./brands-list/brands-list.component";
 import { ColorAdminComponent } from "./color-admin/color-admin.component";
 import { PopupColorComponent } from "./popup-color/popup-color.component";
+import { PopupSizeCreateComponent } from "./popup-size-create/popup-size-create.component";
 import { ProductCreatePopupComponent } from "./product-create-popup/product-create-popup.component";
 import { ProductListComponent } from "./product-list/product-list.component";
+import { SizesAdminComponent } from "./sizes-admin/sizes-admin.component";
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, AdminPageRoutingModule],
@@ -24,6 +26,8 @@ import { ProductListComponent } from "./product-list/product-list.component";
     ProductCreatePopupComponent,
     ColorAdminComponent,
     PopupColorComponent,
+    SizesAdminComponent,
+    PopupSizeCreateComponent,
   ],
 })
 export class AdminPageModule {}

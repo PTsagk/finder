@@ -7,6 +7,7 @@ import brandRoute from "./routes/brand.route";
 import colorRoute from "./routes/color.route";
 import productRoute from "./routes/product.route";
 import reviewRoute from "./routes/review.route";
+import sizeRoute from "./routes/size.route";
 import userRoute from "./routes/user.route";
 
 const upload = multer();
@@ -44,6 +45,7 @@ app.use("/review", reviewRoute);
 app.use("/brand", brandRoute);
 app.use("/product", productRoute);
 app.use("/color", colorRoute);
+app.use("/size", sizeRoute);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);

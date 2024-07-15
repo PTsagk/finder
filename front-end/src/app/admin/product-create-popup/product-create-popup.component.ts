@@ -4,6 +4,7 @@ import { BrandService, IBrand } from "app/services/brand.service";
 import { ColorService, IColor } from "app/services/color.service";
 import { missingImageUrl } from "app/services/data.service";
 import { IProduct, ProductService } from "app/services/product.service";
+import { ISize, SizeService } from "app/services/size.service";
 
 @Component({
   selector: "app-product-create-popup",
@@ -14,6 +15,7 @@ export class ProductCreatePopupComponent implements OnInit {
   @Input() product!: IProduct;
   brands: IBrand[] = [];
   colors: IColor[] = [];
+  sizes: ISize[] = [];
   isEditing: boolean = false;
 
   missingImageUrl = missingImageUrl;
@@ -21,7 +23,8 @@ export class ProductCreatePopupComponent implements OnInit {
     private modalController: ModalController,
     private productService: ProductService,
     private brandService: BrandService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    private sizeService: SizeService
   ) {}
 
   ngOnInit() {
@@ -31,6 +34,9 @@ export class ProductCreatePopupComponent implements OnInit {
     });
     this.colorService.getColors().subscribe((colors: IBrand[]) => {
       this.colors = colors;
+    });
+    this.sizeService.getSizes().subscribe((sizes: IBrand[]) => {
+      this.sizes = sizes;
     });
   }
 
@@ -74,6 +80,9 @@ export class ProductCreatePopupComponent implements OnInit {
 
   changeColors(ev: any) {
     this.product.color_ids = ev.detail.value;
+  }
+  changeSizes(ev: any) {
+    this.product.size_ids = ev.detail.value;
   }
 
   changeCategory(ev: any) {
