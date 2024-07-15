@@ -1,6 +1,10 @@
-import { IProductCreate } from "../interfaces/product.interface";
+import {
+  IProductCreate,
+  IProductResult,
+} from "../interfaces/product.interface";
 import { Category } from "../models/category.model";
 import { Product } from "../models/product.model";
+import { SortBy } from "../models/sortBy.model";
 import { sqlPool } from "../mysqlPool";
 import {
   CommonNoMeaningWords,
@@ -251,24 +255,12 @@ export async function deleteProductQuery(id: number) {
 export async function getSearchResultsQuery(
   search: string,
   minPrice?: number,
-  maxPrice?: number
+  maxPrice?: number,
+  colorIds?: number[],
+  brandIds?: number[],
+  sizeIds?: number[],
+  sortBy: SortBy = "relevancy"
 ) {
-  let query = `SELECT * FROM product WHERE (name LIKE ? OR description LIKE ?)`;
-  const params: any[] = [`%${search}%`, `%${search}%`];
-
-  if (minPrice !== undefined) {
-    query += ` AND price >= ?`;
-    params.push(minPrice);
-  }
-  if (maxPrice !== undefined) {
-    query += ` AND price <= ?`;
-    params.push(maxPrice);
-  }
-
-  query += ` LIMIT 1000`;
-
-  const [rows] = await sqlPool.query(query, params);
-
   const hasProfaneWord = search
     .toLowerCase()
     .split(" ")
@@ -294,41 +286,243 @@ export async function getSearchResultsQuery(
     .split(" ")
     .filter((word) => !CommonNoMeaningWords.has(word));
 
+  let query = `
+    SELECT DISTINCT p.* 
+    FROM product p
+    LEFT JOIN product_color pc ON p.id = pc.product_id
+    LEFT JOIN product_size ps ON p.id = ps.product_id
+    WHERE (
+  `;
+
+  const likeClauses = searchWords.map(
+    (word) => `(p.name LIKE ? OR p.description LIKE ?)`
+  );
+  query += likeClauses.join(" OR ");
+  query += `)`;
+
+  const params: any[] = [];
+  searchWords.forEach((word) => {
+    params.push(`%${word}%`, `%${word}%`);
+  });
+
+  if (minPrice !== undefined) {
+    query += ` AND p.price >= ?`;
+    params.push(minPrice);
+  }
+  if (maxPrice !== undefined) {
+    query += ` AND p.price <= ?`;
+    params.push(maxPrice);
+  }
+  if (colorIds && colorIds.length > 0) {
+    query += ` AND pc.color_id IN (${colorIds.map(() => "?").join(", ")})`;
+    params.push(...colorIds);
+  }
+  if (brandIds && brandIds.length > 0) {
+    query += ` AND p.brand_id IN (${brandIds.map(() => "?").join(", ")})`;
+    params.push(...brandIds);
+  }
+  if (sizeIds && sizeIds.length > 0) {
+    query += ` AND ps.size_id IN (${sizeIds.map(() => "?").join(", ")})`;
+    params.push(...sizeIds);
+  }
+
+  query += ` LIMIT 5000`;
+
+  const [rows] = await sqlPool.query(query, params);
+  //@ts-ignore
+  const productIds = rows.map((row: any) => row.id);
+
+  if (productIds.length === 0) {
+    return [];
+  }
+
+  const placeholders = productIds.map(() => "?").join(", ");
+  const reviewsQuery = `
+    SELECT * 
+    FROM review 
+    WHERE product_id IN (${placeholders})
+    ORDER BY product_id
+  `;
+  const [reviews] = await sqlPool.query(reviewsQuery, productIds);
+
+  const [reviewStats] = await sqlPool.query(
+    `SELECT product_id, COUNT(*) AS total_reviews, COUNT(score) AS number_of_rated_reviews, AVG(score) AS reviews_average_rating 
+    FROM review 
+    WHERE product_id IN (${placeholders})
+    GROUP BY product_id`,
+    productIds
+  );
+
+  const [salesStats] = await sqlPool.query(
+    `SELECT product_id, COUNT(*) AS number_of_sales 
+    FROM order 
+    WHERE product_id IN (${placeholders})
+    GROUP BY product_id`,
+    productIds
+  );
+
+  // Create a map for review stats
+  //@ts-ignore
+  const reviewStatsMap = reviewStats.reduce((acc: any, stat: any) => {
+    acc[stat.product_id] = stat;
+    return acc;
+  }, {});
+
+  //@ts-ignore
+  const salesStatsMap = salesStats.reduce((acc: any, stat: any) => {
+    acc[stat.product_id] = stat.number_of_sales;
+    return acc;
+  }, {});
+
+  //@ts-ignore
+  const reviewsByProduct: { [key: number]: string[] } = reviews.reduce(
+    (acc: any, review: any) => {
+      acc[review.product_id] = acc[review.product_id] || [];
+      acc[review.product_id].push(review.description);
+      return acc;
+    },
+    {}
+  );
+
   const calculateScore = (product: Product) => {
     const nameWords = product.name.toLowerCase().split(" ");
     const descriptionWords = product.description.toLowerCase().split(" ");
+    const reviewTexts = reviewsByProduct[product.id] || [];
+    const reviewWords = reviewTexts.flatMap((text) =>
+      text.toLowerCase().split(" ")
+    );
 
-    let score = 0;
+    let exact_number_of_occurances = 0;
+    let similar_number_of_occurances = 0;
+    let weightedScoreForExactMatches = 0;
 
     searchWords.forEach((word) => {
       const nameWordCount = nameWords.filter((w) => w === word).length;
       const descriptionWordCount = descriptionWords.filter(
         (w) => w === word
       ).length;
+      const reviewWordCount = reviewWords.filter((w) => w === word).length;
+
       const nameSubstringCount = nameWords.filter((w) =>
         w.includes(word)
       ).length;
       const descriptionSubstringCount = descriptionWords.filter((w) =>
         w.includes(word)
       ).length;
+      const reviewSubstringCount = reviewWords.filter((w) =>
+        w.includes(word)
+      ).length;
 
-      score += (nameWordCount + descriptionWordCount) * 2;
-      score += nameSubstringCount + descriptionSubstringCount;
+      exact_number_of_occurances +=
+        nameWordCount + descriptionWordCount + reviewWordCount;
+
+      similar_number_of_occurances +=
+        nameWordCount +
+        descriptionWordCount +
+        reviewWordCount +
+        nameSubstringCount +
+        descriptionSubstringCount +
+        reviewSubstringCount;
+
+      weightedScoreForExactMatches +=
+        ((nameWordCount + descriptionWordCount + reviewWordCount) * 10 +
+          nameSubstringCount +
+          descriptionSubstringCount +
+          reviewSubstringCount) *
+        10000;
     });
 
-    const totalWords = nameWords.length + descriptionWords.length;
-    return totalWords > 0 ? score / totalWords : 0;
+    const totalWords =
+      nameWords.length + descriptionWords.length + reviewWords.length;
+    const relevancy_score =
+      totalWords > 0
+        ? weightedScoreForExactMatches / totalWords + totalWords
+        : 0;
+    return {
+      relevancy_score,
+      similar_number_of_occurances,
+      exact_number_of_occurances,
+    };
   };
 
   //@ts-ignore
-  const productsWithScores = rows.map((product: any) => ({
-    ...product,
-    score: calculateScore(product),
-  }));
+  const productsWithScores: IProductResult[] = rows.map((product: any) => {
+    const {
+      relevancy_score,
+      exact_number_of_occurances,
+      similar_number_of_occurances,
+    } = calculateScore(product);
+    const reviewStats = reviewStatsMap[product.id] || {
+      total_reviews: 0,
+      number_of_rated_reviews: 0,
+      reviews_average_rating: 0,
+    };
+    const number_of_sales = salesStatsMap[product.id] || 0;
+    return {
+      ...product,
+      relevancy_score,
+      number_of_substring_and_string_matches: similar_number_of_occurances,
+      exact_number_of_matches: exact_number_of_occurances,
+      ...reviewStats,
+      number_of_sales,
+    };
+  });
 
-  const filteredSortedProducts = productsWithScores
-    .filter((product: any) => product.score > 0)
-    .sort((a: any, b: any) => b.score - a.score);
+  let sortedProducts: any[] = [];
 
-  return filteredSortedProducts;
+  switch (sortBy) {
+    case "relevancy":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.relevancy_score - a.relevancy_score
+      );
+      break;
+    case "substring_matches":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) =>
+          b.number_of_substring_and_string_matches -
+          a.number_of_substring_and_string_matches
+      );
+      break;
+    case "exact_matches":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) =>
+          b.exact_number_of_matches - a.exact_number_of_matches
+      );
+      break;
+    case "reviews_score":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.reviews_average_rating - a.reviews_average_rating
+      );
+      break;
+    case "reviews_count":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.total_reviews - a.total_reviews
+      );
+      break;
+    case "rated_reviews_count":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) =>
+          b.number_of_rated_reviews - a.number_of_rated_reviews
+      );
+      break;
+    case "date_added":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.created_at - a.created_at
+      );
+      break;
+    case "number_of_sales":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.number_of_sales - a.number_of_sales
+      );
+      break;
+    case "featured":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.featured - a.featured
+      );
+      break;
+    default:
+      throw new Error("Invalid sort type specified.");
+  }
+
+  return sortedProducts;
 }
