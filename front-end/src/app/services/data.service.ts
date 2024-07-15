@@ -54,6 +54,7 @@ export class DataService {
       description: "Womens T-Shirt",
       category: "womens",
       color_ids: [1, 2, 3],
+      size_ids: [1, 2, 3],
     };
     let prod2: IProduct = {
       id: 2,
@@ -66,6 +67,7 @@ export class DataService {
       description: "Womens T-Shirt",
       category: "womens",
       color_ids: [1, 2, 3],
+      size_ids: [1, 2, 3],
     };
     let prod3: IProduct = {
       id: 1,
@@ -78,6 +80,7 @@ export class DataService {
       description: "Womens T-Shirt",
       category: "womens",
       color_ids: [1, 2, 3],
+      size_ids: [1, 2, 3],
     };
 
     products.push(prod1, prod2, prod3);
