@@ -33,9 +33,6 @@ export class CartService {
     if (productsInCart.length == 0 || !productsInCart) {
       productsInCart.push(itemInfo);
     } else {
-      console.log(
-        productsInCart.map((product) => product.id).indexOf(itemInfo.id)
-      );
       const existingProductId = productsInCart
         .map((product) => {
           if (

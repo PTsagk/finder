@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
+import { CheckoutPage } from "app/checkout/checkout.page";
 import { CartService, ICartItem } from "app/services/cart.service";
 import { ColorService, IColor } from "app/services/color.service";
 import { ISize, SizeService } from "app/services/size.service";
@@ -53,5 +54,16 @@ export class MyCartPage implements OnInit {
     this.cartService.removeFromCart({
       ...itemInfo,
     });
+  }
+
+  async openCheckoutModal() {
+    const modal = await this.modalController.create({
+      component: CheckoutPage,
+      componentProps: {
+        cartProducts: this.cartProducts,
+      },
+    });
+
+    return await modal.present();
   }
 }
