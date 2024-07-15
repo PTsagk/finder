@@ -1,14 +1,14 @@
 import express from "express";
 import { authenticateAdminController } from "../controllers/auth.controller";
 import {
-  createColor,
-  deleteColor,
-  getColors,
-} from "../controllers/color.controller";
+  createFavourite,
+  deleteFavourite,
+  getFavourites,
+} from "../controllers/favourite.controller";
 
 const router = express.Router();
 
-router.route("/create").post(authenticateAdminController, createColor);
-router.route("/get_favourites").post(getColors);
-router.route("/delete").post(authenticateAdminController, deleteColor);
+router.route("/create").post(authenticateAdminController, createFavourite);
+router.route("/delete").post(authenticateAdminController, deleteFavourite);
+router.route("/get_favourites").post(getFavourites);
 export default router;
