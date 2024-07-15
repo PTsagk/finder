@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
-import { CartService } from "app/services/cart.service";
+import { CartService, ICartItem } from "app/services/cart.service";
+import { ColorService, IColor } from "app/services/color.service";
+import { ISize, SizeService } from "app/services/size.service";
 
 @Component({
   selector: "app-my-cart",
@@ -8,15 +10,32 @@ import { CartService } from "app/services/cart.service";
   styleUrls: ["./my-cart.page.scss"],
 })
 export class MyCartPage implements OnInit {
-  cartProducts: any[] = [];
+  cartProducts: ICartItem[] = [];
+  sizes: ISize[] = [];
+  colors: IColor[] = [];
+
+  getSizeName(cartItem: ICartItem) {
+    return this.sizes.find((size) => size.id == cartItem.size)?.name;
+  }
+  getColorName(cartItem: ICartItem) {
+    return this.colors.find((color) => color.id == cartItem.color)?.name;
+  }
   constructor(
     private modalController: ModalController,
-    private cartService: CartService
+    private cartService: CartService,
+    private sizeService: SizeService,
+    private colorService: ColorService
   ) {}
 
   ngOnInit() {
     this.cartService.cartProducts.subscribe((products) => {
       if (products) this.cartProducts = products;
+    });
+    this.sizeService.getSizes().subscribe((sizes: any) => {
+      this.sizes = sizes;
+    });
+    this.colorService.getColors().subscribe((colors: any) => {
+      this.colors = colors;
     });
   }
 

@@ -109,14 +109,12 @@
     </div>
 
     <div class="colors" [class.active-variation]="activeVariation == 'color'">
-      <div [class.active]="selectedColor == 1" (click)="changeColor(1)">
-        BLACK
-      </div>
-      <div [class.active]="selectedColor == 2" (click)="changeColor(2)">
-        GREEN
-      </div>
-      <div [class.active]="selectedColor == 3" (click)="changeColor(3)">
-        BLUE
+      <div
+        *ngFor="let color of colors"
+        [class.active]="selectedColor == color.id"
+        (click)="changeColor(color.id)"
+      >
+        {{color.name}}
       </div>
     </div>
   </div>

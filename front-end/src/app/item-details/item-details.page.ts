@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { AnimationController, ModalController } from "@ionic/angular";
 import { ReviewPage } from "app/review/review.page";
 import { CartService } from "app/services/cart.service";
+import { ColorService, IColor } from "app/services/color.service";
 import { IProduct, ProductService } from "app/services/product.service";
 import { ISize, SizeService } from "app/services/size.service";
 
@@ -11,21 +12,23 @@ import { ISize, SizeService } from "app/services/size.service";
   styleUrls: ["./item-details.page.scss"],
 })
 export class ItemDetailsPage implements OnInit {
-  selectedSize: number = 1;
-  selectedColor: number = 1;
+  selectedSize!: number;
+  selectedColor!: number;
   activeVariation: string;
   itemInfo: any;
   productCount = 0;
   public reviews = [];
   @Input() product: IProduct;
   sizes: ISize[] = [];
+  colors: IColor[] = [];
 
   constructor(
     private animatioCntrl: AnimationController,
     private productService: ProductService,
     private cartService: CartService,
     public modalController: ModalController,
-    private sizeService: SizeService
+    private sizeService: SizeService,
+    private colorService: ColorService
   ) {}
 
   ngOnInit() {
@@ -45,12 +48,16 @@ export class ItemDetailsPage implements OnInit {
       });
 
     this.sizeService.getSizes().subscribe((sizes: any) => {
-      console.log(sizes);
-      console.log(this.product);
       this.sizes = sizes.filter((size) =>
         this.product.size_ids.includes(size.id)
       );
-      console.log(this.sizes);
+      this.selectedSize = this.sizes[0].id;
+    });
+    this.colorService.getColors().subscribe((colors: any) => {
+      this.colors = colors.filter((color) =>
+        this.product.color_ids.includes(color.id)
+      );
+      this.selectedColor = this.colors[0].id;
     });
   }
 
