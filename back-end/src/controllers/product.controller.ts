@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { SortBy } from "../models/sortBy.model";
 import {
   createNewProductQuery,
   deleteProductQuery,
@@ -12,7 +13,6 @@ import {
   getTop_Nth_FeaturedProductsQuery,
   updateProductQuery,
 } from "../queries/product.query";
-import { SortBy } from "../models/sortBy.model";
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
@@ -42,6 +42,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
     const products = await getAllProductsQuery();
     res.status(200).json(products);
   } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };

@@ -36,7 +36,7 @@ export async function getColorsQuery() {
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `SELECT * FROM color LIMIT 1000`,
+    `SELECT * FROM color`,
 
     []
   );

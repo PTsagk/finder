@@ -106,6 +106,13 @@
           <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />
             <p>${{ product.price }}</p>
+            <button
+              class="fav-button"
+              [ngClass]="{'favourite': product.favourite}"
+              (click)="$event.stopPropagation(); clickFavourite(product)"
+            >
+              <ion-icon size="Large" name="heart-outline"></ion-icon>
+            </button>
             <div style="display: flex; align-items: center; margin-top: 10px">
               <h6>{{ product.name }}</h6>
               <ion-buttons

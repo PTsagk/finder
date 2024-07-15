@@ -114,14 +114,20 @@ export async function getAllProductsQuery() {
 
   rows = (rows as [any]).reduce((object, item: any) => {
     if (item.id in object) {
-      object[item.id].color_ids.push(item.color_id);
-      object[item.id].size_ids.push(item.size_id);
-      delete object[item.id].color_id;
-      delete object[item.id].size_id;
+      if (!object[item.id].color_ids.includes(item.color_id)) {
+        object[item.id].color_ids.push(item.color_id);
+        delete object[item.id].color_id;
+      }
+      if (!object[item.id].size_ids.includes(item.size_id)) {
+        object[item.id].size_ids.push(item.size_id);
+        delete object[item.id].size_id;
+      }
     } else {
       object[item.id] = item;
-      object[item.id].color_ids = [item.color_id];
       object[item.id].size_ids = [item.size_id];
+      object[item.id].color_ids = [item.color_id];
+      delete object[item.id].size_id;
+      delete object[item.id].color_id;
     }
     return object;
   }, {});
@@ -138,25 +144,45 @@ export async function getAllProductsByCategoryQuery(
     whereQuery += ` AND brand_id IN (${filters.brand_ids})`;
   }
 
-  let colorQuery = "";
   if (filters.color_ids?.length) {
-    colorQuery = `JOIN product_color pc ON p.id = pc.product_id`;
     whereQuery += ` AND pc.color_id IN (${filters.color_ids})`;
   }
 
-  let sizeQuery = "";
   if (filters.size_ids?.length) {
-    sizeQuery = `JOIN product_size ps ON p.id = ps.product_id`;
     whereQuery += ` AND ps.size_id IN (${filters.size_ids})`;
   }
 
   // @ts-ignore
-  const [rows] = await sqlPool.query(
-    `SELECT DISTINCT p.* FROM product p ${colorQuery} ${sizeQuery} ${whereQuery}`,
+  let [rows] = await sqlPool.query(
+    `SELECT DISTINCT p.*,pc.color_id,ps.size_id,
+        CASE WHEN f.product_id IS NULL THEN FALSE ELSE TRUE END AS favourite
+ FROM finder.product p
+ LEFT JOIN favorite_product f ON p.id = f.product_id LEFT JOIN finder.product_color as pc ON p.id = pc.product_id LEFT JOIN finder.product_size as ps ON p.id = ps.product_id ${whereQuery}`,
     []
   );
 
-  return rows;
+  rows = (rows as [any]).reduce((object, item: any) => {
+    if (item.id in object) {
+      if (!object[item.id].color_ids.includes(item.color_id)) {
+        object[item.id].color_ids.push(item.color_id);
+        delete object[item.id].color_id;
+      }
+      if (!object[item.id].size_ids.includes(item.size_id)) {
+        object[item.id].size_ids.push(item.size_id);
+        delete object[item.id].size_id;
+      }
+    } else {
+      object[item.id] = item;
+      object[item.id].size_ids = [item.size_id];
+      object[item.id].color_ids = [item.color_id];
+      delete object[item.id].size_id;
+      delete object[item.id].color_id;
+    }
+    return object;
+  }, {});
+
+  //@ts-ignore
+  return Object.values(rows);
 }
 
 export async function getProductByIdQuery(id: number) {

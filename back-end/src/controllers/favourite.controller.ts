@@ -2,12 +2,12 @@ import { Request, Response } from "express";
 import {
   createFavouriteQuery,
   deleteFavouriteQuery,
-  getFavouritesQuery,
+  getFavouritesByUserQuery,
 } from "../queries/favourite.query";
 
 export const createFavourite = async (req: Request, res: Response) => {
   try {
-    await createFavouriteQuery(req.body as any);
+    await createFavouriteQuery(req.body);
     res.status(200).json("Favourited Successfully\nOK!");
     return;
   } catch (error) {
@@ -31,7 +31,7 @@ export const deleteFavourite = async (req: Request, res: Response) => {
 
 export const getFavourites = async (req: Request, res: Response) => {
   try {
-    await getFavouritesQuery(req.body as any);
+    await getFavouritesByUserQuery(req.body as any);
     res.status(200).json("Unfavourited Successfully\nOK!");
     return;
   } catch (error) {

@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticateAdminController } from "../controllers/auth.controller";
+import { authenticateController } from "../controllers/auth.controller";
 import {
   createFavourite,
   deleteFavourite,
@@ -8,7 +8,7 @@ import {
 
 const router = express.Router();
 
-router.route("/create").post(authenticateAdminController, createFavourite);
-router.route("/delete").post(authenticateAdminController, deleteFavourite);
-router.route("/get_favourites").post(getFavourites);
+router.route("/create").post(authenticateController, createFavourite);
+router.route("/delete").post(authenticateController, deleteFavourite);
+router.route("/get_favourites").post(authenticateController, getFavourites);
 export default router;

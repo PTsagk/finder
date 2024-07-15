@@ -1,13 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import {
-  Animation,
-  AnimationController,
-  ModalController,
-} from "@ionic/angular";
-import { CartService } from "app/services/cart.service";
-import { MyCartPage } from "app/my-cart/my-cart.page";
-import { IProduct, ProductService } from "app/services/product.service";
+import { AnimationController, ModalController } from "@ionic/angular";
 import { ReviewPage } from "app/review/review.page";
+import { CartService } from "app/services/cart.service";
+import { IProduct, ProductService } from "app/services/product.service";
+import { ISize, SizeService } from "app/services/size.service";
 
 @Component({
   selector: "app-item-details",
@@ -22,12 +18,14 @@ export class ItemDetailsPage implements OnInit {
   productCount = 0;
   public reviews = [];
   @Input() product: IProduct;
+  sizes: ISize[] = [];
 
   constructor(
     private animatioCntrl: AnimationController,
     private productService: ProductService,
     private cartService: CartService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    private sizeService: SizeService
   ) {}
 
   ngOnInit() {
@@ -45,6 +43,15 @@ export class ItemDetailsPage implements OnInit {
         console.log(reviews);
         this.reviews = reviews;
       });
+
+    this.sizeService.getSizes().subscribe((sizes: any) => {
+      console.log(sizes);
+      console.log(this.product);
+      this.sizes = sizes.filter((size) =>
+        this.product.size_ids.includes(size.id)
+      );
+      console.log(this.sizes);
+    });
   }
 
   segmentChanged(e: any) {

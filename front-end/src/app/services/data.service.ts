@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { IProduct } from "../services/product.service";
 
 // Category Interface
 export interface ICategory {
@@ -43,7 +42,7 @@ export class DataService {
   getBestSellProducts() {
     let products = [];
 
-    let prod1: IProduct = {
+    let prod1: any = {
       id: 1,
       name: "Womens T-Shirt",
       price: 55,
@@ -56,7 +55,7 @@ export class DataService {
       color_ids: [1, 2, 3],
       size_ids: [1, 2, 3],
     };
-    let prod2: IProduct = {
+    let prod2: any = {
       id: 2,
       name: "Mens T-Shirt",
       price: 34,
@@ -69,7 +68,7 @@ export class DataService {
       color_ids: [1, 2, 3],
       size_ids: [1, 2, 3],
     };
-    let prod3: IProduct = {
+    let prod3: any = {
       id: 1,
       name: "Womens T-Shirt",
       price: 40,

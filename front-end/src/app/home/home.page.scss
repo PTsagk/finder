@@ -136,3 +136,13 @@ ion-col:focus {
   margin: 10px 0;
   width: 80%;
 }
+.fav-button {
+  background-color: transparent;
+  ion-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+.favourite {
+  color: red !important;
+}

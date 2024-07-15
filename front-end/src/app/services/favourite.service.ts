@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IProduct } from "./product.service";
+import { UserService } from "./user.service";
 
 export interface IFavourite {
   id: number;
@@ -12,20 +13,28 @@ export interface IFavourite {
   providedIn: "root",
 })
 export class FavouriteService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
 
   getFavourites() {
     return this.http.post("http://localhost:8000/favourite/get_favourites", {});
   }
 
   createFavourite(product: IProduct) {
-    return this.http.post("http://localhost:8000/favourite/create", product, {
-      withCredentials: true,
-    });
+    return this.http.post(
+      "http://localhost:8000/favourite/create",
+      { product, user: this.userService.userInfo.getValue() },
+      {
+        withCredentials: true,
+      }
+    );
   }
   deleteFavourite(product: IProduct) {
-    return this.http.post("http://localhost:8000/favourite/delete", product, {
-      withCredentials: true,
-    });
+    return this.http.post(
+      "http://localhost:8000/favourite/delete",
+      { product, user: this.userService.userInfo.getValue() },
+      {
+        withCredentials: true,
+      }
+    );
   }
 }
