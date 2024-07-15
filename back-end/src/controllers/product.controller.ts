@@ -5,12 +5,14 @@ import {
   getAllProductsByCategoryQuery,
   getAllProductsQuery,
   getProductByIdQuery,
+  getSearchResultsQuery,
   getTop_Nth_BestSellersByBrandQuery,
   getTop_Nth_BestSellersByCategoryQuery,
   getTop_Nth_BestSellersQuery,
   getTop_Nth_FeaturedProductsQuery,
   updateProductQuery,
 } from "../queries/product.query";
+import { SortBy } from "../models/sortBy.model";
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
@@ -155,6 +157,77 @@ export const deleteProduct = async (req: Request, res: Response) => {
     await deleteProductQuery(parsedId);
     res.status(200).json("Product Deleted Successfully\nOK!");
   } catch (error) {
+    res.status(500).json("Internal Server Error");
+  }
+};
+
+export const searchProducts = async (req: Request, res: Response) => {
+  const validSortByValues = new Set([
+    "relevancy",
+    "substring_matches",
+    "exact_matches",
+    "reviews_score",
+    "reviews_count",
+    "rated_reviews_count",
+    "date_added",
+    "number_of_sales",
+    "featured",
+  ]);
+
+  try {
+    const {
+      search,
+      minPrice,
+      maxPrice,
+      colorIds = [],
+      brandIds = [],
+      sizeIds = [],
+      sortBy = "relevancy",
+    } = req.body;
+
+    if (!search) {
+      res.status(400).json("Search term is required");
+      return;
+    }
+
+    // Validate optional fields
+    if (minPrice !== undefined && typeof minPrice !== "number") {
+      res.status(400).json("Invalid minPrice");
+      return;
+    }
+    if (maxPrice !== undefined && typeof maxPrice !== "number") {
+      res.status(400).json("Invalid maxPrice");
+      return;
+    }
+    if (!Array.isArray(colorIds)) {
+      res.status(400).json("Invalid colorIds");
+      return;
+    }
+    if (!Array.isArray(brandIds)) {
+      res.status(400).json("Invalid brandIds");
+      return;
+    }
+    if (!Array.isArray(sizeIds)) {
+      res.status(400).json("Invalid sizeIds");
+      return;
+    }
+    if (sortBy && !validSortByValues.has(sortBy)) {
+      throw new Error("Invalid sort type specified.");
+    }
+
+    const results = await getSearchResultsQuery(
+      search,
+      minPrice,
+      maxPrice,
+      colorIds,
+      brandIds,
+      sizeIds,
+      sortBy as SortBy
+    );
+
+    res.status(200).json(results);
+  } catch (error) {
+    console.log(error);
     res.status(500).json("Internal Server Error");
   }
 };

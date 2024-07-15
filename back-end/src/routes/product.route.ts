@@ -11,6 +11,7 @@ import {
   getTop_Nth_FeaturedProducts,
   productNewCreation,
   productUpdate,
+  searchProducts,
 } from "../controllers/product.controller";
 
 const router = express.Router();
@@ -33,4 +34,5 @@ router
   .get(getTop_Nth_BestSellersByBrand);
 router.route("/get_featured_products").get(getTop_Nth_FeaturedProducts);
 router.route("/delete").post(deleteProduct);
+router.route("/search").post(searchProducts);
 export default router;
