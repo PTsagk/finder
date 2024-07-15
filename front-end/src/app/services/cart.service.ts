@@ -1,9 +1,14 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
 import { ModalController } from "@ionic/angular";
 import { MyCartPage } from "app/my-cart/my-cart.page";
+import { BehaviorSubject } from "rxjs";
+import { IProduct } from "./product.service";
 
-// Category Interface
+export interface ICartItem extends IProduct {
+  quantity: number;
+  size: number;
+  color: number;
+}
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +28,7 @@ export class CartService {
     localStorage.products = JSON.stringify(products);
   }
 
-  addToCart(itemInfo) {
+  addToCart(itemInfo: ICartItem) {
     const productsInCart = this.cartProducts.getValue();
     if (productsInCart.length == 0 || !productsInCart) {
       productsInCart.push(itemInfo);
@@ -50,7 +55,7 @@ export class CartService {
     this.updateCart(productsInCart);
   }
 
-  removeFromCart(itemInfo) {
+  removeFromCart(itemInfo: ICartItem) {
     const productsInCart = this.cartProducts.getValue();
     const existingProductId = productsInCart
       .map((product) => {
