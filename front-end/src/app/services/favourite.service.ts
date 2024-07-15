@@ -15,10 +15,6 @@ export interface IFavourite {
 export class FavouriteService {
   constructor(private http: HttpClient, private userService: UserService) {}
 
-  getFavourites() {
-    return this.http.post("http://localhost:8000/favourite/get_favourites", {});
-  }
-
   createFavourite(product: IProduct) {
     return this.http.post(
       "http://localhost:8000/favourite/create",
@@ -32,6 +28,16 @@ export class FavouriteService {
     return this.http.post(
       "http://localhost:8000/favourite/delete",
       { product, user: this.userService.userInfo.getValue() },
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  getFavorites() {
+    return this.http.get(
+      "http://localhost:8000/favourite/get_favourites/" +
+        this.userService.userInfo.getValue().id,
       {
         withCredentials: true,
       }

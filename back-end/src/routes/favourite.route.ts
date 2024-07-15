@@ -10,5 +10,7 @@ const router = express.Router();
 
 router.route("/create").post(authenticateController, createFavourite);
 router.route("/delete").post(authenticateController, deleteFavourite);
-router.route("/get_favourites").post(authenticateController, getFavourites);
+router
+  .route("/get_favourites/:user_id")
+  .get(authenticateController, getFavourites);
 export default router;

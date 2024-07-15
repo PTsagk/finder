@@ -28,15 +28,16 @@ export async function deleteFavouriteQuery(params: IFavouriteCreate) {
   return rows;
 }
 
-export async function getFavouritesByUserQuery(user: User) {
+export async function getFavouritesByUserQuery(userId: number) {
   // @ts-ignore
 
   const [rows] = await sqlPool.query(
-    `SELECT p.* FROM favorite_product WHERE user_id = ? JOIN product p ON favorite_product.product_id = product.id`,
+    `SELECT * FROM favorite_product JOIN product ON favorite_product.product_id = product.id WHERE user_id = ?`,
 
-    [user.id]
+    [userId]
   );
 
+  console.log(rows);
   //@ts-ignore
   return rows;
 }
