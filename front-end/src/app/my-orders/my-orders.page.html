@@ -30,7 +30,11 @@
   <h1 class="title">My Orders</h1>
 
   <div class="order-items">
-    <ion-card mode="ios" *ngFor="let order of orders">
+    <ion-card
+      mode="ios"
+      *ngFor="let order of orders"
+      (click)="openItemModal(order)"
+    >
       <ion-card-content>
         <div class="item-img">
           <img [src]="order.image" />
@@ -41,13 +45,6 @@
           <p>{{order.size_name}}</p>
           <p>{{order.color_name}}</p>
           <p>${{order.price}}</p>
-
-          <ion-button
-            expand="block"
-            class="main-button"
-            (click)="addToCart(order)"
-            >Order Again</ion-button
-          >
         </div>
       </ion-card-content>
     </ion-card>

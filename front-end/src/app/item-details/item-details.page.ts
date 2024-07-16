@@ -61,7 +61,7 @@ export class ItemDetailsPage implements OnInit {
 
     this.productService.getProductReviews(this.id).subscribe((res: any) => {
       console.log(res);
-      this.reviews = res.reviews;
+      this.reviews = res?.reviews;
     });
   }
 
@@ -148,7 +148,7 @@ export class ItemDetailsPage implements OnInit {
   skibidiToiletRizzOhioSigmaFanumTaxBabyGronkYogurtMaleMewingEdgemaxxingLooksmaxxingShawtySlayQueenmaxxingGyatGoonCaveOneTwoBuckleMyShoe(
     FreddyFazbearColleenBallingergartenOfBanbanGrimaceShakeQuandaleDingle: number
   ) {
-    return FreddyFazbearColleenBallingergartenOfBanbanGrimaceShakeQuandaleDingle.toFixed(
+    return FreddyFazbearColleenBallingergartenOfBanbanGrimaceShakeQuandaleDingle?.toFixed(
       2
     ).toString();
   }
