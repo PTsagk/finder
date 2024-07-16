@@ -17,10 +17,14 @@
 
         <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end" *ngIf="categorySelected">
-      <ion-button expand="block" (click)="filterModal()"
+      <ion-button
+        expand="block"
+        (click)="filterModal()"
+        *ngIf="categorySelected"
         ><ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+      <ion-button expand="block" (click)="changeLanguage()">
+        {{language}}
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -30,7 +34,7 @@
   <div class="search ion-padding" *ngIf="categorySelected">
     <ion-item lines="none">
       <ion-input
-        placeholder="Search Your Product"
+        [placeholder]="t.translate('SEARCH_YOUR_PRODUCT')"
         (ionChange)="onSearchChange($event)"
       ></ion-input>
       <ion-icon
@@ -97,7 +101,7 @@
   </ng-container>
   <ng-container *ngIf="categorySelected">
     <div class="title ion-padding">
-      <h2>{{categorySelected}}</h2>
+      <h2>{{t.translate(categorySelected | uppercase)}}</h2>
       <ion-buttons slot="end"
         ><ion-button (click)="clearCategory()"
           ><ion-icon name="close-outline"></ion-icon></ion-button
@@ -133,7 +137,7 @@
                   padding-right: 10px;
                 "
               >
-                <ion-button></ion-button
+                <ion-button>{{t.translate('ADD_TO_CART')}}</ion-button
                 ><ion-icon name="cart-outline"></ion-icon
               ></ion-buttons>
             </div>

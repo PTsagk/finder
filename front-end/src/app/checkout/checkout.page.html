@@ -9,7 +9,7 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <h1 class="title">Checkout</h1>
+  <h1 class="title">{{t.translate('CHECKOUT')}}</h1>
 
   <div class="cart-items">
     <ion-card mode="ios" *ngFor="let product of cartProducts">
@@ -42,16 +42,16 @@
 
   <div class="cart-total">
     <ion-item lines="none">
-      <ion-label>Sub Total</ion-label>
+      <ion-label>{{t.translate('SUB_TOTAL')}}</ion-label>
       <ion-label slot="end" class="ion-text-right">${{subTotal}}</ion-label>
     </ion-item>
 
     <ion-item>
-      <ion-label>Shipping</ion-label>
+      <ion-label>{{t.translate('SHIPPING')}}</ion-label>
       <ion-label slot="end" class="ion-text-right">$10.00</ion-label>
     </ion-item>
     <ion-item lines="none">
-      <ion-label>Total</ion-label>
+      <ion-label>{{t.translate('TOTAL')}}</ion-label>
       <ion-label slot="end" class="ion-text-right">${{total}}</ion-label>
     </ion-item>
   </div>
@@ -59,7 +59,7 @@
 <ion-footer translucent="true" class="ion-no-border" mode="md">
   <ion-toolbar color="translucent">
     <ion-button expand="block" class="main-button" (click)="sendOrder()"
-      >Buy</ion-button
+      >{{t.translate('COMPLETE_ORDER')}}</ion-button
     >
   </ion-toolbar>
 </ion-footer>

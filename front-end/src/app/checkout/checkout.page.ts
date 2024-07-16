@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ModalController } from "@ionic/angular";
 import { ConfirmPage } from "app/confirm/confirm.page";
 import { CartService } from "app/services/cart.service";
 import { OrderService } from "app/services/order.service";
+import { TranslationsService } from "app/services/translations.service";
 import { IUser, UserService } from "app/services/user.service";
 
 @Component({
@@ -22,7 +23,8 @@ export class CheckoutPage implements OnInit {
     private cartService: CartService,
     private userService: UserService,
     private orderService: OrderService,
-    private router: Router
+    private router: Router,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

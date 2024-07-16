@@ -1,7 +1,7 @@
 <ion-item>
   <ion-select
     aria-label="brand"
-    placeholder="Select brand"
+    [placeholder]="t.translate('SELECT_BRAND')"
     (ionChange)="selectBrand($event)"
     [multiple]="true"
     [value]="filters.brand_ids"
@@ -14,7 +14,7 @@
 <ion-item>
   <ion-select
     aria-label="color"
-    placeholder="Select color"
+    [placeholder]="t.translate('SELECT_COLOR')"
     (ionChange)="selectColors($event)"
     [multiple]="true"
     [value]="filters.color_ids"
@@ -27,7 +27,7 @@
 <ion-item>
   <ion-select
     aria-label="size"
-    placeholder="Select size"
+    [placeholder]="t.translate('SELECT_SIZE')"
     (ionChange)="selectSizes($event)"
     [multiple]="true"
     [value]="filters.size_ids"
@@ -40,7 +40,7 @@
 <ion-item>
   <ion-select
     aria-label="sorting option"
-    placeholder="Select Sorting Option"
+    [placeholder]="t.translate('SELECT_SORTING_OPTION')"
     (ionChange)="selectSortBy($event)"
     [value]="filters.sortBy"
   >
@@ -51,12 +51,12 @@
     >
   </ion-select>
 </ion-item>
-<ion-button expand="block" class="main-button" (click)="apply()"
-  >Apply Filters</ion-button
->
-<ion-button expand="block" class="main-button" (click)="cancel()"
-  >Cancel</ion-button
->
-<ion-button expand="block" class="main-button" (click)="clear()"
-  >Clear</ion-button
->
+<ion-button expand="block" class="main-button" (click)="apply()">{{
+  t.translate("APPLY_FILTERS")
+}}</ion-button>
+<ion-button expand="block" class="main-button" (click)="cancel()">{{
+  t.translate("CANCEL")
+}}</ion-button>
+<ion-button expand="block" class="main-button" (click)="clear()">{{
+  t.translate("CLEAR")
+}}</ion-button>

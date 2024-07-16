@@ -26,6 +26,8 @@ export class HomePage implements OnInit {
   public productCount = 0;
   public categorySelected = null;
 
+  language = "en";
+
   userInfo: IUser | null = null;
   constructor(
     public cartService: CartService,
@@ -58,6 +60,10 @@ export class HomePage implements OnInit {
     this.productService.getBestSellerProducts().subscribe((products: any) => {
       console.log(products);
       this.bestSellProducts = products;
+    });
+
+    this.t.lang_text.subscribe((text: string) => {
+      this.language = text;
     });
   }
 
@@ -125,5 +131,8 @@ export class HomePage implements OnInit {
         console.log(data);
       });
     }
+  }
+  changeLanguage() {
+    this.t.changeLanguage();
   }
 }

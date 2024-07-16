@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NavController } from "@ionic/angular";
+import { TranslationsService } from "app/services/translations.service";
 import { UserService } from "../services/user.service";
 import { UtilService } from "../services/util.service";
 
@@ -13,7 +14,8 @@ export class LoginPage implements OnInit {
   constructor(
     private util: UtilService,
     private navCtrl: NavController,
-    private userService: UserService
+    private userService: UserService,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

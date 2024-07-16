@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
-  selector: 'app-my-orders',
-  templateUrl: './my-orders.page.html',
-  styleUrls: ['./my-orders.page.scss'],
+  selector: "app-my-orders",
+  templateUrl: "./my-orders.page.html",
+  styleUrls: ["./my-orders.page.scss"],
 })
 export class MyOrdersPage implements OnInit {
+  constructor(public t: TranslationsService) {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

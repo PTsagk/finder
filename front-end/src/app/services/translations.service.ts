@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 export interface ITranslationObject {
   token: string;
@@ -10,7 +11,8 @@ export interface ITranslationObject {
   providedIn: "root",
 })
 export class TranslationsService {
-  lang = 2;
+  lang = 1;
+  lang_text = new BehaviorSubject<string>("en");
   private translations: {
     [key: string]: {
       [key: number]: string;
@@ -36,5 +38,10 @@ export class TranslationsService {
 
   translate(token: string) {
     return this.translations[token.toUpperCase()][this.lang];
+  }
+
+  changeLanguage() {
+    this.lang = this.lang == 1 ? 2 : 1;
+    this.lang_text.next(this.lang == 1 ? "en" : "gr");
   }
 }

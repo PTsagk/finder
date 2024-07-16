@@ -14,31 +14,31 @@
 </ion-header>
 
 <ion-content>
-  <h1 class="title">Profile</h1>
+  <h1 class="title">{{t.translate('PROFILE')}}</h1>
 
   <div class="profile-info" *ngIf="user | async as user">
     <ion-item>
-      <ion-label position="floating">Username</ion-label>
+      <ion-label position="floating">{{t.translate('USERNAME')}}</ion-label>
       <ion-input [(ngModel)]="user.username"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Address Lane</ion-label>
+      <ion-label position="floating">{{t.translate('ADDRESS_LANE')}}</ion-label>
       <ion-input [(ngModel)]="user.address"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{t.translate('EMAIL')}}</ion-label>
       <ion-input [(ngModel)]="user.email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Phone Number</ion-label>
+      <ion-label position="floating">{{t.translate('PHONE_NUMER')}}</ion-label>
       <ion-input [(ngModel)]="user.phone"></ion-input>
     </ion-item>
   </div>
   <ion-button expand="block" class="secondary-button" (click)="logout()"
-    >Logout</ion-button
+    >{{t.translate('LOGOUT')}}</ion-button
   >
   <ion-button expand="block" class="main-button" (click)="update()"
-    >Update Profile</ion-button
+    >{{t.translate('UPDATE_PROFILE')}}</ion-button
   >
 </ion-content>

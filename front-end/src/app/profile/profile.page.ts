@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TranslationsService } from "app/services/translations.service";
 import { BehaviorSubject } from "rxjs";
 import { IUser, UserService } from "../services/user.service";
 
@@ -9,7 +10,10 @@ import { IUser, UserService } from "../services/user.service";
 })
 export class ProfilePage implements OnInit {
   user = new BehaviorSubject<IUser | null>(null);
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    public t: TranslationsService
+  ) {}
 
   ngOnInit() {
     this.userService.userInfo.subscribe((user) => {

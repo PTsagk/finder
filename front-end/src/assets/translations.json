@@ -146,7 +146,7 @@
   },
   {
     "token": "WOMENS",
-    "text": "Γυνεκία",
+    "text": "Γυνεκεία",
     "lang": 2
   },
   {
@@ -171,12 +171,22 @@
   },
   {
     "token": "LOGIN",
-    "text": "Log in",
+    "text": "Login",
     "lang": 1
   },
   {
     "token": "LOGIN",
     "text": "Σύνδεση",
+    "lang": 2
+  },
+  {
+    "token": "LOG_IN",
+    "text": "Log in",
+    "lang": 1
+  },
+  {
+    "token": "LOG_IN",
+    "text": "Συνδέσου",
     "lang": 2
   },
   {
@@ -187,6 +197,96 @@
   {
     "token": "SIGNUP",
     "text": "Εγγραφή",
+    "lang": 2
+  },
+  {
+    "token": "SIGN_UP",
+    "text": "Sign up",
+    "lang": 1
+  },
+  {
+    "token": "SIGN_UP",
+    "text": "Κάνε Εγγραφή",
+    "lang": 2
+  },
+  {
+    "token": "DONT_HAVE_ACCOUNT",
+    "text": "Don't have an account?",
+    "lang": 1
+  },
+  {
+    "token": "DONT_HAVE_ACCOUNT",
+    "text": "Δεν έχεις λογαριασμό?",
+    "lang": 2
+  },
+  {
+    "token": "USERNAME",
+    "text": "Username",
+    "lang": 1
+  },
+  {
+    "token": "USERNAME",
+    "text": "Username",
+    "lang": 2
+  },
+  {
+    "token": "ADDRESS_LANE",
+    "text": "Address Lane",
+    "lang": 1
+  },
+  {
+    "token": "ADDRESS_LANE",
+    "text": "Διεύθυνση",
+    "lang": 2
+  },
+  {
+    "token": "EMAIL",
+    "text": "Email",
+    "lang": 1
+  },
+  {
+    "token": "EMAIL",
+    "text": "Email",
+    "lang": 2
+  },
+  {
+    "token": "PHONE_NUMER",
+    "text": "Phone Number",
+    "lang": 1
+  },
+  {
+    "token": "PHONE_NUMER",
+    "text": "Τηλέφωνο",
+    "lang": 2
+  },
+  {
+    "token": "PASSWORD",
+    "text": "Password",
+    "lang": 1
+  },
+  {
+    "token": "PASSWORD",
+    "text": "Συνθηματικό",
+    "lang": 2
+  },
+  {
+    "token": "LOGOUT",
+    "text": "Logout",
+    "lang": 1
+  },
+  {
+    "token": "LOGOUT",
+    "text": "Αποσύνδεση",
+    "lang": 2
+  },
+  {
+    "token": "UPDATE_PROFILE",
+    "text": "Update Profile",
+    "lang": 1
+  },
+  {
+    "token": "UPDATE_PROFILE",
+    "text": "Ενημέρωση Προφίλ",
     "lang": 2
   },
   {
@@ -227,6 +327,56 @@
   {
     "token": "CART",
     "text": "Το Καλάθι μου",
+    "lang": 2
+  },
+  {
+    "token": "CHECKOUT",
+    "text": "Checkout",
+    "lang": 1
+  },
+  {
+    "token": "CHECKOUT",
+    "text": "Ολοκλήρωση Αγοράς",
+    "lang": 2
+  },
+  {
+    "token": "SUB_TOTAL",
+    "text": "Sub Total",
+    "lang": 1
+  },
+  {
+    "token": "SUB_TOTAL",
+    "text": "Υποσύνολο",
+    "lang": 2
+  },
+  {
+    "token": "SHIPPING",
+    "text": "Shipping",
+    "lang": 1
+  },
+  {
+    "token": "SHIPPING",
+    "text": "Μεταφορικά",
+    "lang": 2
+  },
+  {
+    "token": "TOTAL",
+    "text": "Total",
+    "lang": 1
+  },
+  {
+    "token": "TOTAL",
+    "text": "Σύνολο",
+    "lang": 2
+  },
+  {
+    "token": "COMPLETE_ORDER",
+    "text": "Complete Order",
+    "lang": 1
+  },
+  {
+    "token": "COMPLETE_ORDER",
+    "text": "Ολοκλήρωση Παραγγελείας",
     "lang": 2
   },
   {
@@ -477,6 +627,56 @@
   {
     "token": "CONTINUE",
     "text": "Συνέχεια",
+    "lang": 2
+  },
+  {
+    "token": "SEARCH_YOUR_PRODUCT",
+    "text": "Search Your Product",
+    "lang": 1
+  },
+  {
+    "token": "SEARCH_YOUR_PRODUCT",
+    "text": "Ψάξε το προιόν που αναζητάς",
+    "lang": 2
+  },
+  {
+    "token": "SELECT_SORTING_OPTION",
+    "text": "Select Sorting Option",
+    "lang": 1
+  },
+  {
+    "token": "SELECT_SORTING_OPTION",
+    "text": "Επίλεξε Ταξινόμηση",
+    "lang": 2
+  },
+  {
+    "token": "APPLY_FILTERS",
+    "text": "Apply Filters",
+    "lang": 1
+  },
+  {
+    "token": "APPLY_FILTERS",
+    "text": "Εφαρμογή Φίλτρων",
+    "lang": 2
+  },
+  {
+    "token": "CLEAR",
+    "text": "Clear",
+    "lang": 1
+  },
+  {
+    "token": "CLEAR",
+    "text": "Καθαρισμός Φίλτρων",
+    "lang": 2
+  },
+  {
+    "token": "SELECT_BRAND",
+    "text": "Select Brand",
+    "lang": 1
+  },
+  {
+    "token": "SELECT_BRAND",
+    "text": "Επιλογή Μάρκας",
     "lang": 2
   }
 ]

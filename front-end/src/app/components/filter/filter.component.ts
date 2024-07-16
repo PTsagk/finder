@@ -8,6 +8,7 @@ import {
   ISortOptions,
 } from "app/services/filter.service";
 import { ISize, SizeService } from "app/services/size.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-filter",
@@ -36,7 +37,8 @@ export class FilterComponent implements OnInit {
     private brandService: BrandService,
     private colorService: ColorService,
     private sizeService: SizeService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    public t: TranslationsService
   ) {}
   ngOnInit() {
     this.brandService.getBrands().subscribe((brands: IBrand[]) => {
