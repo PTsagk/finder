@@ -18,7 +18,7 @@
         <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons slot="end" *ngIf="categorySelected">
       <ion-button expand="block" (click)="filterModal()"
         ><ion-icon name="filter-outline"></ion-icon>
       </ion-button>
@@ -43,7 +43,7 @@
 
   <ng-container *ngIf="!categorySelected">
     <div class="title ion-padding">
-      <h2>Categories</h2>
+      <h2>{{t.translate('CATEGORIES')}}</h2>
     </div>
 
     <div class="category-slider ion-padding-start">
@@ -52,7 +52,7 @@
       >
         <ion-slide *ngFor="let category of categories">
           <ion-col (click)="selectCategory(category.name)">
-            <h4>{{ category.name }}</h4>
+            <h4>{{ t.translate(category.token) }}</h4>
             <img src="{{ category.image }}" />
           </ion-col>
         </ion-slide>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="title ion-padding">
-      <h2>Featured</h2>
+      <h2>{{t.translate('FEATURED')}}</h2>
     </div>
 
     <div class="product-slider ion-padding-start">
@@ -78,7 +78,7 @@
     </div>
 
     <div class="title ion-padding">
-      <h2>Best Seller</h2>
+      <h2>{{t.translate('BEST_SELLER')}}</h2>
     </div>
 
     <div class="product-slider ion-padding-start">
@@ -108,7 +108,9 @@
         [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"
         class="product-card-container"
       >
-        <div *ngIf="!products.length">No products found matching filters</div>
+        <div *ngIf="!products.length">
+          {{t.translate('NO_PRODUCTS_MATCHING_FILTERS')}}
+        </div>
         <div *ngFor="let product of products" class="product-card">
           <ion-col class="ion-text-left" (click)="openItemDetails(product)">
             <img src="{{ product.image }}" />
@@ -131,7 +133,7 @@
                   padding-right: 10px;
                 "
               >
-                <ion-button>Add to cart</ion-button
+                <ion-button></ion-button
                 ><ion-icon name="cart-outline"></ion-icon
               ></ion-buttons>
             </div>

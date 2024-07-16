@@ -1,29 +1,35 @@
 <div class="form-container">
   <ion-item>
-    <ion-label position="floating">Product Name</ion-label>
+    <ion-label position="floating">{{ t.translate("PRODUCT_NAME") }}</ion-label>
     <ion-input [(ngModel)]="product.name"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Price</ion-label>
+    <ion-label position="floating">{{
+      t.translate("PRODUCT_PRICE")
+    }}</ion-label>
     <ion-input type="number" [(ngModel)]="product.price"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Product Image</ion-label>
+    <ion-label position="floating">{{
+      t.translate("PRODUCT_IMAGE")
+    }}</ion-label>
     <ion-input type="text" [(ngModel)]="product.image"></ion-input>
   </ion-item>
   <img [src]="product.image" alt="image" class="product-image" />
   <ion-item>
-    <ion-label position="floating">Product Description</ion-label>
+    <ion-label position="floating">{{
+      t.translate("PRODUCT_DESCRIPTION")
+    }}</ion-label>
     <ion-input type="text" [(ngModel)]="product.description"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="floating">Is Featured?</ion-label>
-    <ion-checkbox (ionChange)="changeFeature($event)"
-      >I agree to the terms and conditions</ion-checkbox
-    >
+    <ion-label position="floating">{{
+      t.translate("PRODUCT_IS_FEATURED")
+    }}</ion-label>
+    <ion-checkbox (ionChange)="changeFeature($event)"></ion-checkbox>
   </ion-item>
 
-  <ion-label position="floating">Product Brand</ion-label>
+  <ion-label position="floating">{{ t.translate("PRODUCT_BRAND") }}</ion-label>
   <ion-item>
     <ion-select
       aria-label="brand"
@@ -36,7 +42,9 @@
       }}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-label position="floating">Product Category</ion-label>
+  <ion-label position="floating">{{
+    t.translate("PRODUCT_CATEGORY")
+  }}</ion-label>
 
   <ion-list>
     <ion-item>
@@ -46,13 +54,19 @@
         (ionChange)="changeCategory($event)"
         [value]="product.category"
       >
-        <ion-select-option value="womens">Womens</ion-select-option>
-        <ion-select-option value="mens">Mens</ion-select-option>
-        <ion-select-option value="kids">Kids</ion-select-option>
+        <ion-select-option value="womens">{{
+          t.translate("WOMENS")
+        }}</ion-select-option>
+        <ion-select-option value="mens">{{
+          t.translate("MENS")
+        }}</ion-select-option>
+        <ion-select-option value="kids">{{
+          t.translate("KIDS")
+        }}</ion-select-option>
       </ion-select>
     </ion-item>
   </ion-list>
-  <ion-label position="floating">Product Color</ion-label>
+  <ion-label position="floating">{{ t.translate("PRODUCT_COLOR") }}</ion-label>
   <ion-item>
     <ion-select
       aria-label="color"
@@ -66,7 +80,7 @@
       }}</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-label position="floating">Product Size</ion-label>
+  <ion-label position="floating">{{ t.translate("PRODUCT_SIZE") }}</ion-label>
   <ion-item>
     <ion-select
       aria-label="size"
@@ -81,12 +95,15 @@
     </ion-select>
   </ion-item>
   <ion-button expand="block" class="main-button" (click)="save()">{{
-    isEditing ? "Update" : "Create"
+    isEditing ? t.translate("CREATE") : t.translate("UPDATE")
   }}</ion-button>
-  <ion-button expand="block" class="secondary-button" (click)="deleteProduct()"
-    >Delete</ion-button
+  <ion-button
+    expand="block"
+    class="secondary-button"
+    (click)="deleteProduct()"
+    >{{ t.translate("DELETE") }}</ion-button
   >
-  <ion-button expand="block" class="main-button" (click)="close()"
-    >Cancel</ion-button
-  >
+  <ion-button expand="block" class="main-button" (click)="close()">{{
+    t.translate("CANCEL")
+  }}</ion-button>
 </div>

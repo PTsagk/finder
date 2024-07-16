@@ -5,6 +5,7 @@ import { ColorService, IColor } from "app/services/color.service";
 import { missingImageUrl } from "app/services/data.service";
 import { IProduct, ProductService } from "app/services/product.service";
 import { ISize, SizeService } from "app/services/size.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-product-create-popup",
@@ -24,7 +25,8 @@ export class ProductCreatePopupComponent implements OnInit {
     private productService: ProductService,
     private brandService: BrandService,
     private colorService: ColorService,
-    private sizeService: SizeService
+    private sizeService: SizeService,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

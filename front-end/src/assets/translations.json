@@ -1,0 +1,482 @@
+[
+  {
+    "token": "CATEGORIES",
+    "text": "Categories",
+    "lang": 1
+  },
+  {
+    "token": "CATEGORIES",
+    "text": "Κατηγορίες",
+    "lang": 2
+  },
+  {
+    "token": "FEATURED",
+    "text": "Featured",
+    "lang": 1
+  },
+  {
+    "token": "FEATURED",
+    "text": "Προωθούμενα",
+    "lang": 2
+  },
+  {
+    "token": "BEST_SELLER",
+    "text": "Best Seller",
+    "lang": 1
+  },
+  {
+    "token": "BEST_SELLER",
+    "text": "Best Seller",
+    "lang": 2
+  },
+  {
+    "token": "NO_PRODUCTS_MATCHING_FILTERS",
+    "text": "No products found matching filters",
+    "lang": 1
+  },
+  {
+    "token": "NO_PRODUCTS_MATCHING_FILTERS",
+    "text": "Δεν βρέθηκαν προιόντα με αυτά τα φίλτρα",
+    "lang": 2
+  },
+  {
+    "token": "ADD_TO_CART",
+    "text": "Add to cart",
+    "lang": 1
+  },
+  {
+    "token": "ADD_TO_CART",
+    "text": "Προσθήκη στο καλάθι",
+    "lang": 2
+  },
+  {
+    "token": "REVIEWS",
+    "text": "Reviews",
+    "lang": 1
+  },
+  {
+    "token": "REVIEWS",
+    "text": "Αξιολογήσεις",
+    "lang": 2
+  },
+  {
+    "token": "DESCRIPTION",
+    "text": "Description",
+    "lang": 1
+  },
+  {
+    "token": "DESCRIPTION",
+    "text": "Περίληψη",
+    "lang": 2
+  },
+  {
+    "token": "SELECT_SIZE",
+    "text": "Select Size",
+    "lang": 1
+  },
+  {
+    "token": "SELECT_SIZE",
+    "text": "Διάλεξε Μέγεθος",
+    "lang": 2
+  },
+  {
+    "token": "SELECT_COLOR",
+    "text": "Select Color",
+    "lang": 1
+  },
+  {
+    "token": "SELECT_COLOR",
+    "text": "Διάλεξε Χρώμα",
+    "lang": 2
+  },
+  {
+    "token": "ADD_REVIEW",
+    "text": "Add review",
+    "lang": 1
+  },
+  {
+    "token": "ADD_REVIEW",
+    "text": "Πρόσθεσε αξιολόγηση",
+    "lang": 2
+  },
+  {
+    "token": "VERY_GOOD",
+    "text": "Very Good",
+    "lang": 1
+  },
+  {
+    "token": "VERY_GOOD",
+    "text": "Πολύ Καλό",
+    "lang": 2
+  },
+  {
+    "token": "GOOD",
+    "text": "Good",
+    "lang": 1
+  },
+  {
+    "token": "GOOD",
+    "text": "Καλό",
+    "lang": 2
+  },
+  {
+    "token": "BAD",
+    "text": "Bad",
+    "lang": 1
+  },
+  {
+    "token": "BAD",
+    "text": "Κακό",
+    "lang": 2
+  },
+  {
+    "token": "NO_RATINGS",
+    "text": "No ratings",
+    "lang": 1
+  },
+  {
+    "token": "NO_RATINGS",
+    "text": "Καμία Αξιολογήσεις",
+    "lang": 2
+  },
+  {
+    "token": "WOMENS",
+    "text": "Womens",
+    "lang": 1
+  },
+  {
+    "token": "WOMENS",
+    "text": "Γυνεκία",
+    "lang": 2
+  },
+  {
+    "token": "MENS",
+    "text": "Mens",
+    "lang": 1
+  },
+  {
+    "token": "MENS",
+    "text": "Ανδρικά",
+    "lang": 2
+  },
+  {
+    "token": "KIDS",
+    "text": "Kids",
+    "lang": 1
+  },
+  {
+    "token": "KIDS",
+    "text": "Παιδικά",
+    "lang": 2
+  },
+  {
+    "token": "LOGIN",
+    "text": "Log in",
+    "lang": 1
+  },
+  {
+    "token": "LOGIN",
+    "text": "Σύνδεση",
+    "lang": 2
+  },
+  {
+    "token": "SIGNUP",
+    "text": "Signup",
+    "lang": 1
+  },
+  {
+    "token": "SIGNUP",
+    "text": "Εγγραφή",
+    "lang": 2
+  },
+  {
+    "token": "WELCOME",
+    "text": "Welcome to Finder",
+    "lang": 1
+  },
+  {
+    "token": "WELCOME",
+    "text": "Καλωρσήθατε στο Finder",
+    "lang": 2
+  },
+  {
+    "token": "HOME",
+    "text": "Home",
+    "lang": 1
+  },
+  {
+    "token": "HOME",
+    "text": "Αρχική",
+    "lang": 2
+  },
+  {
+    "token": "PROFILE",
+    "text": "Profile",
+    "lang": 1
+  },
+  {
+    "token": "PROFILE",
+    "text": "Προφιλ",
+    "lang": 2
+  },
+  {
+    "token": "CART",
+    "text": "My Cart",
+    "lang": 1
+  },
+  {
+    "token": "CART",
+    "text": "Το Καλάθι μου",
+    "lang": 2
+  },
+  {
+    "token": "FAVORITE",
+    "text": "Favorites",
+    "lang": 1
+  },
+  {
+    "token": "FAVORITE",
+    "text": "Αγαπημένα",
+    "lang": 2
+  },
+  {
+    "token": "ORDERS",
+    "text": "My Orders",
+    "lang": 1
+  },
+  {
+    "token": "ORDERS",
+    "text": "Οι παραγγελείες μου",
+    "lang": 2
+  },
+  {
+    "token": "ADMIN",
+    "text": "Admin",
+    "lang": 1
+  },
+  {
+    "token": "ADMIN",
+    "text": "Διαχειριστής",
+    "lang": 2
+  },
+  {
+    "token": "BRAND",
+    "text": "Brand",
+    "lang": 1
+  },
+  {
+    "token": "BRAND",
+    "text": "Μάρκα",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT",
+    "text": "Product",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT",
+    "text": "Προιόν",
+    "lang": 2
+  },
+  {
+    "token": "COLOR",
+    "text": "Color",
+    "lang": 1
+  },
+  {
+    "token": "COLOR",
+    "text": "Χρώμα",
+    "lang": 2
+  },
+  {
+    "token": "SIZE",
+    "text": "Size",
+    "lang": 1
+  },
+  {
+    "token": "SIZE",
+    "text": "Μέγεθος",
+    "lang": 2
+  },
+  {
+    "token": "CREATE_BRAND",
+    "text": "Create Brand",
+    "lang": 1
+  },
+  {
+    "token": "CREATE_BRAND",
+    "text": "Δημιουργία Μάρκας",
+    "lang": 2
+  },
+  {
+    "token": "CREATE_COLOR",
+    "text": "Create Color",
+    "lang": 1
+  },
+  {
+    "token": "CREATE_COLOR",
+    "text": "Δημιουργία Χρώματος",
+    "lang": 2
+  },
+  {
+    "token": "CREATE_SIZE",
+    "text": "Create Size",
+    "lang": 1
+  },
+  {
+    "token": "CREATE_SIZE",
+    "text": "Δημιουργία Μεγέθους",
+    "lang": 2
+  },
+  {
+    "token": "SEARCH_PRODUCT",
+    "text": "Search Product",
+    "lang": 1
+  },
+  {
+    "token": "SEARCH_PRODUCT",
+    "text": "Ψάξε κάποιο προιόν",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_NAME",
+    "text": "Product Name",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_NAME",
+    "text": "Όνομα Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_PRICE",
+    "text": "Product Price",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_PRICE",
+    "text": "Τιμή Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_IMAGE",
+    "text": "Product Image",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_IMAGE",
+    "text": "Εικόνα Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_DESCRIPTION",
+    "text": "Product Description",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_DESCRIPTION",
+    "text": "Περίληψη Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_IS_FEATURED",
+    "text": "Is Featured?",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_IS_FEATURED",
+    "text": "Είναι Προωθούμενο?",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_BRAND",
+    "text": "Product Brand",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_BRAND",
+    "text": "Μάρκα Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_CATEGORY",
+    "text": "Product Category",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_CATEGORY",
+    "text": "Κατηγορία Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_SIZE",
+    "text": "Product Size",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_SIZE",
+    "text": "Μέγεθος Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "PRODUCT_COLOR",
+    "text": "Product Color",
+    "lang": 1
+  },
+  {
+    "token": "PRODUCT_COLOR",
+    "text": "Χρώμα Προιόντος",
+    "lang": 2
+  },
+  {
+    "token": "DELETE",
+    "text": "Delete",
+    "lang": 1
+  },
+  {
+    "token": "DELETE",
+    "text": "Διαγραφή",
+    "lang": 2
+  },
+  {
+    "token": "CANCEL",
+    "text": "Cancel",
+    "lang": 1
+  },
+  {
+    "token": "CANCEL",
+    "text": "Ακύρωση",
+    "lang": 2
+  },
+  {
+    "token": "CREATE",
+    "text": "Create",
+    "lang": 1
+  },
+  {
+    "token": "CREATE",
+    "text": "Δημιουργία",
+    "lang": 2
+  },
+  {
+    "token": "UPDATE",
+    "text": "Update",
+    "lang": 1
+  },
+  {
+    "token": "UPDATE",
+    "text": "Ενημέρωση",
+    "lang": 2
+  },
+  {
+    "token": "CONTINUE",
+    "text": "Continue",
+    "lang": 1
+  },
+  {
+    "token": "CONTINUE",
+    "text": "Συνέχεια",
+    "lang": 2
+  }
+]

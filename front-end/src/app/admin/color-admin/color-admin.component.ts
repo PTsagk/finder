@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ColorService, IColor } from "app/services/color.service";
+import { TranslationsService } from "app/services/translations.service";
 import { PopupColorComponent } from "../popup-color/popup-color.component";
 
 @Component({
@@ -14,7 +15,8 @@ export class ColorAdminComponent implements OnInit {
 
   constructor(
     private colorService: ColorService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

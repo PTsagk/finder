@@ -3,7 +3,7 @@
 <ion-content class="ion-padding ion-text-center">
   <div class="container">
     <div class="page-header">
-      <h1>Welcome to Finder</h1>
+      <h1>{{t.translate('WELCOME')}}</h1>
     </div>
 
     <img src="../../assets/welcome.png" />
@@ -14,7 +14,7 @@
         class="main-button"
         routerLink="/login"
         routerDirection="forward"
-        >Log in</ion-button
+        >{{t.translate('LOGIN')}}</ion-button
       >
       <ion-button
         expand="block"
@@ -22,7 +22,7 @@
         fill="clear"
         routerLink="/signup"
         routerDirection="forward"
-        >Signup</ion-button
+        >{{t.translate('SIGNUP')}}</ion-button
       >
     </div>
   </div>

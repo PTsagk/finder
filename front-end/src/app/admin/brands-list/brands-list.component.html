@@ -3,14 +3,14 @@
     <ion-item>
       <ion-input
         label="New Brand"
-        placeholder="Create new brand"
+        [placeholder]="t.translate('CREATE_BRAND')"
         [(ngModel)]="newBrand.name"
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-button expand="block" (click)="createBrand()"
-        >Create Brand</ion-button
-      >
+      <ion-button expand="block" (click)="createBrand()">{{
+        t.translate("CREATE_BRAND")
+      }}</ion-button>
     </ion-item>
     <ion-item *ngFor="let item of brands">
       <ion-label

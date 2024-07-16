@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { IProduct, ProductService } from "app/services/product.service";
+import { TranslationsService } from "app/services/translations.service";
 import { ProductCreatePopupComponent } from "../product-create-popup/product-create-popup.component";
 
 @Component({
@@ -21,7 +22,8 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

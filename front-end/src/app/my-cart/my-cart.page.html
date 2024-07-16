@@ -20,8 +20,8 @@
 
         <div class="item-info">
           <p>{{product.name}}</p>
-          <p>Size: {{getSizeName(product)}}</p>
-          <p>Color: {{getColorName(product)}}</p>
+          <p>{{t.translate('SIZE')}}: {{getSizeName(product)}}</p>
+          <p>{{t.translate('COLOR')}}: {{getColorName(product)}}</p>
           <p>{{product.price}}$</p>
 
           <div class="qty-selector">
@@ -37,7 +37,7 @@
 <ion-footer translucent="true" class="ion-no-border">
   <ion-toolbar>
     <ion-button expand="block" class="main-button" (click)="openCheckoutModal()"
-      >Continue</ion-button
+      >{{t.translate('CONTINUE')}}</ion-button
     >
   </ion-toolbar>
 </ion-footer>

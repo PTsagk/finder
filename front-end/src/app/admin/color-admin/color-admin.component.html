@@ -3,14 +3,14 @@
     <ion-item>
       <ion-input
         label="New Color"
-        placeholder="Create new color"
+        [placeholder]="t.translate('CREATE_COLOR')"
         [(ngModel)]="newColor.name"
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-button expand="block" (click)="createColor()"
-        >Create Color</ion-button
-      >
+      <ion-button expand="block" (click)="createColor()">{{
+        t.translate("CREATE_COLOR")
+      }}</ion-button>
     </ion-item>
     <ion-item *ngFor="let item of colors">
       <ion-label

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ISize, SizeService } from "app/services/size.service";
+import { TranslationsService } from "app/services/translations.service";
 import { PopupSizeCreateComponent } from "../popup-size-create/popup-size-create.component";
 
 @Component({
@@ -14,7 +15,8 @@ export class SizesAdminComponent implements OnInit {
 
   constructor(
     private sizeService: SizeService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

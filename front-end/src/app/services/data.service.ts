@@ -5,6 +5,7 @@ export interface ICategory {
   id: number;
   name: string;
   image: string;
+  token: string;
 }
 
 export const missingImageUrl = "https://www.youtube.com/watch?v=iGx5a1ifSDs";
@@ -22,16 +23,19 @@ export class DataService {
       id: 1,
       name: "Womens",
       image: "../../assets/categories/category-1.png",
+      token: "WOMENS",
     };
     let cat2: ICategory = {
       id: 2,
       name: "Mens",
       image: "../../assets/categories/category-2.png",
+      token: "MENS",
     };
     let cat3: ICategory = {
       id: 3,
       name: "Kids",
       image: "../../assets/categories/category-3.png",
+      token: "KIDS",
     };
 
     categories.push(cat1, cat2, cat3);
