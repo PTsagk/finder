@@ -492,8 +492,12 @@ export async function getSearchResultsQuery(
         nameSubstringCount + descriptionSubstringCount + reviewSubstringCount;
 
       exact_and_similar_number_of_occurances +=
-        nameWordCount + descriptionWordCount + reviewWordCount;
-      nameSubstringCount + descriptionSubstringCount + reviewSubstringCount;
+        nameWordCount +
+        descriptionWordCount +
+        reviewWordCount +
+        nameSubstringCount +
+        descriptionSubstringCount +
+        reviewSubstringCount;
 
       weightedScoreForExactMatches +=
         ((nameWordCount + descriptionWordCount + reviewWordCount) * 10 +
@@ -606,6 +610,12 @@ export async function getSearchResultsQuery(
         (a: any, b: any) => b.is_favorite - a.is_favorite
       );
       break;
+    case "number_of_matches_and_substring_matches":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) =>
+          b.number_of_substring_and_string_matches -
+          a.number_of_substring_and_string_matches
+      );
     default:
       throw new Error("Invalid sort type specified.");
   }

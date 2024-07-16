@@ -8,4 +8,5 @@ export type SortBy =
   | "date_added"
   | "number_of_sales"
   | "featured"
-  | "favorite_first";
+  | "favorite_first"
+  | "number_of_matches_and_substring_matches";
