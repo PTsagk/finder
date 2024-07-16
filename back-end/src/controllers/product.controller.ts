@@ -174,6 +174,7 @@ export const searchProducts = async (req: Request, res: Response) => {
     "date_added",
     "number_of_sales",
     "featured",
+    "favorite_first",
   ]);
 
   try {
@@ -186,6 +187,8 @@ export const searchProducts = async (req: Request, res: Response) => {
       sizeIds = [],
       sortBy = "relevancy",
     } = req.body;
+
+    const userId = res.locals.id ? res.locals.id : 1;
 
     if (!search) {
       res.status(400).json("Search term is required");
@@ -218,6 +221,7 @@ export const searchProducts = async (req: Request, res: Response) => {
     }
 
     const results = await getSearchResultsQuery(
+      userId,
       search,
       minPrice,
       maxPrice,

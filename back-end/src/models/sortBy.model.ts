@@ -7,4 +7,5 @@ export type SortBy =
   | "rated_reviews_count"
   | "date_added"
   | "number_of_sales"
-  | "featured";
+  | "featured"
+  | "favorite_first";

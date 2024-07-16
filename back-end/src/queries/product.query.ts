@@ -49,7 +49,6 @@ export async function createNewProductQuery(product: IProductCreate) {
       -1
     )}`
   );
-
   //@ts-ignore
   return rows[0];
 }
@@ -278,6 +277,7 @@ export async function deleteProductQuery(id: number) {
 }
 
 export async function getSearchResultsQuery(
+  userId: number,
   search: string,
   minPrice?: number,
   maxPrice?: number,
@@ -386,6 +386,27 @@ export async function getSearchResultsQuery(
     productIds
   );
 
+  const [productColors] = await sqlPool.query(
+    `SELECT distinct product_id, color_id 
+    FROM product_color 
+    WHERE product_id IN (${placeholders})`,
+    productIds
+  );
+
+  const [productSizes] = await sqlPool.query(
+    `SELECT distinct product_id, size_id 
+    FROM product_size 
+    WHERE product_id IN (${placeholders})`,
+    productIds
+  );
+
+  const [favoriteProducts] = await sqlPool.query(
+    `SELECT distinct product_id 
+    FROM favorite_product 
+    WHERE user_id = ?`,
+    [userId]
+  );
+
   // Create a map for review stats
   //@ts-ignore
   const reviewStatsMap = reviewStats.reduce((acc: any, stat: any) => {
@@ -407,6 +428,31 @@ export async function getSearchResultsQuery(
       return acc;
     },
     {}
+  );
+
+  //@ts-ignore
+  const colorsByProduct: { [key: number]: number[] } = productColors.reduce(
+    (acc: any, color: any) => {
+      acc[color.product_id] = acc[color.product_id] || [];
+      acc[color.product_id].push(color.color_id);
+      return acc;
+    },
+    {}
+  );
+
+  //@ts-ignore
+  const sizesByProduct: { [key: number]: number[] } = productSizes.reduce(
+    (acc: any, size: any) => {
+      acc[size.product_id] = acc[size.product_id] || [];
+      acc[size.product_id].push(size.size_id);
+      return acc;
+    },
+    {}
+  );
+
+  const favoriteProductIds = new Set(
+    //@ts-ignore
+    favoriteProducts.map((fp: any) => fp.product_id)
   );
 
   const calculateScore = (product: Product) => {
@@ -483,6 +529,9 @@ export async function getSearchResultsQuery(
       reviews_average_rating: 0,
     };
     const number_of_sales = salesStatsMap[product.id] || 0;
+    const colors = colorsByProduct[product.id] || [];
+    const sizes = sizesByProduct[product.id] || [];
+    const is_favorite = favoriteProductIds.has(product.id);
     return {
       ...product,
       relevancy_score,
@@ -490,6 +539,9 @@ export async function getSearchResultsQuery(
       exact_number_of_matches: exact_number_of_occurances,
       ...reviewStats,
       number_of_sales,
+      colors,
+      sizes,
+      is_favorite,
     };
   });
 
@@ -543,6 +595,11 @@ export async function getSearchResultsQuery(
     case "featured":
       sortedProducts = productsWithScores.sort(
         (a: any, b: any) => b.featured - a.featured
+      );
+      break;
+    case "favorite_first":
+      sortedProducts = productsWithScores.sort(
+        (a: any, b: any) => b.is_favorite - a.is_favorite
       );
       break;
     default:
