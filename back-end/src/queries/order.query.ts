@@ -45,13 +45,15 @@ export async function getOrdersQuery(userId: any) {
       size.name AS size_name, 
       o.color_id, 
       color.name AS color_name, 
-      COUNT(*) AS identical_product_count
+      COUNT(*) AS identical_product_count,
+      MAX(o.id) AS latest_order_id
     FROM \`order\` o
     JOIN product ON o.product_id = product.id
     JOIN size ON o.size_id = size.id
     JOIN color ON o.color_id = color.id
     WHERE o.user_id = ?
     GROUP BY o.product_id, o.size_id, o.color_id
+    ORDER BY latest_order_id DESC
     `,
     [userId]
   );
