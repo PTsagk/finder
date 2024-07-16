@@ -27,10 +27,17 @@
 </ion-header>
 
 <ion-content>
-  <div class="search ion-padding">
+  <div class="search ion-padding" *ngIf="categorySelected">
     <ion-item lines="none">
-      <ion-input placeholder="Search Your Product"></ion-input>
-      <ion-icon name="search-outline" slot="start"></ion-icon>
+      <ion-input
+        placeholder="Search Your Product"
+        (ionChange)="onSearchChange($event)"
+      ></ion-input>
+      <ion-icon
+        name="search-outline"
+        slot="start"
+        (click)="searchProducts()"
+      ></ion-icon>
     </ion-item>
   </div>
 

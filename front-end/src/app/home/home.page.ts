@@ -4,7 +4,7 @@ import { FilterComponent } from "app/components/filter/filter.component";
 import { ItemDetailsPage } from "app/item-details/item-details.page";
 import { CartService } from "app/services/cart.service";
 import { FavouriteService } from "app/services/favourite.service";
-import { IFilters } from "app/services/filter.service";
+import { FilterService, IFilters } from "app/services/filter.service";
 import { IProduct, ProductService } from "app/services/product.service";
 import { IUser, UserService } from "app/services/user.service";
 import { DataService } from "../services/data.service";
@@ -32,7 +32,8 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private productService: ProductService,
     private favouriteService: FavouriteService,
-    private userService: UserService
+    private userService: UserService,
+    private filterService: FilterService
   ) {}
 
   ngOnInit() {
@@ -58,8 +59,16 @@ export class HomePage implements OnInit {
     });
   }
 
-  test() {
-    console.log("first");
+  onSearchChange(ev: CustomEvent) {
+    this.filterService.filters.search = ev.detail.value;
+  }
+
+  searchProducts() {
+    this.productService.searchProducts().subscribe((products: any) => {
+      if (products) {
+        this.products = products;
+      }
+    });
   }
   async filterModal() {
     const modal = await this.modalController.create({
@@ -73,6 +82,8 @@ export class HomePage implements OnInit {
   }
   selectCategory(category: string) {
     this.categorySelected = category;
+    this.filterService.clearFilters();
+    this.filterService.filters.category = category;
     this.getFilteredProducts(category, {});
   }
 

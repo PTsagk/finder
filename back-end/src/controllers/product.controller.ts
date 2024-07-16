@@ -182,9 +182,9 @@ export const searchProducts = async (req: Request, res: Response) => {
       search,
       minPrice,
       maxPrice,
-      colorIds = [],
-      brandIds = [],
-      sizeIds = [],
+      color_ids = [],
+      brand_ids = [],
+      size_ids = [],
       sortBy = "relevancy",
     } = req.body;
 
@@ -204,16 +204,16 @@ export const searchProducts = async (req: Request, res: Response) => {
       res.status(400).json("Invalid maxPrice");
       return;
     }
-    if (!Array.isArray(colorIds)) {
-      res.status(400).json("Invalid colorIds");
+    if (!Array.isArray(color_ids)) {
+      res.status(400).json("Invalid color_ids");
       return;
     }
-    if (!Array.isArray(brandIds)) {
-      res.status(400).json("Invalid brandIds");
+    if (!Array.isArray(brand_ids)) {
+      res.status(400).json("Invalid brand_ids");
       return;
     }
-    if (!Array.isArray(sizeIds)) {
-      res.status(400).json("Invalid sizeIds");
+    if (!Array.isArray(size_ids)) {
+      res.status(400).json("Invalid size_ids");
       return;
     }
     if (sortBy && !validSortByValues.has(sortBy)) {
@@ -225,9 +225,9 @@ export const searchProducts = async (req: Request, res: Response) => {
       search,
       minPrice,
       maxPrice,
-      colorIds,
-      brandIds,
-      sizeIds,
+      color_ids,
+      brand_ids,
+      size_ids,
       sortBy as SortBy
     );
 
