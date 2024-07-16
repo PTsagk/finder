@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ColorService, IColor } from "app/services/color.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-popup-color",
@@ -12,7 +13,8 @@ export class PopupColorComponent implements OnInit {
 
   constructor(
     private colorService: ColorService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {}

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { BrandService, IBrand } from "app/services/brand.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-brand-modal",
@@ -11,7 +12,8 @@ export class BrandModalComponent implements OnInit {
   @Input() brand!: IBrand;
   constructor(
     private brandService: BrandService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {}

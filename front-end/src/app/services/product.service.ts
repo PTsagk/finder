@@ -29,19 +29,16 @@ export class ProductService {
 
   getFeaturedProducts() {
     return this.http.get(
-      "http://localhost:8000/product/get_featured_products/3",
+      "http://localhost:8000/product/get_featured_products",
       {
         withCredentials: true,
       }
     );
   }
   getBestSellerProducts() {
-    return this.http.get(
-      "http://localhost:8000/product/get_top_bestsellers/3",
-      {
-        withCredentials: true,
-      }
-    );
+    return this.http.get("http://localhost:8000/product/get_top_bestsellers", {
+      withCredentials: true,
+    });
   }
 
   getProducts() {
