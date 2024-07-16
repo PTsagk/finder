@@ -10,6 +10,19 @@
         <img src="../../assets/back-dark.svg" />
       </ion-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button
+        class="cart-button"
+        expand="block"
+        (click)="cartService.cartModal()"
+      >
+        <ion-badge class="badge" color="danger" slot="end" mode=""
+          >{{productCount}}
+        </ion-badge>
+
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -17,18 +30,22 @@
   <h1 class="title">My Orders</h1>
 
   <div class="order-items">
-    <ion-card mode="ios">
+    <ion-card mode="ios" *ngFor="let order of orders">
       <ion-card-content>
         <div class="item-img">
-          <img src="../../assets/cart/cart1.png" />
+          <img [src]="order.image" />
         </div>
 
         <div class="item-info">
-          <p>Women t-shirt</p>
-          <p>Lotto.LTD</p>
-          <p>$34.00</p>
+          <p>{{order.name}}</p>
+          <p>{{order.size_name}}</p>
+          <p>{{order.color_name}}</p>
+          <p>${{order.price}}</p>
 
-          <ion-button expand="block" class="main-button"
+          <ion-button
+            expand="block"
+            class="main-button"
+            (click)="addToCart(order)"
             >Order Again</ion-button
           >
         </div>
