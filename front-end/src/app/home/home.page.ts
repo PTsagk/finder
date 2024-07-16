@@ -6,6 +6,7 @@ import { CartService } from "app/services/cart.service";
 import { FavouriteService } from "app/services/favourite.service";
 import { FilterService } from "app/services/filter.service";
 import { IProduct, ProductService } from "app/services/product.service";
+import { TranslationsService } from "app/services/translations.service";
 import { IUser, UserService } from "app/services/user.service";
 import { DataService } from "../services/data.service";
 // import { ModalPage } from '../modal/modal.page';
@@ -33,7 +34,8 @@ export class HomePage implements OnInit {
     private productService: ProductService,
     private favouriteService: FavouriteService,
     private userService: UserService,
-    private filterService: FilterService
+    private filterService: FilterService,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {
@@ -100,7 +102,7 @@ export class HomePage implements OnInit {
       component: ItemDetailsPage,
       cssClass: "my-custom-class",
       componentProps: {
-        product,
+        id: product.id,
       },
     });
     return await modal.present();

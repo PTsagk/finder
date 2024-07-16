@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { UtilService } from "../services/util.service";
 import { NavController } from "@ionic/angular";
+import { TranslationsService } from "app/services/translations.service";
 import { UserService } from "../services/user.service";
+import { UtilService } from "../services/util.service";
 
 @Component({
   selector: "app-welcome",
@@ -12,7 +13,8 @@ export class WelcomePage implements OnInit {
   constructor(
     private util: UtilService,
     private userService: UserService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

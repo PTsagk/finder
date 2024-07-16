@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { ItemDetailsPage } from "app/item-details/item-details.page";
 import { FavouriteService } from "app/services/favourite.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-favorite",
@@ -12,7 +13,8 @@ export class FavoritePage implements OnInit {
   favoriteProducts = [];
   constructor(
     private favoriteService: FavouriteService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

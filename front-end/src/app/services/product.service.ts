@@ -17,6 +17,7 @@ export interface IProduct {
   size_ids: number[];
   favourite: boolean;
   reviews_average_rating: number;
+  total_reviews: number;
 }
 
 @Injectable({
@@ -102,5 +103,11 @@ export class ProductService {
         withCredentials: true,
       }
     );
+  }
+  getProduct(id: number) {
+    console.log(id);
+    return this.http.get("http://localhost:8000/product/get_product/" + id, {
+      withCredentials: true,
+    });
   }
 }

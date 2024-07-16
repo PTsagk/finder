@@ -20,21 +20,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-title>admin</ion-title>
+  <ion-title>{{t.translate('ADMIN')}}</ion-title>
   <ion-header>
     <ion-toolbar>
       <ion-segment (ionChange)="changePage($event)" [value]="showBrandPage">
         <ion-segment-button value="brand">
-          <ion-label>Brand</ion-label>
+          <ion-label>{{t.translate('BRAND')}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="product">
-          <ion-label>Product</ion-label>
+          <ion-label>{{t.translate('PRODUCT')}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="color">
-          <ion-label>Color</ion-label>
+          <ion-label>{{t.translate('COLOR')}}</ion-label>
         </ion-segment-button>
         <ion-segment-button value="size">
-          <ion-label>Size</ion-label>
+          <ion-label>{{t.translate('SIZE')}}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { BrandService, IBrand } from "app/services/brand.service";
+import { TranslationsService } from "app/services/translations.service";
 import { BrandModalComponent } from "../brand-modal/brand-modal.component";
 
 @Component({
@@ -14,7 +15,8 @@ export class BrandsListComponent implements OnInit {
 
   constructor(
     private brandService: BrandService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {

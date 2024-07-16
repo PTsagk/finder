@@ -16,7 +16,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 1"
               >
-                <ion-label>Home</ion-label>
+                <ion-label>{{ t.translate("HOME") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false">
@@ -27,7 +27,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 2"
               >
-                <ion-label>Profile</ion-label>
+                <ion-label>{{ t.translate("PROFILE") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false">
@@ -38,7 +38,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 3"
               >
-                <ion-label>My Cart</ion-label>
+                <ion-label>{{ t.translate("CART") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false">
@@ -49,7 +49,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 4"
               >
-                <ion-label>Favorite</ion-label>
+                <ion-label>{{ t.translate("FAVORITE") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false">
@@ -60,7 +60,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 5"
               >
-                <ion-label>My Orders</ion-label>
+                <ion-label>{{ t.translate("ORDERS") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
             <ion-menu-toggle auto-hide="false" *ngIf="isAdmin">
@@ -71,7 +71,7 @@
                 class="ion-text-center"
                 [class.selected]="selectedIndex == 6"
               >
-                <ion-label>Admin</ion-label>
+                <ion-label>{{ t.translate("ADMIN") }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>

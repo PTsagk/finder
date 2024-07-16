@@ -3,12 +3,14 @@
     <ion-item>
       <ion-input
         label="New Size"
-        placeholder="Create new size"
+        [placeholder]="t.translate('CREATE_SIZE')"
         [(ngModel)]="newSize.name"
       ></ion-input>
     </ion-item>
     <ion-item>
-      <ion-button expand="block" (click)="createSize()">Create Size</ion-button>
+      <ion-button expand="block" (click)="createSize()">{{
+        t.translate("CREATE_SIZE")
+      }}</ion-button>
     </ion-item>
     <ion-item *ngFor="let item of sizes">
       <ion-label

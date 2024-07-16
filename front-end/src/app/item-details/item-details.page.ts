@@ -5,6 +5,7 @@ import { CartService } from "app/services/cart.service";
 import { ColorService, IColor } from "app/services/color.service";
 import { IProduct, ProductService } from "app/services/product.service";
 import { ISize, SizeService } from "app/services/size.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-item-details",
@@ -18,9 +19,10 @@ export class ItemDetailsPage implements OnInit {
   itemInfo: any;
   productCount = 0;
   public reviews = [];
-  @Input() product: IProduct;
+  @Input() id: number;
   sizes: ISize[] = [];
   colors: IColor[] = [];
+  product!: IProduct;
 
   constructor(
     private animatioCntrl: AnimationController,
@@ -28,7 +30,8 @@ export class ItemDetailsPage implements OnInit {
     private cartService: CartService,
     public modalController: ModalController,
     private sizeService: SizeService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {
@@ -40,25 +43,25 @@ export class ItemDetailsPage implements OnInit {
       });
     });
 
-    this.productService
-      .getProductReviews(this.product.id)
-      .subscribe((res: any) => {
-        console.log(res);
-        this.reviews = res.reviews;
+    this.productService.getProduct(this.id).subscribe((product: any) => {
+      this.product = product;
+      this.sizeService.getSizes().subscribe((sizes: any) => {
+        this.sizes = sizes.filter((size) =>
+          this.product.size_ids.includes(size.id)
+        );
+        this.selectedSize = this.sizes[0].id;
       });
-
-    this.sizeService.getSizes().subscribe((sizes: any) => {
-      console.log(sizes, this.product);
-      this.sizes = sizes.filter((size) =>
-        this.product.size_ids.includes(size.id)
-      );
-      this.selectedSize = this.sizes[0].id;
+      this.colorService.getColors().subscribe((colors: any) => {
+        this.colors = colors.filter((color) =>
+          this.product.color_ids.includes(color.id)
+        );
+        this.selectedColor = this.colors[0].id;
+      });
     });
-    this.colorService.getColors().subscribe((colors: any) => {
-      this.colors = colors.filter((color) =>
-        this.product.color_ids.includes(color.id)
-      );
-      this.selectedColor = this.colors[0].id;
+
+    this.productService.getProductReviews(this.id).subscribe((res: any) => {
+      console.log(res);
+      this.reviews = res.reviews;
     });
   }
 

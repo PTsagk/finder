@@ -61,12 +61,15 @@
           {{skibidiToiletRizzOhioSigmaFanumTaxBabyGronkYogurtMaleMewingEdgemaxxingLooksmaxxingShawtySlayQueenmaxxingGyatGoonCaveOneTwoBuckleMyShoe(product.reviews_average_rating)}}
         </div>
 
-        {{product.reviews_average_rating>4 && 'Very Good' ||
-        product.reviews_average_rating>2 && 'Good' ||
-        product.reviews_average_rating>0 && 'Bad'||'No ratings'}}
+        {{product.reviews_average_rating>4 && t.translate('VERY_GOOD') ||
+        product.reviews_average_rating>2 && t.translate('GOOD') ||
+        product.reviews_average_rating>0 && t.translate('BAD') ||
+        t.translate('NO_RATINGS')}}
       </ion-col>
       <ion-col size="6">
-        <div class="count">40 Reviews</div>
+        <div class="count">
+          {{product.total_reviews}} {{t.translate('REVIEWS')}}
+        </div>
       </ion-col>
     </ion-row>
   </div>
@@ -76,7 +79,7 @@
   </div>
 
   <div class="description">
-    <h5>Description</h5>
+    <h5>{{t.translate('DESCRIPTION')}}</h5>
 
     <p>{{ product.description }}</p>
   </div>
@@ -88,10 +91,10 @@
   <div class="variation">
     <ion-segment (ionChange)="segmentChanged($event)" value="size">
       <ion-segment-button value="size">
-        <ion-label>Select Size</ion-label>
+        <ion-label>{{t.translate('SELECT_SIZE')}}</ion-label>
       </ion-segment-button>
       <ion-segment-button value="color">
-        <ion-label>Select Color</ion-label>
+        <ion-label>{{t.translate('SELECT_COLOR')}}</ion-label>
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -132,10 +135,10 @@
       margin-top: 80px;
     "
   >
-    <h5 style="font-weight: bold">Reviews</h5>
+    <h5 style="font-weight: bold">{{t.translate('REVIEWS')}}</h5>
 
     <ion-button class="add-review-button" (click)="addReviewModal()"
-      >Add review</ion-button
+      >{{t.translate('REVIEWS')}}</ion-button
     >
   </div>
 

@@ -5,10 +5,10 @@ import { SplashScreen } from "@ionic-native/splash-screen/ngx";
 import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { ModalController, Platform } from "@ionic/angular";
 import { menuController } from "@ionic/core";
+import { MyCartPage } from "./my-cart/my-cart.page";
+import { TranslationsService } from "./services/translations.service";
 import { UserService } from "./services/user.service";
 import { UtilService } from "./services/util.service";
-import { MyCartPage } from "./my-cart/my-cart.page";
-
 @Component({
   selector: "app-root",
   templateUrl: "app.component.html",
@@ -27,7 +27,8 @@ export class AppComponent implements OnInit {
     private util: UtilService,
     private router: Router,
     private userService: UserService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    public t: TranslationsService
   ) {
     this.initializeApp();
   }

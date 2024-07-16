@@ -4,6 +4,7 @@ import { CheckoutPage } from "app/checkout/checkout.page";
 import { CartService, ICartItem } from "app/services/cart.service";
 import { ColorService, IColor } from "app/services/color.service";
 import { ISize, SizeService } from "app/services/size.service";
+import { TranslationsService } from "app/services/translations.service";
 
 @Component({
   selector: "app-my-cart",
@@ -25,7 +26,8 @@ export class MyCartPage implements OnInit {
     private modalController: ModalController,
     private cartService: CartService,
     private sizeService: SizeService,
-    private colorService: ColorService
+    private colorService: ColorService,
+    public t: TranslationsService
   ) {}
 
   ngOnInit() {
