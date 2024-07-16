@@ -29,11 +29,12 @@ export class MyOrdersPage implements OnInit {
   }
 
   async openItemModal(product) {
+    console.log(product);
     const modal = await this.modalController.create({
       component: ItemDetailsPage,
       componentProps: {
         product,
-        id: product.id,
+        id: product.product_id,
       },
     });
     return await modal.present();
