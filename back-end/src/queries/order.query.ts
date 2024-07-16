@@ -2,9 +2,12 @@ import { sqlPool } from "../mysqlPool";
 
 export async function createOrderQuery(products: any, userId: any) {
   const productsQuery = products.map((product: any) => {
-    return `(${userId},${product.id},${product.size},${product.color})`;
+    let query: string[] = [];
+    for (let i = 0; i < product.quantity; i++) {
+      query.push(`(${userId},${product.id},${product.size},${product.color})`);
+    }
+    return query.join(",");
   });
-  console.log(productsQuery);
   // @ts-ignore
   const [rows] = await sqlPool.query(
     "INSERT INTO `order` (user_id, product_id, size_id, color_id) VALUES " +

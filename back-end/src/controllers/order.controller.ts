@@ -3,7 +3,7 @@ import { createOrderQuery, getOrdersQuery } from "../queries/order.query";
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    createOrderQuery(req.body.products, req.body.userId);
+    await createOrderQuery(req.body.products, req.body.userId);
     res.status(200).json("Order created\nOK!");
     return;
   } catch (error) {
