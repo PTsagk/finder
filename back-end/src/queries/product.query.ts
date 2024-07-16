@@ -317,7 +317,7 @@ export async function getSearchResultsQuery(
     FROM product p
     LEFT JOIN product_color pc ON p.id = pc.product_id
     LEFT JOIN product_size ps ON p.id = ps.product_id
-    WHERE ( category = ? AND
+    WHERE ( p.category = ? AND
   `;
 
   const likeClauses = searchWords.map(
