@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { IFilters } from "./filter.service";
+import { FilterService, IFilters } from "./filter.service";
 
 export interface IProduct {
   id: number;
@@ -16,6 +16,7 @@ export interface IProduct {
   color_ids: number[];
   size_ids: number[];
   favourite: boolean;
+  reviews_average_rating: number;
 }
 
 @Injectable({
@@ -23,7 +24,7 @@ export interface IProduct {
 })
 export class ProductService {
   products: BehaviorSubject<IProduct[]> = new BehaviorSubject<IProduct[]>(null);
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private filterService: FilterService) {}
 
   getFeaturedProducts() {
     return this.http.get(
@@ -92,5 +93,14 @@ export class ProductService {
     return this.http.post("http://localhost:8000/review", review, {
       withCredentials: true,
     });
+  }
+  searchProducts() {
+    return this.http.post(
+      "http://localhost:8000/product/search",
+      this.filterService.filters,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }

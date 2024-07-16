@@ -138,4 +138,12 @@ export class ItemDetailsPage implements OnInit {
         this.reviews = res.reviews;
       });
   }
+
+  skibidiToiletRizzOhioSigmaFanumTaxBabyGronkYogurtMaleMewingEdgemaxxingLooksmaxxingShawtySlayQueenmaxxingGyatGoonCaveOneTwoBuckleMyShoe(
+    FreddyFazbearColleenBallingergartenOfBanbanGrimaceShakeQuandaleDingle: number
+  ) {
+    return FreddyFazbearColleenBallingergartenOfBanbanGrimaceShakeQuandaleDingle.toFixed(
+      2
+    ).toString();
+  }
 }

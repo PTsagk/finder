@@ -278,7 +278,8 @@ export async function deleteProductQuery(id: number) {
 
 export async function getSearchResultsQuery(
   userId: number,
-  search: string,
+  search: string = "",
+  category: Category,
   minPrice?: number,
   maxPrice?: number,
   colorIds?: number[],
@@ -316,19 +317,22 @@ export async function getSearchResultsQuery(
     FROM product p
     LEFT JOIN product_color pc ON p.id = pc.product_id
     LEFT JOIN product_size ps ON p.id = ps.product_id
-    WHERE (
+    WHERE p.category = ?
   `;
 
-  const likeClauses = searchWords.map(
-    (word) => `(p.name LIKE ? OR p.description LIKE ?)`
-  );
-  query += likeClauses.join(" OR ");
-  query += `)`;
+  const params: any[] = [category];
 
-  const params: any[] = [];
-  searchWords.forEach((word) => {
-    params.push(`%${word}%`, `%${word}%`);
-  });
+  if (searchWords.length > 0) {
+    query += " AND (";
+    const likeClauses = searchWords.map(
+      (word) => `(p.name LIKE ? OR p.description LIKE ?)`
+    );
+    query += likeClauses.join(" OR ");
+    query += ")";
+    searchWords.forEach((word) => {
+      params.push(`%${word}%`, `%${word}%`);
+    });
+  }
 
   if (minPrice !== undefined) {
     query += ` AND p.price >= ?`;
@@ -352,7 +356,6 @@ export async function getSearchResultsQuery(
   }
 
   query += ` LIMIT 5000`;
-
   const [rows] = await sqlPool.query(query, params);
   //@ts-ignore
   const productIds = rows.map((row: any) => row.id);
@@ -534,10 +537,12 @@ export async function getSearchResultsQuery(
       number_of_rated_reviews: 0,
       reviews_average_rating: 0,
     };
+    reviewStats.reviews_average_rating =
+      Math.round(reviewStats.reviews_average_rating * 100) / 100;
     const number_of_sales = salesStatsMap[product.id] || 0;
-    const colors = colorsByProduct[product.id] || [];
-    const sizes = sizesByProduct[product.id] || [];
-    const is_favorite = favoriteProductIds.has(product.id);
+    const color_ids = colorsByProduct[product.id] || [];
+    const size_ids = sizesByProduct[product.id] || [];
+    const favourite = favoriteProductIds.has(product.id);
     return {
       ...product,
       relevancy_score,
@@ -547,9 +552,9 @@ export async function getSearchResultsQuery(
       exact_number_of_matches: exact_number_of_occurances,
       ...reviewStats,
       number_of_sales,
-      colors,
-      sizes,
-      is_favorite,
+      color_ids,
+      size_ids,
+      favourite,
     };
   });
 
@@ -607,7 +612,7 @@ export async function getSearchResultsQuery(
       break;
     case "favorite_first":
       sortedProducts = productsWithScores.sort(
-        (a: any, b: any) => b.is_favorite - a.is_favorite
+        (a: any, b: any) => b.favourite - a.favourite
       );
       break;
     case "number_of_matches_and_substring_matches":

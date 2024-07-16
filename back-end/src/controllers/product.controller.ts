@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Category } from "../models/category.model";
 import { SortBy } from "../models/sortBy.model";
 import {
   createNewProductQuery,
@@ -178,25 +179,30 @@ export const searchProducts = async (req: Request, res: Response) => {
     "number_of_matches_and_substring_matches",
   ]);
 
+  const validCategoryValues = new Set(["womens", "mens", "kids"]);
+
   try {
-    const {
+    let {
       search,
+      category,
       minPrice,
       maxPrice,
-      colorIds = [],
-      brandIds = [],
-      sizeIds = [],
+      color_ids = [],
+      brand_ids = [],
+      size_ids = [],
       sortBy = "relevancy",
     } = req.body;
 
     const userId = res.locals.id;
 
-    if (!search) {
-      res.status(400).json("Search term is required");
+    if (!category) {
+      res.status(400).json("Category is required");
       return;
     }
+    if (!validCategoryValues.has(category)) {
+      throw new Error("Invalid category specified.");
+    }
 
-    // Validate optional fields
     if (minPrice !== undefined && typeof minPrice !== "number") {
       res.status(400).json("Invalid minPrice");
       return;
@@ -205,16 +211,16 @@ export const searchProducts = async (req: Request, res: Response) => {
       res.status(400).json("Invalid maxPrice");
       return;
     }
-    if (!Array.isArray(colorIds)) {
-      res.status(400).json("Invalid colorIds");
+    if (!Array.isArray(color_ids)) {
+      res.status(400).json("Invalid color_ids");
       return;
     }
-    if (!Array.isArray(brandIds)) {
-      res.status(400).json("Invalid brandIds");
+    if (!Array.isArray(brand_ids)) {
+      res.status(400).json("Invalid brand_ids");
       return;
     }
-    if (!Array.isArray(sizeIds)) {
-      res.status(400).json("Invalid sizeIds");
+    if (!Array.isArray(size_ids)) {
+      res.status(400).json("Invalid size_ids");
       return;
     }
     if (sortBy && !validSortByValues.has(sortBy)) {
@@ -224,11 +230,12 @@ export const searchProducts = async (req: Request, res: Response) => {
     const results = await getSearchResultsQuery(
       userId,
       search,
+      category as Category,
       minPrice,
       maxPrice,
-      colorIds,
-      brandIds,
-      sizeIds,
+      color_ids,
+      brand_ids,
+      size_ids,
       sortBy as SortBy
     );
 

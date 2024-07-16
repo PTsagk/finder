@@ -2,7 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { ModalController } from "@ionic/angular";
 import { BrandService, IBrand } from "app/services/brand.service";
 import { ColorService, IColor } from "app/services/color.service";
-import { FilterService, IFilters } from "app/services/filter.service";
+import {
+  FilterService,
+  IFilters,
+  ISortOptions,
+} from "app/services/filter.service";
 import { ISize, SizeService } from "app/services/size.service";
 
 @Component({
@@ -15,6 +19,18 @@ export class FilterComponent implements OnInit {
   brands: IBrand[] = [];
   colors: IColor[] = [];
   sizes: ISize[] = [];
+  readonly sortOptions: ISortOptions[] = [
+    { name: "Relevancy", value: "relevancy" },
+    { name: "Substring Matches", value: "substring_matches" },
+    { name: "Exact Matches", value: "exact_matches" },
+    { name: "Reviews Score", value: "reviews_score" },
+    { name: "Reviews Count", value: "reviews_count" },
+    { name: "Rated Reviews Count", value: "rated_reviews_count" },
+    { name: "Date Added", value: "date_added" },
+    { name: "Number Of Sales", value: "number_of_sales" },
+    { name: "Featured", value: "featured" },
+    { name: "Favorite First", value: "favorite_first" },
+  ];
   constructor(
     public modalController: ModalController,
     private brandService: BrandService,
@@ -36,11 +52,11 @@ export class FilterComponent implements OnInit {
   }
 
   cancel() {
-    this.modalController.dismiss(this.filters);
+    this.modalController.dismiss();
   }
   apply() {
     this.filterService.setFilters(this.filters);
-    this.modalController.dismiss(this.filters);
+    this.modalController.dismiss();
   }
 
   clear() {
@@ -56,5 +72,8 @@ export class FilterComponent implements OnInit {
   }
   selectSizes(ev: CustomEvent) {
     this.filters.size_ids = ev.detail.value;
+  }
+  selectSortBy(ev: CustomEvent) {
+    this.filters.sortBy = ev.detail.value;
   }
 }

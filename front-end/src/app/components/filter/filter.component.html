@@ -37,6 +37,20 @@
     }}</ion-select-option>
   </ion-select>
 </ion-item>
+<ion-item>
+  <ion-select
+    aria-label="sorting option"
+    placeholder="Select Sorting Option"
+    (ionChange)="selectSortBy($event)"
+    [value]="filters.sortBy"
+  >
+    <ion-select-option
+      *ngFor="let sortBy of sortOptions"
+      [value]="sortBy.value"
+      >{{ sortBy.name | titlecase }}</ion-select-option
+    >
+  </ion-select>
+</ion-item>
 <ion-button expand="block" class="main-button" (click)="apply()"
   >Apply Filters</ion-button
 >
