@@ -79,4 +79,10 @@ export class CartService {
     });
     return await modal.present();
   }
+  async closeCartModal() {
+    return await this.modalController.dismiss();
+  }
+  deleteAllProducts() {
+    this.updateCart([]);
+  }
 }

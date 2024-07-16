@@ -1,30 +1,10 @@
 import { Request, Response } from "express";
+import { createOrderQuery } from "../queries/order.query";
 
-export const createFavourite = async (req: Request, res: Response) => {
+export const createOrder = async (req: Request, res: Response) => {
   try {
-    res.status(200).json("Favourited Successfully\nOK!");
-    return;
-  } catch (error) {
-    console.log(error, "error");
-    res.status(500).json("Internal Server Error");
-    return;
-  }
-};
-
-export const deleteFavourite = async (req: Request, res: Response) => {
-  try {
-    res.status(200).json("Unfavourited Successfully\nOK!");
-    return;
-  } catch (error) {
-    console.log(error, "error");
-    res.status(500).json("Internal Server Error");
-    return;
-  }
-};
-
-export const getFavourites = async (req: Request, res: Response) => {
-  try {
-    res.status(200).json(products);
+    createOrderQuery(req.body.products, req.body.userId);
+    res.status(200).json("Order created\nOK!");
     return;
   } catch (error) {
     console.log(error, "error");

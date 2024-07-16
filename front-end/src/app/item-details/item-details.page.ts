@@ -123,7 +123,10 @@ export class ItemDetailsPage implements OnInit {
       color: this.selectedColor,
     });
   }
-
+  buyNow() {
+    this.addToCart();
+    this.cartService.cartModal();
+  }
   async addReviewModal() {
     const modal = await this.modalController.create({
       component: ReviewPage,
