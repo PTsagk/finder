@@ -380,7 +380,7 @@ export async function getSearchResultsQuery(
 
   const [salesStats] = await sqlPool.query(
     `SELECT product_id, COUNT(*) AS number_of_sales 
-    FROM order 
+    FROM finder.order 
     WHERE product_id IN (${placeholders})
     GROUP BY product_id`,
     productIds
