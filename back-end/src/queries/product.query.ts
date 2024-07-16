@@ -533,10 +533,12 @@ export async function getSearchResultsQuery(
       number_of_rated_reviews: 0,
       reviews_average_rating: 0,
     };
+    reviewStats.reviews_average_rating =
+      Math.round(reviewStats.reviews_average_rating * 100) / 100;
     const number_of_sales = salesStatsMap[product.id] || 0;
-    const colors = colorsByProduct[product.id] || [];
-    const sizes = sizesByProduct[product.id] || [];
-    const is_favorite = favoriteProductIds.has(product.id);
+    const color_ids = colorsByProduct[product.id] || [];
+    const size_ids = sizesByProduct[product.id] || [];
+    const favourite = favoriteProductIds.has(product.id);
     return {
       ...product,
       relevancy_score,
@@ -546,9 +548,9 @@ export async function getSearchResultsQuery(
       exact_number_of_matches: exact_number_of_occurances,
       ...reviewStats,
       number_of_sales,
-      colors,
-      sizes,
-      is_favorite,
+      color_ids,
+      size_ids,
+      favourite,
     };
   });
 

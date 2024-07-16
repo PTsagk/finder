@@ -16,6 +16,7 @@ export interface IProduct {
   color_ids: number[];
   size_ids: number[];
   favourite: boolean;
+  reviews_average_rating: number;
 }
 
 @Injectable({
