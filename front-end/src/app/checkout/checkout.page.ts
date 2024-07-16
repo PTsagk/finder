@@ -16,7 +16,7 @@ export class CheckoutPage implements OnInit {
   cardProducts: any;
   userInfo: IUser;
   subTotal: any = 0;
-  total: any = 10;
+  total: any = 0;
 
   constructor(
     public modalController: ModalController,
@@ -35,11 +35,11 @@ export class CheckoutPage implements OnInit {
     });
     this.cardProducts.forEach((product) => {
       this.subTotal += product.price * product.quantity;
-      this.total += this.subTotal;
+      this.total += product.price * product.quantity;
     });
 
     this.subTotal = this.subTotal.toFixed(2);
-    this.total = this.total.toFixed(2);
+    this.total = this.total.toFixed(2) + 10;
   }
 
   async sendOrder() {
