@@ -488,12 +488,7 @@ export async function getSearchResultsQuery(
         nameWordCount + descriptionWordCount + reviewWordCount;
 
       similar_number_of_occurances +=
-        nameWordCount +
-        descriptionWordCount +
-        reviewWordCount +
-        nameSubstringCount +
-        descriptionSubstringCount +
-        reviewSubstringCount;
+        nameSubstringCount + descriptionSubstringCount + reviewSubstringCount;
 
       weightedScoreForExactMatches +=
         ((nameWordCount + descriptionWordCount + reviewWordCount) * 10 +
