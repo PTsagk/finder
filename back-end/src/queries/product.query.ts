@@ -569,14 +569,13 @@ export async function getSearchResultsQuery(
     case "substring_matches":
       sortedProducts = productsWithScores.sort(
         (a: any, b: any) =>
-          b.exact_number_of_occurances -
-          a.number_of_substring_and_string_matches
+          b.number_of_substring_matches - a.number_of_substring_matches
       );
       break;
     case "exact_matches":
       sortedProducts = productsWithScores.sort(
         (a: any, b: any) =>
-          b.number_of_substring_matches - a.number_of_substring_matches
+          b.exact_number_of_matches - a.exact_number_of_matches
       );
       break;
     case "reviews_score":
