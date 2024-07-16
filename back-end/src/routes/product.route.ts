@@ -27,15 +27,17 @@ router
 router
   .route("/get_all_products_by_category/:category")
   .post(getAllProductsByCategory);
-router.route("/get_product").get(getProductById);
+router.route("/get_product/:id").get(authenticateController, getProductById);
 router.route("/get_top_bestsellers/:bestsellers").get(getTop_Nth_BestSellers);
 router
-  .route("/get_bestsellers_by_category")
+  .route("/get_bestsellers_by_category/:bestsellers")
   .get(getTop_Nth_BestSellersByCategory);
 router
   .route("/get_bestsellers_by_brand/:bestSellers")
   .get(getTop_Nth_BestSellersByBrand);
-router.route("/get_featured_products").get(getTop_Nth_FeaturedProducts);
+router
+  .route("/get_featured_products/:featuredNumber")
+  .get(getTop_Nth_FeaturedProducts);
 router.route("/delete").post(deleteProduct);
 router.route("/search").post(authenticateController, searchProducts);
 export default router;
