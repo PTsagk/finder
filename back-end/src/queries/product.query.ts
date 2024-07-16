@@ -465,6 +465,7 @@ export async function getSearchResultsQuery(
 
     let exact_number_of_occurances = 0;
     let similar_number_of_occurances = 0;
+    let exact_and_similar_number_of_occurances = 0;
     let weightedScoreForExactMatches = 0;
 
     searchWords.forEach((word) => {
@@ -490,6 +491,10 @@ export async function getSearchResultsQuery(
       similar_number_of_occurances +=
         nameSubstringCount + descriptionSubstringCount + reviewSubstringCount;
 
+      exact_and_similar_number_of_occurances +=
+        nameWordCount + descriptionWordCount + reviewWordCount;
+      nameSubstringCount + descriptionSubstringCount + reviewSubstringCount;
+
       weightedScoreForExactMatches +=
         ((nameWordCount + descriptionWordCount + reviewWordCount) * 10 +
           nameSubstringCount +
@@ -508,6 +513,7 @@ export async function getSearchResultsQuery(
       relevancy_score,
       similar_number_of_occurances,
       exact_number_of_occurances,
+      exact_and_similar_number_of_occurances,
     };
   };
 
@@ -517,6 +523,7 @@ export async function getSearchResultsQuery(
       relevancy_score,
       exact_number_of_occurances,
       similar_number_of_occurances,
+      exact_and_similar_number_of_occurances,
     } = calculateScore(product);
     const reviewStats = reviewStatsMap[product.id] || {
       total_reviews: 0,
@@ -530,7 +537,9 @@ export async function getSearchResultsQuery(
     return {
       ...product,
       relevancy_score,
-      number_of_substring_and_string_matches: similar_number_of_occurances,
+      number_of_substring_and_string_matches:
+        exact_and_similar_number_of_occurances,
+      number_of_substring_matches: similar_number_of_occurances,
       exact_number_of_matches: exact_number_of_occurances,
       ...reviewStats,
       number_of_sales,
