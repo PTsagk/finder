@@ -608,7 +608,7 @@ export async function getSearchResultsQuery(
       break;
     case "favorite_first":
       sortedProducts = productsWithScores.sort(
-        (a: any, b: any) => b.is_favorite - a.is_favorite
+        (a: any, b: any) => b.favourite - a.favourite
       );
       break;
     default:
