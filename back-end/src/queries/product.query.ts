@@ -317,19 +317,22 @@ export async function getSearchResultsQuery(
     FROM product p
     LEFT JOIN product_color pc ON p.id = pc.product_id
     LEFT JOIN product_size ps ON p.id = ps.product_id
-    WHERE ( p.category = ? AND
+    WHERE p.category = ?
   `;
 
-  const likeClauses = searchWords.map(
-    (word) => `(p.name LIKE ? OR p.description LIKE ?)`
-  );
-  query += likeClauses.join(" OR ");
-  query += `)`;
-
   const params: any[] = [category];
-  searchWords.forEach((word) => {
-    params.push(`%${word}%`, `%${word}%`);
-  });
+
+  if (searchWords.length > 0) {
+    query += " AND (";
+    const likeClauses = searchWords.map(
+      (word) => `(p.name LIKE ? OR p.description LIKE ?)`
+    );
+    query += likeClauses.join(" OR ");
+    query += ")";
+    searchWords.forEach((word) => {
+      params.push(`%${word}%`, `%${word}%`);
+    });
+  }
 
   if (minPrice !== undefined) {
     query += ` AND p.price >= ?`;
@@ -353,7 +356,6 @@ export async function getSearchResultsQuery(
   }
 
   query += ` LIMIT 5000`;
-
   const [rows] = await sqlPool.query(query, params);
   //@ts-ignore
   const productIds = rows.map((row: any) => row.id);
