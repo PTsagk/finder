@@ -184,23 +184,15 @@ export async function getAllProductsByCategoryQuery(
   return Object.values(rows);
 }
 
-export async function getProductByIdQuery(id: number) {
-  // @ts-ignore
-  const [rows] = await sqlPool.query(`SELECT * FROM product WHERE id = ?`, [
-    id,
-  ]);
-  //@ts-ignore
-  return rows[0];
-}
 export async function getTop_Nth_BestSellersQuery(bestsellers: number = 3) {
   // @ts-ignore
   const [rows] = await sqlPool.query(
     `WITH order_counts AS (
-    SELECT o.product_id, COUNT(o.product_id) AS total_orders
+      SELECT o.product_id, COUNT(o.product_id) AS total_orders
     FROM finder.order o
     GROUP BY o.product_id
-        ORDER BY total_orders DESC
-        LIMIT ?
+    ORDER BY total_orders DESC
+    LIMIT ?
     )
     SELECT p.*, oc.total_orders
     FROM finder.product p
@@ -221,15 +213,15 @@ export async function getTop_Nth_BestSellersByCategoryQuery(
     SELECT o.product_id, COUNT(o.product_id) AS total_orders
     FROM finder.order o
     WHERE o.product_id IN 
-        (SELECT p.id FROM product p WHERE p.category= ?)
+    (SELECT p.id FROM product p WHERE p.category= ?)
     GROUP BY o.product_id
     ORDER BY total_orders DESC
     LIMIT ?
-)
-SELECT p.*, oc.total_orders
-FROM finder.product p
-JOIN order_counts oc ON p.id = oc.product_id;
-`,
+    )
+    SELECT p.*, oc.total_orders
+    FROM finder.product p
+    JOIN order_counts oc ON p.id = oc.product_id;
+    `,
     [category, bestsellers]
   );
 
@@ -246,7 +238,7 @@ export async function getTop_Nth_BestSellersByBrandQuery(
     SELECT o.product_id, COUNT(o.product_id) AS total_orders
     FROM finder.order o
     WHERE o.product_id IN 
-        (SELECT p.id FROM product p WHERE p.brand_id = ?)
+    (SELECT p.id FROM product p WHERE p.brand_id = ?)
     GROUP BY o.product_id
     ORDER BY total_orders DESC
     LIMIT ?
@@ -274,6 +266,81 @@ export async function getTop_Nth_FeaturedProductsQuery(
 export async function deleteProductQuery(id: number) {
   // @ts-ignore
   const [rows] = await sqlPool.query(`DELETE FROM product WHERE id = ?`, [id]);
+}
+
+export async function getProductByIdQuery(userId: number, productId: number) {
+  const [productRows] = await sqlPool.query(
+    `SELECT * FROM product WHERE id = ?`,
+    [productId]
+  );
+  //@ts-ignore
+  const product = productRows[0];
+  if (!product) {
+    throw new Error("Product not found");
+  }
+
+  const [reviewStats] = await sqlPool.query(
+    `SELECT product_id, COUNT(*) AS total_reviews, COUNT(score) AS number_of_rated_reviews, AVG(score) AS reviews_average_rating 
+     FROM review 
+     WHERE product_id = ?
+     GROUP BY product_id`,
+    [productId]
+  );
+
+  const [salesStats] = await sqlPool.query(
+    `SELECT product_id, COUNT(*) AS number_of_sales 
+     FROM finder.order 
+     WHERE product_id = ?
+     GROUP BY product_id`,
+    [productId]
+  );
+
+  const [productColors] = await sqlPool.query(
+    `SELECT color_id 
+     FROM product_color 
+     WHERE product_id = ?`,
+    [productId]
+  );
+
+  const [productSizes] = await sqlPool.query(
+    `SELECT size_id 
+     FROM product_size 
+     WHERE product_id = ?`,
+    [productId]
+  );
+
+  const [favoriteProducts] = await sqlPool.query(
+    `SELECT product_id 
+     FROM favorite_product 
+     WHERE user_id = ? AND product_id = ?`,
+    [userId, productId]
+  );
+
+  //@ts-ignore
+  const reviewStat = reviewStats[0] || {
+    total_reviews: 0,
+    number_of_rated_reviews: 0,
+    reviews_average_rating: 0,
+  };
+  reviewStat.reviews_average_rating =
+    Math.round(reviewStat.reviews_average_rating * 100) / 100;
+  //@ts-ignore
+  const number_of_sales = salesStats[0]?.number_of_sales || 0;
+  //@ts-ignore
+  const color_ids = productColors.map((row: any) => row.color_id);
+  //@ts-ignore
+  const size_ids = productSizes.map((row: any) => row.size_id);
+  //@ts-ignore
+  const favourite = favoriteProducts.length > 0;
+  // @ts-ignore
+  return {
+    ...product,
+    ...reviewStat,
+    number_of_sales,
+    color_ids,
+    size_ids,
+    favourite,
+  };
 }
 
 export async function getSearchResultsQuery(

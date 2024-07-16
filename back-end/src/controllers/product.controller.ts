@@ -68,8 +68,9 @@ export const getProductById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const parsedId = parseInt(id);
+    const userId = res.locals.id;
 
-    const product = await getProductByIdQuery(parsedId);
+    const product = await getProductByIdQuery(userId, parsedId);
     res.json(product).status(200);
   } catch (error) {
     res.status(500).json("Internal Server Error");
