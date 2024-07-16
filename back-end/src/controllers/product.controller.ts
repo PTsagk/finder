@@ -203,11 +203,10 @@ export const searchProducts = async (req: Request, res: Response) => {
       res.status(400).json("Category is required");
       return;
     }
-    if (category && !validCategoryValues.has(category)) {
+    if (!validCategoryValues.has(category)) {
       throw new Error("Invalid category specified.");
     }
 
-    // Validate optional fields
     if (minPrice !== undefined && typeof minPrice !== "number") {
       res.status(400).json("Invalid minPrice");
       return;
