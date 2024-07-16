@@ -13,6 +13,7 @@ import {
   getTop_Nth_FeaturedProductsQuery,
   updateProductQuery,
 } from "../queries/product.query";
+import { Category } from "../models/category.model";
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
@@ -177,9 +178,12 @@ export const searchProducts = async (req: Request, res: Response) => {
     "favorite_first",
   ]);
 
+  const validCategoryValues = new Set(["womens", "mens", "kids"]);
+
   try {
     const {
       search,
+      category,
       minPrice,
       maxPrice,
       color_ids = [],
@@ -195,7 +199,14 @@ export const searchProducts = async (req: Request, res: Response) => {
       return;
     }
 
-    // Validate optional fields
+    if (!category) {
+      res.status(400).json("Category is required");
+      return;
+    }
+    if (!validCategoryValues.has(category)) {
+      throw new Error("Invalid category specified.");
+    }
+
     if (minPrice !== undefined && typeof minPrice !== "number") {
       res.status(400).json("Invalid minPrice");
       return;
@@ -223,6 +234,7 @@ export const searchProducts = async (req: Request, res: Response) => {
     const results = await getSearchResultsQuery(
       userId,
       search,
+      category as Category,
       minPrice,
       maxPrice,
       color_ids,

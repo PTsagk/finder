@@ -279,6 +279,7 @@ export async function deleteProductQuery(id: number) {
 export async function getSearchResultsQuery(
   userId: number,
   search: string,
+  category: Category,
   minPrice?: number,
   maxPrice?: number,
   colorIds?: number[],
@@ -316,7 +317,7 @@ export async function getSearchResultsQuery(
     FROM product p
     LEFT JOIN product_color pc ON p.id = pc.product_id
     LEFT JOIN product_size ps ON p.id = ps.product_id
-    WHERE (
+    WHERE ( category = ? AND
   `;
 
   const likeClauses = searchWords.map(
@@ -325,7 +326,7 @@ export async function getSearchResultsQuery(
   query += likeClauses.join(" OR ");
   query += `)`;
 
-  const params: any[] = [];
+  const params: any[] = [category];
   searchWords.forEach((word) => {
     params.push(`%${word}%`, `%${word}%`);
   });
