@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { Category } from "../models/category.model";
 import { SortBy } from "../models/sortBy.model";
 import {
   createNewProductQuery,
@@ -13,7 +14,6 @@ import {
   getTop_Nth_FeaturedProductsQuery,
   updateProductQuery,
 } from "../queries/product.query";
-import { Category } from "../models/category.model";
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
@@ -181,7 +181,7 @@ export const searchProducts = async (req: Request, res: Response) => {
   const validCategoryValues = new Set(["womens", "mens", "kids"]);
 
   try {
-    const {
+    let {
       search,
       category,
       minPrice,
@@ -193,11 +193,6 @@ export const searchProducts = async (req: Request, res: Response) => {
     } = req.body;
 
     const userId = res.locals.id;
-
-    if (!search) {
-      res.status(400).json("Search term is required");
-      return;
-    }
 
     if (!category) {
       res.status(400).json("Category is required");

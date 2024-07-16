@@ -83,7 +83,7 @@ export class HomePage implements OnInit {
   selectCategory(category: string) {
     this.categorySelected = category;
     this.filterService.clearFilters();
-    this.filterService.filters.category = category;
+    this.filterService.filters.category = category.toLowerCase();
     this.getFilteredProducts();
   }
 

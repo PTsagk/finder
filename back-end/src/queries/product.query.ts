@@ -278,7 +278,7 @@ export async function deleteProductQuery(id: number) {
 
 export async function getSearchResultsQuery(
   userId: number,
-  search: string,
+  search: string = "",
   category: Category,
   minPrice?: number,
   maxPrice?: number,
