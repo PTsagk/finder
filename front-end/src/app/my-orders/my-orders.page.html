@@ -37,14 +37,15 @@
     >
       <ion-card-content>
         <div class="item-img">
-          <img [src]="order.image" />
+          <img [src]="order.product_image" />
         </div>
 
         <div class="item-info">
-          <p>{{order.name}}</p>
+          <p>{{order.product_name}}</p>
           <p>{{order.size_name}}</p>
           <p>{{order.color_name}}</p>
-          <p>${{order.price}}</p>
+          <p>x{{order.identical_product_count}}</p>
+          <p>${{order.product_price}}</p>
         </div>
       </ion-card-content>
     </ion-card>
