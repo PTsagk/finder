@@ -36,11 +36,11 @@ export class FilterComponent implements OnInit {
   }
 
   cancel() {
-    this.modalController.dismiss(this.filters);
+    this.modalController.dismiss();
   }
   apply() {
     this.filterService.setFilters(this.filters);
-    this.modalController.dismiss(this.filters);
+    this.modalController.dismiss();
   }
 
   clear() {
