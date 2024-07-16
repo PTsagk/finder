@@ -35,7 +35,7 @@ export class CheckoutPage implements OnInit {
     });
     this.cardProducts.forEach((product) => {
       this.subTotal += product.price * product.quantity;
-      this.total += this.subTotal;
+      this.total += product.price * product.quantity;
     });
 
     this.subTotal = this.subTotal.toFixed(2);
