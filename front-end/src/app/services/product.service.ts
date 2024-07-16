@@ -29,7 +29,7 @@ export class ProductService {
 
   getFeaturedProducts() {
     return this.http.get(
-      "http://localhost:8000/product/get_featured_products",
+      "http://localhost:8000/product/get_featured_products/3",
       {
         withCredentials: true,
       }

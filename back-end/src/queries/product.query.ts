@@ -253,6 +253,7 @@ export async function getTop_Nth_BestSellersByBrandQuery(
 }
 
 export async function getTop_Nth_FeaturedProductsQuery(
+  userId: number,
   featuredNumber: number = 3
 ) {
   // @ts-ignore
@@ -260,8 +261,79 @@ export async function getTop_Nth_FeaturedProductsQuery(
     `SELECT * FROM product WHERE featured = 1 ORDER BY id DESC LIMIT ?`,
     [featuredNumber]
   );
-  //@ts-ignore
-  return rows;
+
+  const detailedProducts = await Promise.all(
+    // @ts-ignore
+    rows.map(async (product: any) => {
+      const productId = product.id;
+
+      const [reviewStats] = await sqlPool.query(
+        `SELECT product_id, COUNT(*) AS total_reviews, COUNT(score) AS number_of_rated_reviews, AVG(score) AS reviews_average_rating 
+         FROM review 
+         WHERE product_id = ?
+         GROUP BY product_id`,
+        [productId]
+      );
+
+      const [salesStats] = await sqlPool.query(
+        `SELECT product_id, COUNT(*) AS number_of_sales 
+         FROM finder.order 
+         WHERE product_id = ?
+         GROUP BY product_id`,
+        [productId]
+      );
+
+      const [productColors] = await sqlPool.query(
+        `SELECT color_id 
+         FROM product_color 
+         WHERE product_id = ?`,
+        [productId]
+      );
+
+      const [productSizes] = await sqlPool.query(
+        `SELECT size_id 
+         FROM product_size 
+         WHERE product_id = ?`,
+        [productId]
+      );
+
+      const [favoriteProducts] = await sqlPool.query(
+        `SELECT product_id 
+         FROM favorite_product 
+         WHERE user_id = ? AND product_id = ?`,
+        [userId, productId]
+      );
+
+      //@ts-ignore
+      const reviewStat = reviewStats[0] || {
+        total_reviews: 0,
+        number_of_rated_reviews: 0,
+        reviews_average_rating: 0,
+      };
+      reviewStat.reviews_average_rating =
+        Math.round(reviewStat.reviews_average_rating * 100) / 100;
+      //@ts-ignore
+      const number_of_sales = salesStats[0]?.number_of_sales || 0;
+      //@ts-ignore
+      const color_ids = productColors.map((row: any) => row.color_id);
+      //@ts-ignore
+      const size_ids = productSizes.map((row: any) => row.size_id);
+      //@ts-ignore
+      const favourite = favoriteProducts.length > 0;
+
+      // @ts-ignore
+      return {
+        ...product,
+        ...reviewStat,
+        number_of_sales,
+        color_ids,
+        size_ids,
+        favourite,
+      };
+    })
+  );
+
+  return detailedProducts;
 }
 export async function deleteProductQuery(id: number) {
   // @ts-ignore

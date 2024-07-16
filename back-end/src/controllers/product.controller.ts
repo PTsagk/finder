@@ -141,9 +141,11 @@ export const getTop_Nth_FeaturedProducts = async (
 ) => {
   try {
     const { featuredNumber } = req.params;
+    const userId = res.locals.id;
     const parsedfeaturedNumber = featuredNumber ? parseInt(featuredNumber) : 3;
 
     const products = await getTop_Nth_FeaturedProductsQuery(
+      userId,
       parsedfeaturedNumber
     );
     res.json(products).status(200);

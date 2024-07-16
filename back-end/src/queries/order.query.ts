@@ -10,7 +10,16 @@ export async function createOrderQuery(products: any, userId: any) {
     "INSERT INTO `order` (user_id, product_id, size_id, color_id) VALUES " +
       productsQuery.join(",")
   );
-  console.log(rows, productsQuery);
+  //@ts-ignore
+  return rows;
+}
+export async function getOrdersQuery(userId: any) {
+  // @ts-ignore
+  const [rows] = await sqlPool.query(
+    "SELECT *, color.name AS color_name, size.name AS size_name FROM `order` JOIN product ON `order`.product_id = product.id JOIN size ON `order`.size_id = size.id JOIN color ON `order`.color_id = color.id WHERE `order`.user_id = ? ",
+    [userId]
+  );
+  console.log(rows);
   //@ts-ignore
   return rows;
 }
