@@ -176,7 +176,6 @@ export const searchProducts = async (req: Request, res: Response) => {
     "number_of_sales",
     "featured",
     "favorite_first",
-    "number_of_matches_and_substring_matches",
   ]);
 
   const validCategoryValues = new Set(["womens", "mens", "kids"]);

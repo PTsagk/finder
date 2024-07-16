@@ -569,7 +569,8 @@ export async function getSearchResultsQuery(
     case "substring_matches":
       sortedProducts = productsWithScores.sort(
         (a: any, b: any) =>
-          b.number_of_substring_matches - a.number_of_substring_matches
+          b.number_of_substring_and_string_matches -
+          a.number_of_substring_and_string_matches
       );
       break;
     case "exact_matches":
@@ -614,12 +615,7 @@ export async function getSearchResultsQuery(
         (a: any, b: any) => b.favourite - a.favourite
       );
       break;
-    case "number_of_matches_and_substring_matches":
-      sortedProducts = productsWithScores.sort(
-        (a: any, b: any) =>
-          b.number_of_substring_and_string_matches -
-          a.number_of_substring_and_string_matches
-      );
+
     default:
       throw new Error("Invalid sort type specified.");
   }
