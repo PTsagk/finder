@@ -13,6 +13,7 @@ import {
   getTop_Nth_FeaturedProductsQuery,
   updateProductQuery,
 } from "../queries/product.query";
+import { Category } from "../models/category.model";
 
 export const productNewCreation = async (req: Request, res: Response) => {
   try {
@@ -177,9 +178,12 @@ export const searchProducts = async (req: Request, res: Response) => {
     "favorite_first",
   ]);
 
+  const validCategoryValues = new Set(["womens", "mens", "kids"]);
+
   try {
     const {
       search,
+      category,
       minPrice,
       maxPrice,
       colorIds = [],
@@ -193,6 +197,14 @@ export const searchProducts = async (req: Request, res: Response) => {
     if (!search) {
       res.status(400).json("Search term is required");
       return;
+    }
+
+    if (!category) {
+      res.status(400).json("Category is required");
+      return;
+    }
+    if (category && !validCategoryValues.has(category)) {
+      throw new Error("Invalid category specified.");
     }
 
     // Validate optional fields
@@ -223,6 +235,7 @@ export const searchProducts = async (req: Request, res: Response) => {
     const results = await getSearchResultsQuery(
       userId,
       search,
+      category as Category,
       minPrice,
       maxPrice,
       colorIds,
