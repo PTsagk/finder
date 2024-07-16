@@ -10,9 +10,20 @@ export class OrderService {
   constructor(private http: HttpClient, private userService: UserService) {}
 
   createOrder(products) {
-    return this.http.post("http://localhost:8000/order", {
-      userId: this.userService.userInfo.getValue().id,
-      products,
-    });
+    return this.http.post(
+      "http://localhost:8000/order",
+      {
+        userId: this.userService.userInfo.getValue().id,
+        products,
+      },
+      { withCredentials: true }
+    );
+  }
+
+  getOrders() {
+    return this.http.get(
+      "http://localhost:8000/order/" + this.userService.userInfo.getValue().id,
+      { withCredentials: true }
+    );
   }
 }
