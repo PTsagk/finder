@@ -30,7 +30,7 @@ export class MyCartPage implements OnInit {
 
   ngOnInit() {
     this.cartService.cartProducts.subscribe((products) => {
-      if (products) this.cartProducts = products;
+      this.cartProducts = products;
     });
     this.sizeService.getSizes().subscribe((sizes: any) => {
       this.sizes = sizes;

@@ -85,11 +85,12 @@ const routes: Routes = [
     path: "test",
     loadChildren: () =>
       import("./test/test.module").then((m) => m.TestPageModule),
-  },  {
-    path: 'review',
-    loadChildren: () => import('./review/review.module').then( m => m.ReviewPageModule)
   },
-
+  {
+    path: "review",
+    loadChildren: () =>
+      import("./review/review.module").then((m) => m.ReviewPageModule),
+  },
 ];
 
 @NgModule({

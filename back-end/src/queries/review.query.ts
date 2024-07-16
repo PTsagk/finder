@@ -23,7 +23,6 @@ export async function getReviewsByProductId(productId: number) {
       ORDER BY date DESC`,
     [productId]
   );
-  console.log(rows);
   const [reviews_stats]: any = await sqlPool.query(
     `SELECT AVG(score) AS avg_score, COUNT(score) AS number_of_reviews FROM review WHERE product_id = ? GROUP BY product_id`,
     [productId]

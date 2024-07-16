@@ -10,6 +10,7 @@ import productRoute from "./routes/product.route";
 import reviewRoute from "./routes/review.route";
 import sizeRoute from "./routes/size.route";
 import userRoute from "./routes/user.route";
+import orderRoute from "./routes/order.route";
 
 const upload = multer();
 //For env File
@@ -48,6 +49,7 @@ app.use("/product", productRoute);
 app.use("/color", colorRoute);
 app.use("/size", sizeRoute);
 app.use("/favourite", favouriteRoute);
+app.use("/order", orderRoute);
 
 app.listen(port, () => {
   console.log(`Server is Fire at http://localhost:${port}`);
