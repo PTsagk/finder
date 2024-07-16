@@ -188,7 +188,7 @@ export const searchProducts = async (req: Request, res: Response) => {
       sortBy = "relevancy",
     } = req.body;
 
-    const userId = res.locals.id ? res.locals.id : 1;
+    const userId = res.locals.id;
 
     if (!search) {
       res.status(400).json("Search term is required");

@@ -1,5 +1,8 @@
 import express from "express";
-import { authenticateAdminController } from "../controllers/auth.controller";
+import {
+  authenticateAdminController,
+  authenticateController,
+} from "../controllers/auth.controller";
 import {
   deleteProduct,
   getAllProducts,
@@ -34,5 +37,5 @@ router
   .get(getTop_Nth_BestSellersByBrand);
 router.route("/get_featured_products").get(getTop_Nth_FeaturedProducts);
 router.route("/delete").post(deleteProduct);
-router.route("/search").post(searchProducts);
+router.route("/search").post(authenticateController, searchProducts);
 export default router;
