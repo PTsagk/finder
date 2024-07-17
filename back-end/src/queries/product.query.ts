@@ -16,7 +16,7 @@ export async function createNewProductQuery(product: IProductCreate) {
   // @ts-ignore
 
   const [rows]: any = await sqlPool.query(
-    `INSERT INTO product (name, price, image, description, category, brand_id) VALUES (?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO product (name, price, image, description, category, brand_id, featured) VALUES (?, ?, ?, ?, ?, ?,?)`,
 
     [
       product.name,
@@ -25,6 +25,7 @@ export async function createNewProductQuery(product: IProductCreate) {
       product.description,
       product.category,
       product.brand_id,
+      product.featured,
     ]
   );
 

@@ -37,9 +37,9 @@ export class CheckoutPage implements OnInit {
       this.subTotal += product.price * product.quantity;
       this.total += product.price * product.quantity;
     });
-
+    this.total = this.total + 10;
     this.subTotal = this.subTotal.toFixed(2);
-    this.total = this.total.toFixed(2) + 10;
+    this.total = this.total.toFixed(2);
   }
 
   async sendOrder() {
